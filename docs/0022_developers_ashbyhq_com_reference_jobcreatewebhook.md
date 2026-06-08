@@ -1,0 +1,3 @@
+# Source: https://developers.ashbyhq.com/reference/jobcreatewebhook
+
+SessionExtractResponse(data=Data(result={'extraction': 'jobCreate\n\nWBHK\njobCreate\n\nCopy Page\n\nCopy to clipboard\n\nTriggered when a job is created\n\nPayload\n\nSkip link to Payload\n\naction\nstring\nenum\nrequired\n\naction\n\njobCreate [selected]\n\nAllowed:\n\njobCreate\n\n`jobCreate`\n\ndata\nobject\nrequired\n\nDATAOBJECT\n\nDATA\nOBJECT\n\nResponse\n\nSkip link to Response\n\n200\n\nReturn a 200 status to indicate that the data was received successfully\n\nUpdated\n\n10 days ago\n\ninterviewScheduleUpdate\njobUpdate\n\nPAYLOAD\n\nChoose an example'}, action_id='6b66f8eb-18a0-4357-9dd2-e0baad93bc12', actionId='6b66f8eb-18a0-4357-9dd2-e0baad93bc12', cacheHit=False), success=True)
