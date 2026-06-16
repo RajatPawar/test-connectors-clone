@@ -1,0 +1,13 @@
+[
+  {
+    "id": 12345,
+    "summary": "Cannot connect to VPN",
+    "status": {"id": 1, "name": "New", "_info": {"status_href": "https://na.myconnectwise.net/v4_6_release/apis/3.0/service/statuses/1"}},
+    "board": {"id": 1, "name": "Service Board"},
+    "company": {"id": 1, "identifier": "TestCompany", "name": "Test Company"},
+    "priority": {"id": 1, "name": "Priority 1 - Critical", "color": "red"},
+    "severity": "High",
+    "impact": "High",
+    "_info": {"lastUpdated": "2024-06-01T10:00:00Z", "updatedBy": "admin"}
+  }
+]
