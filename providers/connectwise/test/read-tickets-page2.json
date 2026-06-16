@@ -1,0 +1,13 @@
+[
+  {
+    "id": 12346,
+    "summary": "Printer not working",
+    "status": {"id": 2, "name": "In Progress"},
+    "board": {"id": 1, "name": "Service Board"},
+    "company": {"id": 2, "identifier": "OtherCompany", "name": "Other Company"},
+    "priority": {"id": 3, "name": "Priority 3 - Medium", "color": "yellow"},
+    "severity": "Medium",
+    "impact": "Medium",
+    "_info": {"lastUpdated": "2024-06-02T12:00:00Z", "updatedBy": "admin"}
+  }
+]

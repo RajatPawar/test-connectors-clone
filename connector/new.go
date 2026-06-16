@@ -8,6 +8,7 @@ import (
 	"github.com/amp-labs/connectors/common"
 	"github.com/amp-labs/connectors/providers"
 	"github.com/amp-labs/connectors/providers/acculynx"
+	"github.com/amp-labs/connectors/providers/connectwise"
 	"github.com/amp-labs/connectors/providers/acuityscheduling"
 	"github.com/amp-labs/connectors/providers/aha"
 	"github.com/amp-labs/connectors/providers/aircall"
@@ -157,6 +158,7 @@ func New(provider providers.Provider, params common.ConnectorParams) (connectors
 
 var connectorConstructors = map[providers.Provider]outputConstructorFunc{ // nolint:gochecknoglobals
 	providers.AWS:                        wrapper(newAWSConnector),
+	providers.ConnectWise: wrapper(newConnectWiseConnector),
 	providers.AccuLynx:                   wrapper(newAccuLynxConnector),
 	providers.AcuityScheduling:           wrapper(newAcuitySchedulingConnector),
 	providers.Aha:                        wrapper(newAhaConnector),
@@ -1248,4 +1250,10 @@ func newProcoreSandboxConnector(params common.ConnectorParams) (*procore.Connect
 
 func newGoToConnector(params common.ConnectorParams) (*gotoconn.Connector, error) {
 	return gotoconn.NewConnector(params)
+}
+
+func newConnectWiseConnector(
+	params common.ConnectorParams,
+) (*connectwise.Connector, error) {
+	return connectwise.NewConnector(params)
 }
