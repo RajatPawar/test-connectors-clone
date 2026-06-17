@@ -1,0 +1,18 @@
+{
+  "totalCount": 2,
+  "pageInfo": {
+    "hasNextPage": true,
+    "nextPageCursor": "cursor-abc123"
+  },
+  "items": [
+    {
+      "id": "payee-001",
+      "refCode": "VENDOR001",
+      "status": "active",
+      "type": "company",
+      "lastChangeDateTimeUTC": "2024-01-15T10:00:00.000Z",
+      "email": "vendor@example.com",
+      "name": "Acme Corp"
+    }
+  ]
+}

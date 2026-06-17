@@ -136,6 +136,7 @@ import (
 	"github.com/amp-labs/connectors/providers/talkdesk"
 	"github.com/amp-labs/connectors/providers/teamleader"
 	"github.com/amp-labs/connectors/providers/teamwork"
+	"github.com/amp-labs/connectors/providers/tipalti"
 	"github.com/amp-labs/connectors/providers/webex"
 	"github.com/amp-labs/connectors/providers/xero"
 	"github.com/amp-labs/connectors/providers/zendeskchat"
@@ -291,6 +292,7 @@ var connectorConstructors = map[providers.Provider]outputConstructorFunc{ // nol
 	providers.Talkdesk:                   wrapper(newTalkdeskConnector),
 	providers.Teamleader:                 wrapper(newTeamleaderConnector),
 	providers.Teamwork:                   wrapper(newTeamworkConnector),
+	providers.Tipalti:                    wrapper(newTipaltiConnector),
 	providers.Webex:                      wrapper(newWebexConnector),
 	providers.Xero:                       wrapper(newXeroConnector),
 	providers.ZendeskChat:                wrapper(newZendeskChatConnector),
@@ -1216,6 +1218,10 @@ func newDevRevConnector(params common.ConnectorParams) (*devrev.Connector, error
 
 func newTalkdeskConnector(params common.ConnectorParams) (*talkdesk.Connector, error) {
 	return talkdesk.NewConnector(params)
+}
+
+func newTipaltiConnector(params common.ConnectorParams) (*tipalti.Connector, error) {
+	return tipalti.NewConnector(params)
 }
 
 func newGranolaConnector(params common.ConnectorParams) (*granola.Connector, error) {
