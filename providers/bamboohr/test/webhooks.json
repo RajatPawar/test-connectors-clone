@@ -1,0 +1,11 @@
+{
+  "webhooks": [
+    {
+      "id": "42",
+      "name": "Employee Update Hook",
+      "url": "https://example.com/bamboohr/webhook",
+      "created": "2024-01-15 10:30:00",
+      "lastSent": "2024-06-01 09:00:00"
+    }
+  ]
+}

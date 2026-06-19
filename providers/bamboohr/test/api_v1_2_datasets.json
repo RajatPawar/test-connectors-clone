@@ -1,0 +1,12 @@
+{
+  "datasets": [
+    {
+      "name": "employees",
+      "label": "Employees"
+    },
+    {
+      "name": "jobInfo",
+      "label": "Job Info"
+    }
+  ]
+}
