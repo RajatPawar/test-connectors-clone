@@ -1,0 +1,16 @@
+[
+  {
+    "id": "firstName",
+    "name": "First Name",
+    "type": "text",
+    "alias": "firstName",
+    "deprecated": false
+  },
+  {
+    "id": "lastName",
+    "name": "Last Name",
+    "type": "text",
+    "alias": "lastName",
+    "deprecated": false
+  }
+]
