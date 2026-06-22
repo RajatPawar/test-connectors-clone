@@ -1,0 +1,9 @@
+[
+  {
+    "id": 10,
+    "name": "PTO",
+    "type": "accrual",
+    "effectiveDate": "2025-01-01",
+    "timeOffTypeId": 2
+  }
+]

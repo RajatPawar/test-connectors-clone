@@ -19,6 +19,7 @@ import (
 	"github.com/amp-labs/connectors/providers/attio"
 	"github.com/amp-labs/connectors/providers/avoma"
 	"github.com/amp-labs/connectors/providers/aws"
+	"github.com/amp-labs/connectors/providers/bamboographtrial5"
 	"github.com/amp-labs/connectors/providers/bentley"
 	"github.com/amp-labs/connectors/providers/bigquery"
 	"github.com/amp-labs/connectors/providers/bitbucket"
@@ -165,6 +166,7 @@ var connectorConstructors = map[providers.Provider]outputConstructorFunc{ // nol
 	providers.Apollo:                     wrapper(newApolloConnector),
 	providers.Asana:                      wrapper(newAsanaConnector),
 	providers.Ashby:                      wrapper(newAshbyConnector),
+	providers.BambooGraphTrial5:          wrapper(newBambooGraphTrial5Connector),
 	providers.Atlassian:                  wrapper(newAtlassianConnector),
 	providers.Attio:                      wrapper(newAttioConnector),
 	providers.Avoma:                      wrapper(newAvomaConnector),
@@ -681,6 +683,12 @@ func newAshbyConnector(
 	params common.ConnectorParams,
 ) (*ashby.Connector, error) {
 	return ashby.NewConnector(params)
+}
+
+func newBambooGraphTrial5Connector(
+	params common.ConnectorParams,
+) (*bamboographtrial5.Connector, error) {
+	return bamboographtrial5.NewConnector(params)
 }
 
 func newGithubConnector(
