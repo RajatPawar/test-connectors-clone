@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "title": {
+      "id": 10,
+      "label": "Software Engineer"
+    },
+    "status": {
+      "id": 1,
+      "label": "Open"
+    },
+    "department": {
+      "id": 5,
+      "label": "Engineering"
+    }
+  },
+  {
+    "id": 2,
+    "title": {
+      "id": 11,
+      "label": "Product Manager"
+    },
+    "status": {
+      "id": 1,
+      "label": "Open"
+    },
+    "department": {
+      "id": 6,
+      "label": "Product"
+    }
+  }
+]

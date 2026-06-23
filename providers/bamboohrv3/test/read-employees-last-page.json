@@ -1,0 +1,25 @@
+{
+  "data": [
+    {
+      "status": "Active",
+      "lastName": "Johnson",
+      "firstName": "Bob",
+      "employeeId": "102",
+      "jobTitleName": "Analyst",
+      "photoUrl": null
+    }
+  ],
+  "meta": {
+    "page": {
+      "limit": 250,
+      "nextCursor": null,
+      "prevCursor": "eyJwcmV2RW1wbG95ZWUiOjEwMX0="
+    },
+    "total": 50
+  },
+  "_links": {
+    "self": {
+      "href": "https://mycompany.bamboohr.com/api/v1/employees?page%5Blimit%5D=250&page%5Bafter%5D=eyJwcmV2RW1wbG95ZWUiOjEwMX0%3D"
+    }
+  }
+}
