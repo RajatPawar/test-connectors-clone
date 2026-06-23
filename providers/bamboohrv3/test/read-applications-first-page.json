@@ -1,0 +1,23 @@
+{
+  "applications": [
+    {
+      "id": 1001,
+      "applicant": {
+        "firstName": "Alice",
+        "lastName": "Brown",
+        "email": "alice@example.com"
+      },
+      "job": {
+        "id": 1,
+        "title": {
+          "id": 10,
+          "label": "Software Engineer"
+        }
+      },
+      "status": "NEW",
+      "appliedDate": "2024-01-15T12:00:00Z"
+    }
+  ],
+  "nextPageUrl": "https://mycompany.bamboohr.com/api/v1/applicant_tracking/applications?page=2",
+  "paginationComplete": false
+}

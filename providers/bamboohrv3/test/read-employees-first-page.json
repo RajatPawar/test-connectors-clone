@@ -1,0 +1,36 @@
+{
+  "data": [
+    {
+      "status": "Active",
+      "lastName": "Smith",
+      "firstName": "John",
+      "employeeId": "100",
+      "jobTitleName": "Engineer",
+      "photoUrl": null
+    },
+    {
+      "status": "Active",
+      "lastName": "Doe",
+      "firstName": "Jane",
+      "employeeId": "101",
+      "jobTitleName": "Manager",
+      "photoUrl": "https://example.com/photo.jpg"
+    }
+  ],
+  "meta": {
+    "page": {
+      "limit": 250,
+      "nextCursor": "eyJuZXh0RW1wbG95ZWUiOjEwMn0=",
+      "prevCursor": null
+    },
+    "total": 50
+  },
+  "_links": {
+    "next": {
+      "href": "https://mycompany.bamboohr.com/api/v1/employees?page%5Blimit%5D=250&page%5Bafter%5D=eyJuZXh0RW1wbG95ZWUiOjEwMn0%3D"
+    },
+    "self": {
+      "href": "https://mycompany.bamboohr.com/api/v1/employees?page%5Blimit%5D=250"
+    }
+  }
+}
