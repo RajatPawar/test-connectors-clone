@@ -1,0 +1,42 @@
+{
+  "data": [
+    {
+      "status": "Active",
+      "lastName": "Nguyen",
+      "photoUrl": "https://cdn.example.com/p/123.jpg",
+      "firstName": "Ava",
+      "employeeId": "123",
+      "jobTitleName": "Engineering Manager",
+      "preferredName": "Ava",
+      "_restrictedFields": []
+    },
+    {
+      "status": "Active",
+      "lastName": "Park",
+      "photoUrl": null,
+      "firstName": "Sam",
+      "employeeId": "124",
+      "jobTitleName": "Product Designer",
+      "preferredName": "Sam",
+      "_restrictedFields": [
+        "photoUrl"
+      ]
+    }
+  ],
+  "meta": {
+    "page": {
+      "limit": 100,
+      "nextCursor": "eyJuZXh0RW1wbG95ZWUiOjEyNX0=",
+      "prevCursor": null
+    },
+    "total": 3
+  },
+  "_links": {
+    "next": {
+      "href": "https://ampersand.bamboohr.com/api/v1/employees?page%5Blimit%5D=100&page%5Bafter%5D=eyJuZXh0RW1wbG95ZWUiOjEyNX0%3D"
+    },
+    "self": {
+      "href": "https://ampersand.bamboohr.com/api/v1/employees?page%5Blimit%5D=100"
+    }
+  }
+}

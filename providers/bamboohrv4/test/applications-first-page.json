@@ -1,0 +1,29 @@
+{
+  "nextPageUrl": "https://ampersand.bamboohr.com/api/v1/applicant_tracking/applications?page=2",
+  "applications": [
+    {
+      "id": 2001,
+      "job": {
+        "id": 501,
+        "title": {
+          "id": 12,
+          "label": "Software Engineer"
+        }
+      },
+      "rating": 4,
+      "status": {
+        "id": 3,
+        "label": "Interviewing"
+      },
+      "applicant": {
+        "id": 3001,
+        "email": "candidate@example.com",
+        "avatar": null,
+        "source": "LinkedIn",
+        "lastName": "Smith",
+        "firstName": "Lena"
+      },
+      "appliedDate": "2026-05-20T10:00:00Z"
+    }
+  ]
+}

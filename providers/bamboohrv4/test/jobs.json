@@ -1,0 +1,31 @@
+[
+  {
+    "id": 501,
+    "title": {
+      "id": 12,
+      "label": "Software Engineer"
+    },
+    "status": {
+      "id": 1,
+      "label": "Open"
+    },
+    "location": {
+      "id": 3,
+      "label": "Remote",
+      "address": {}
+    },
+    "department": {
+      "id": 7,
+      "label": "Engineering"
+    },
+    "hiringLead": {
+      "id": 9,
+      "label": "Jane Doe"
+    },
+    "postedDate": "2026-01-05",
+    "postingUrl": "https://boards.bamboohr.com/jobs/501",
+    "newApplicantsCount": 2,
+    "totalApplicantsCount": 10,
+    "activeApplicantsCount": 5
+  }
+]

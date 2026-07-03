@@ -1,0 +1,37 @@
+[
+  {
+    "id": 1348,
+    "end": "2026-06-10",
+    "name": "Ava Nguyen",
+    "type": {
+      "id": 1,
+      "icon": "vacation",
+      "name": "Vacation"
+    },
+    "dates": {
+      "2026-06-09": 8,
+      "2026-06-10": 8
+    },
+    "notes": {
+      "employee": "Family trip"
+    },
+    "start": "2026-06-09",
+    "amount": {
+      "unit": "hours",
+      "amount": "16"
+    },
+    "status": {
+      "status": "approved"
+    },
+    "actions": {
+      "view": true,
+      "edit": false,
+      "cancel": true,
+      "approve": false,
+      "deny": false,
+      "bypass": false
+    },
+    "created": "2026-05-01T10:00:00Z",
+    "employeeId": 123
+  }
+]
