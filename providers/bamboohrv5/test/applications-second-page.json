@@ -1,0 +1,29 @@
+{
+  "nextPageUrl": null,
+  "applications": [
+    {
+      "id": 2002,
+      "job": {
+        "id": 501,
+        "title": {
+          "id": 12,
+          "label": "Software Engineer"
+        }
+      },
+      "rating": null,
+      "status": {
+        "id": 1,
+        "label": "New"
+      },
+      "applicant": {
+        "id": 3002,
+        "email": "another-candidate@example.com",
+        "avatar": null,
+        "source": "Indeed",
+        "lastName": "Lee",
+        "firstName": "Marco"
+      },
+      "appliedDate": "2026-05-21T09:00:00Z"
+    }
+  ]
+}

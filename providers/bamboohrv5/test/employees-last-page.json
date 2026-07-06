@@ -1,0 +1,28 @@
+{
+  "data": [
+    {
+      "status": "Active",
+      "lastName": "Smith",
+      "photoUrl": null,
+      "firstName": "Lena",
+      "employeeId": "200",
+      "jobTitleName": "QA Analyst",
+      "preferredName": "Lena",
+      "_restrictedFields": []
+    }
+  ],
+  "meta": {
+    "page": {
+      "limit": 100,
+      "nextCursor": null,
+      "prevCursor": "eyJuZXh0RW1wbG95ZWUiOjEyNX0="
+    },
+    "total": 3
+  },
+  "_links": {
+    "next": null,
+    "self": {
+      "href": "https://ampersand.bamboohr.com/api/v1/employees?page%5Blimit%5D=100&page%5Bafter%5D=eyJuZXh0RW1wbG95ZWUiOjIwMH0%3D"
+    }
+  }
+}
