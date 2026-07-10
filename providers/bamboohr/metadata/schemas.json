@@ -1,0 +1,1245 @@
+{
+  "modules": {
+    "root": {
+      "id": "",
+      "path": "",
+      "objects": {
+        "employees": {
+          "displayName": "Employees",
+          "path": "/api/v1/employees",
+          "responseKey": "data",
+          "fields": {
+            "status": {
+              "displayName": "status",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "lastName": {
+              "displayName": "lastName",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "photoUrl": {
+              "displayName": "photoUrl",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "firstName": {
+              "displayName": "firstName",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "employeeId": {
+              "displayName": "employeeId",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "jobTitleName": {
+              "displayName": "jobTitleName",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "preferredName": {
+              "displayName": "preferredName",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "_restrictedFields": {
+              "displayName": "_restrictedFields",
+              "providerType": "array",
+              "valueType": "other"
+            },
+            "age": {
+              "displayName": "age",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "ein": {
+              "displayName": "ein",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "nin": {
+              "displayName": "nin",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "sin": {
+              "displayName": "sin",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "ssn": {
+              "displayName": "ssn",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "city": {
+              "displayName": "city",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "state": {
+              "displayName": "state",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "teams": {
+              "displayName": "teams",
+              "providerType": "array",
+              "valueType": "other"
+            },
+            "gender": {
+              "displayName": "gender",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "tenure": {
+              "displayName": "tenure",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "userId": {
+              "displayName": "userId",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "country": {
+              "displayName": "country",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "paidPer": {
+              "displayName": "paidPer",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "payRate": {
+              "displayName": "payRate",
+              "providerType": "object",
+              "valueType": "other"
+            },
+            "payType": {
+              "displayName": "payType",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "stateId": {
+              "displayName": "stateId",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "zipcode": {
+              "displayName": "zipcode",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "flsaCode": {
+              "displayName": "flsaCode",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "hireDate": {
+              "displayName": "hireDate",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "nickName": {
+              "displayName": "nickName",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "overtime": {
+              "displayName": "overtime",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "pronouns": {
+              "displayName": "pronouns",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "allergies": {
+              "displayName": "allergies",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "bestEmail": {
+              "displayName": "bestEmail",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "birthDate": {
+              "displayName": "birthDate",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "countryId": {
+              "displayName": "countryId",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "ethnicity": {
+              "displayName": "ethnicity",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "homeEmail": {
+              "displayName": "homeEmail",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "homePhone": {
+              "displayName": "homePhone",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "isManager": {
+              "displayName": "isManager",
+              "providerType": "boolean",
+              "valueType": "boolean"
+            },
+            "shirtSize": {
+              "displayName": "shirtSize",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "taxTypeId": {
+              "displayName": "taxTypeId",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "workEmail": {
+              "displayName": "workEmail",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "workPhone": {
+              "displayName": "workPhone",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "birthplace": {
+              "displayName": "birthplace",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "divisionId": {
+              "displayName": "divisionId",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "flsaCodeId": {
+              "displayName": "flsaCodeId",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "jacketSize": {
+              "displayName": "jacketSize",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "jobTitleId": {
+              "displayName": "jobTitleId",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "locationId": {
+              "displayName": "locationId",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "middleName": {
+              "displayName": "middleName",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "nationalId": {
+              "displayName": "nationalId",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "pronounsId": {
+              "displayName": "pronounsId",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "tShirtSize": {
+              "displayName": "tShirtSize",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "twitterUrl": {
+              "displayName": "twitterUrl",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "citizenship": {
+              "displayName": "citizenship",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "displayName": {
+              "displayName": "displayName",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "ethnicityId": {
+              "displayName": "ethnicityId",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "facebookUrl": {
+              "displayName": "facebookUrl",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "linkedinUrl": {
+              "displayName": "linkedinUrl",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "mobilePhone": {
+              "displayName": "mobilePhone",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "nationality": {
+              "displayName": "nationality",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "paySchedule": {
+              "displayName": "paySchedule",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "reportsToId": {
+              "displayName": "reportsToId",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "shirtSizeId": {
+              "displayName": "shirtSizeId",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "addressLine1": {
+              "displayName": "addressLine1",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "addressLine2": {
+              "displayName": "addressLine2",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "departmentId": {
+              "displayName": "departmentId",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "divisionName": {
+              "displayName": "divisionName",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "employeeName": {
+              "displayName": "employeeName",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "finalPayDate": {
+              "displayName": "finalPayDate",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "instagramUrl": {
+              "displayName": "instagramUrl",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "jacketSizeId": {
+              "displayName": "jacketSizeId",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "locationName": {
+              "displayName": "locationName",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "noticePeriod": {
+              "displayName": "noticePeriod",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "overtimeRate": {
+              "displayName": "overtimeRate",
+              "providerType": "object",
+              "valueType": "other"
+            },
+            "pinterestUrl": {
+              "displayName": "pinterestUrl",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "tShirtSizeId": {
+              "displayName": "tShirtSizeId",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "citizenshipId": {
+              "displayName": "citizenshipId",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "maritalStatus": {
+              "displayName": "maritalStatus",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "middleInitial": {
+              "displayName": "middleInitial",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "nationalityId": {
+              "displayName": "nationalityId",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "payScheduleId": {
+              "displayName": "payScheduleId",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "reportsToName": {
+              "displayName": "reportsToName",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "skypeUsername": {
+              "displayName": "skypeUsername",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "veteranStatus": {
+              "displayName": "veteranStatus",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "departmentName": {
+              "displayName": "departmentName",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "eeoJobCategory": {
+              "displayName": "eeoJobCategory",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "employeeNumber": {
+              "displayName": "employeeNumber",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "employmentType": {
+              "displayName": "employmentType",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "genderIdentity": {
+              "displayName": "genderIdentity",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "noticePeriodId": {
+              "displayName": "noticePeriodId",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "contractEndDate": {
+              "displayName": "contractEndDate",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "terminationDate": {
+              "displayName": "terminationDate",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "terminationType": {
+              "displayName": "terminationType",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "vaccineReceived": {
+              "displayName": "vaccineReceived",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "veteranStatusId": {
+              "displayName": "veteranStatusId",
+              "providerType": "array",
+              "valueType": "other"
+            },
+            "eeoJobCategoryId": {
+              "displayName": "eeoJobCategoryId",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "employmentTypeId": {
+              "displayName": "employmentTypeId",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "genderIdentityId": {
+              "displayName": "genderIdentityId",
+              "providerType": "array",
+              "valueType": "other"
+            },
+            "hoursPerPayCycle": {
+              "displayName": "hoursPerPayCycle",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "originalHireDate": {
+              "displayName": "originalHireDate",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "probationEndDate": {
+              "displayName": "probationEndDate",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "eligibleForRehire": {
+              "displayName": "eligibleForRehire",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "firstNameLastName": {
+              "displayName": "firstNameLastName",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "secondaryLanguage": {
+              "displayName": "secondaryLanguage",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "terminationReason": {
+              "displayName": "terminationReason",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "terminationTypeId": {
+              "displayName": "terminationTypeId",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "vaccinationStatus": {
+              "displayName": "vaccinationStatus",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "vaccineReceivedId": {
+              "displayName": "vaccineReceivedId",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "employmentStatusId": {
+              "displayName": "employmentStatusId",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "proofOfVaccination": {
+              "displayName": "proofOfVaccination",
+              "providerType": "boolean",
+              "valueType": "boolean"
+            },
+            "workPhoneExtension": {
+              "displayName": "workPhoneExtension",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "compensationComment": {
+              "displayName": "compensationComment",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "compensationEndDate": {
+              "displayName": "compensationEndDate",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "dietaryRestrictions": {
+              "displayName": "dietaryRestrictions",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "eligibleForRehireId": {
+              "displayName": "eligibleForRehireId",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "terminationReasonId": {
+              "displayName": "terminationReasonId",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "vaccinationStatusId": {
+              "displayName": "vaccinationStatusId",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "employmentStatusName": {
+              "displayName": "employmentStatusName",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "preferredNameLastName": {
+              "displayName": "preferredNameLastName",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "firstNameMiddleInitial": {
+              "displayName": "firstNameMiddleInitial",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "terminationRegrettable": {
+              "displayName": "terminationRegrettable",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "employmentStatusComment": {
+              "displayName": "employmentStatusComment",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "compensationChangeReason": {
+              "displayName": "compensationChangeReason",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "terminationRegrettableId": {
+              "displayName": "terminationRegrettableId",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "compensationEffectiveDate": {
+              "displayName": "compensationEffectiveDate",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "nationalInsuranceCategory": {
+              "displayName": "nationalInsuranceCategory",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "compensationChangeReasonId": {
+              "displayName": "compensationChangeReasonId",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "finalDoseAdministrationDate": {
+              "displayName": "finalDoseAdministrationDate",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "jobInformationEffectiveDate": {
+              "displayName": "jobInformationEffectiveDate",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "nationalInsuranceCategoryId": {
+              "displayName": "nationalInsuranceCategoryId",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "employmentStatusEffectiveDate": {
+              "displayName": "employmentStatusEffectiveDate",
+              "providerType": "string",
+              "valueType": "string"
+            }
+          }
+        },
+        "employees/directory": {
+          "displayName": "Employees Directory",
+          "path": "/api/v1/employees/directory",
+          "responseKey": "employees",
+          "fields": {
+            "id": {
+              "displayName": "id",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "canUploadPhoto": {
+              "displayName": "canUploadPhoto",
+              "providerType": "integer",
+              "valueType": "int"
+            },
+            "displayName": {
+              "displayName": "displayName",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "firstName": {
+              "displayName": "firstName",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "lastName": {
+              "displayName": "lastName",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "jobTitle": {
+              "displayName": "jobTitle",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "department": {
+              "displayName": "department",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "workEmail": {
+              "displayName": "workEmail",
+              "providerType": "email",
+              "valueType": "string"
+            }
+          }
+        },
+        "custom-reports": {
+          "displayName": "Custom Reports",
+          "path": "/api/v1/custom-reports",
+          "responseKey": "reports",
+          "fields": {
+            "id": {
+              "displayName": "id",
+              "providerType": "integer",
+              "valueType": "int"
+            },
+            "name": {
+              "displayName": "name",
+              "providerType": "string",
+              "valueType": "string"
+            }
+          }
+        },
+        "time_off/requests": {
+          "displayName": "Time Off Requests",
+          "path": "/api/v1/time_off/requests",
+          "responseKey": "",
+          "fields": {
+            "id": {
+              "displayName": "id",
+              "providerType": "integer",
+              "valueType": "int"
+            },
+            "end": {
+              "displayName": "end",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "name": {
+              "displayName": "name",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "type": {
+              "displayName": "type",
+              "providerType": "object",
+              "valueType": "other"
+            },
+            "dates": {
+              "displayName": "dates",
+              "providerType": "object",
+              "valueType": "other"
+            },
+            "notes": {
+              "displayName": "notes",
+              "providerType": "object",
+              "valueType": "other"
+            },
+            "start": {
+              "displayName": "start",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "amount": {
+              "displayName": "amount",
+              "providerType": "object",
+              "valueType": "other"
+            },
+            "status": {
+              "displayName": "status",
+              "providerType": "object",
+              "valueType": "other"
+            },
+            "actions": {
+              "displayName": "actions",
+              "providerType": "object",
+              "valueType": "other"
+            },
+            "created": {
+              "displayName": "created",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "employeeId": {
+              "displayName": "employeeId",
+              "providerType": "integer",
+              "valueType": "int"
+            }
+          }
+        },
+        "jobInfo": {
+          "displayName": "jobInfo",
+          "path": "/api/v1/employees/all/tables/jobInfo",
+          "responseKey": "",
+          "fields": {
+            "id": {
+              "displayName": "id",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "employeeId": {
+              "displayName": "employeeId",
+              "providerType": "string",
+              "valueType": "string"
+            }
+          }
+        },
+        "jobInformation": {
+          "displayName": "jobInformation",
+          "path": "/api/v1/employees/all/tables/jobInformation",
+          "responseKey": "",
+          "fields": {
+            "id": {
+              "displayName": "id",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "employeeId": {
+              "displayName": "employeeId",
+              "providerType": "string",
+              "valueType": "string"
+            }
+          }
+        },
+        "compensation": {
+          "displayName": "compensation",
+          "path": "/api/v1/employees/all/tables/compensation",
+          "responseKey": "",
+          "fields": {
+            "id": {
+              "displayName": "id",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "employeeId": {
+              "displayName": "employeeId",
+              "providerType": "string",
+              "valueType": "string"
+            }
+          }
+        },
+        "employmentStatus": {
+          "displayName": "employmentStatus",
+          "path": "/api/v1/employees/all/tables/employmentStatus",
+          "responseKey": "",
+          "fields": {
+            "id": {
+              "displayName": "id",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "employeeId": {
+              "displayName": "employeeId",
+              "providerType": "string",
+              "valueType": "string"
+            }
+          }
+        },
+        "contacts": {
+          "displayName": "contacts",
+          "path": "/api/v1/employees/all/tables/contacts",
+          "responseKey": "",
+          "fields": {
+            "id": {
+              "displayName": "id",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "employeeId": {
+              "displayName": "employeeId",
+              "providerType": "string",
+              "valueType": "string"
+            }
+          }
+        },
+        "emergencyContacts": {
+          "displayName": "emergencyContacts",
+          "path": "/api/v1/employees/all/tables/emergencyContacts",
+          "responseKey": "",
+          "fields": {
+            "id": {
+              "displayName": "id",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "employeeId": {
+              "displayName": "employeeId",
+              "providerType": "string",
+              "valueType": "string"
+            }
+          }
+        },
+        "dependents": {
+          "displayName": "dependents",
+          "path": "/api/v1/employees/all/tables/dependents",
+          "responseKey": "",
+          "fields": {
+            "id": {
+              "displayName": "id",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "employeeId": {
+              "displayName": "employeeId",
+              "providerType": "string",
+              "valueType": "string"
+            }
+          }
+        },
+        "earnings": {
+          "displayName": "earnings",
+          "path": "/api/v1/employees/all/tables/earnings",
+          "responseKey": "",
+          "fields": {
+            "id": {
+              "displayName": "id",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "employeeId": {
+              "displayName": "employeeId",
+              "providerType": "string",
+              "valueType": "string"
+            }
+          }
+        },
+        "bonus": {
+          "displayName": "bonus",
+          "path": "/api/v1/employees/all/tables/bonus",
+          "responseKey": "",
+          "fields": {
+            "id": {
+              "displayName": "id",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "employeeId": {
+              "displayName": "employeeId",
+              "providerType": "string",
+              "valueType": "string"
+            }
+          }
+        },
+        "commission": {
+          "displayName": "commission",
+          "path": "/api/v1/employees/all/tables/commission",
+          "responseKey": "",
+          "fields": {
+            "id": {
+              "displayName": "id",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "employeeId": {
+              "displayName": "employeeId",
+              "providerType": "string",
+              "valueType": "string"
+            }
+          }
+        },
+        "benefit_class": {
+          "displayName": "benefit_class",
+          "path": "/api/v1/employees/all/tables/benefit_class",
+          "responseKey": "",
+          "fields": {
+            "id": {
+              "displayName": "id",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "employeeId": {
+              "displayName": "employeeId",
+              "providerType": "string",
+              "valueType": "string"
+            }
+          }
+        },
+        "employeeVisas": {
+          "displayName": "employeeVisas",
+          "path": "/api/v1/employees/all/tables/employeeVisas",
+          "responseKey": "",
+          "fields": {
+            "id": {
+              "displayName": "id",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "employeeId": {
+              "displayName": "employeeId",
+              "providerType": "string",
+              "valueType": "string"
+            }
+          }
+        },
+        "employeeEducation": {
+          "displayName": "employeeEducation",
+          "path": "/api/v1/employees/all/tables/employeeEducation",
+          "responseKey": "",
+          "fields": {
+            "id": {
+              "displayName": "id",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "employeeId": {
+              "displayName": "employeeId",
+              "providerType": "string",
+              "valueType": "string"
+            }
+          }
+        },
+        "employeePassports": {
+          "displayName": "employeePassports",
+          "path": "/api/v1/employees/all/tables/employeePassports",
+          "responseKey": "",
+          "fields": {
+            "id": {
+              "displayName": "id",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "employeeId": {
+              "displayName": "employeeId",
+              "providerType": "string",
+              "valueType": "string"
+            }
+          }
+        },
+        "employeeDriverLicenses": {
+          "displayName": "employeeDriverLicenses",
+          "path": "/api/v1/employees/all/tables/employeeDriverLicenses",
+          "responseKey": "",
+          "fields": {
+            "id": {
+              "displayName": "id",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "employeeId": {
+              "displayName": "employeeId",
+              "providerType": "string",
+              "valueType": "string"
+            }
+          }
+        },
+        "employeeCertifications": {
+          "displayName": "employeeCertifications",
+          "path": "/api/v1/employees/all/tables/employeeCertifications",
+          "responseKey": "",
+          "fields": {
+            "id": {
+              "displayName": "id",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "employeeId": {
+              "displayName": "employeeId",
+              "providerType": "string",
+              "valueType": "string"
+            }
+          }
+        },
+        "employeeStockOptions": {
+          "displayName": "employeeStockOptions",
+          "path": "/api/v1/employees/all/tables/employeeStockOptions",
+          "responseKey": "",
+          "fields": {
+            "id": {
+              "displayName": "id",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "employeeId": {
+              "displayName": "employeeId",
+              "providerType": "string",
+              "valueType": "string"
+            }
+          }
+        },
+        "employeeAssets": {
+          "displayName": "employeeAssets",
+          "path": "/api/v1/employees/all/tables/employeeAssets",
+          "responseKey": "",
+          "fields": {
+            "id": {
+              "displayName": "id",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "employeeId": {
+              "displayName": "employeeId",
+              "providerType": "string",
+              "valueType": "string"
+            }
+          }
+        },
+        "employeeCreditCards": {
+          "displayName": "employeeCreditCards",
+          "path": "/api/v1/employees/all/tables/employeeCreditCards",
+          "responseKey": "",
+          "fields": {
+            "id": {
+              "displayName": "id",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "employeeId": {
+              "displayName": "employeeId",
+              "providerType": "string",
+              "valueType": "string"
+            }
+          }
+        },
+        "employeeCovidTests": {
+          "displayName": "employeeCovidTests",
+          "path": "/api/v1/employees/all/tables/employeeCovidTests",
+          "responseKey": "",
+          "fields": {
+            "id": {
+              "displayName": "id",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "employeeId": {
+              "displayName": "employeeId",
+              "providerType": "string",
+              "valueType": "string"
+            }
+          }
+        },
+        "employeeCovidVaccinations": {
+          "displayName": "employeeCovidVaccinations",
+          "path": "/api/v1/employees/all/tables/employeeCovidVaccinations",
+          "responseKey": "",
+          "fields": {
+            "id": {
+              "displayName": "id",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "employeeId": {
+              "displayName": "employeeId",
+              "providerType": "string",
+              "valueType": "string"
+            }
+          }
+        },
+        "employeeCovidVaccinationExemptions": {
+          "displayName": "employeeCovidVaccinationExemptions",
+          "path": "/api/v1/employees/all/tables/employeeCovidVaccinationExemptions",
+          "responseKey": "",
+          "fields": {
+            "id": {
+              "displayName": "id",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "employeeId": {
+              "displayName": "employeeId",
+              "providerType": "string",
+              "valueType": "string"
+            }
+          }
+        },
+        "employeeCovidExposures": {
+          "displayName": "employeeCovidExposures",
+          "path": "/api/v1/employees/all/tables/employeeCovidExposures",
+          "responseKey": "",
+          "fields": {
+            "id": {
+              "displayName": "id",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "employeeId": {
+              "displayName": "employeeId",
+              "providerType": "string",
+              "valueType": "string"
+            }
+          }
+        },
+        "employeeEquityGrants": {
+          "displayName": "employeeEquityGrants",
+          "path": "/api/v1/employees/all/tables/employeeEquityGrants",
+          "responseKey": "",
+          "fields": {
+            "id": {
+              "displayName": "id",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "employeeId": {
+              "displayName": "employeeId",
+              "providerType": "string",
+              "valueType": "string"
+            }
+          }
+        },
+        "levelsAndBands": {
+          "displayName": "levelsAndBands",
+          "path": "/api/v1/employees/all/tables/levelsAndBands",
+          "responseKey": "",
+          "fields": {
+            "id": {
+              "displayName": "id",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "employeeId": {
+              "displayName": "employeeId",
+              "providerType": "string",
+              "valueType": "string"
+            }
+          }
+        },
+        "employeeProjectPayRates": {
+          "displayName": "employeeProjectPayRates",
+          "path": "/api/v1/employees/all/tables/employeeProjectPayRates",
+          "responseKey": "",
+          "fields": {
+            "id": {
+              "displayName": "id",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "employeeId": {
+              "displayName": "employeeId",
+              "providerType": "string",
+              "valueType": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

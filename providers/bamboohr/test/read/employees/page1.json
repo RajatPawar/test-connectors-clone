@@ -1,0 +1,30 @@
+{
+  "data": [
+    {
+      "status": "Active",
+      "lastName": "Nguyen",
+      "photoUrl": "https://cdn.example.com/p/123.jpg",
+      "firstName": "Ava",
+      "employeeId": "123",
+      "jobTitleName": "Engineering Manager",
+      "preferredName": "Ava",
+      "_restrictedFields": []
+    }
+  ],
+  "meta": {
+    "page": {
+      "limit": 100,
+      "nextCursor": "eyJuZXh0RW1wbG95ZWUiOjEyNX0=",
+      "prevCursor": null
+    },
+    "total": 2
+  },
+  "_links": {
+    "next": {
+      "href": "https://test-workspace.bamboohr.com/api/v1/employees?page%5Blimit%5D=100&page%5Bafter%5D=eyJuZXh0RW1wbG95ZWUiOjEyNX0%3D"
+    },
+    "self": {
+      "href": "https://test-workspace.bamboohr.com/api/v1/employees?page%5Blimit%5D=100"
+    }
+  }
+}

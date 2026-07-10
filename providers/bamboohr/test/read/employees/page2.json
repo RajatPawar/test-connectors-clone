@@ -1,0 +1,29 @@
+{
+  "data": [
+    {
+      "status": "Active",
+      "lastName": "Park",
+      "photoUrl": null,
+      "firstName": "Sam",
+      "employeeId": "124",
+      "jobTitleName": "Product Designer",
+      "preferredName": "Sam",
+      "_restrictedFields": [
+        "photoUrl"
+      ]
+    }
+  ],
+  "meta": {
+    "page": {
+      "limit": 100,
+      "nextCursor": null,
+      "prevCursor": "eyJuZXh0RW1wbG95ZWUiOjEyNX0="
+    },
+    "total": 2
+  },
+  "_links": {
+    "self": {
+      "href": "https://test-workspace.bamboohr.com/api/v1/employees?page%5Blimit%5D=100&page%5Bafter%5D=eyJuZXh0RW1wbG95ZWUiOjEyNX0%3D"
+    }
+  }
+}
