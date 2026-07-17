@@ -1,0 +1,18 @@
+{
+  "data": [
+    {
+      "id": 20,
+      "name": "Engineering",
+      "manager_ids": [3],
+      "employee_ids": [11, 12]
+    }
+  ],
+  "meta": {
+    "per_page": 1,
+    "next_page": null,
+    "total_pages": 2,
+    "current_page": 2,
+    "previous_page": 1,
+    "total_entries": 2
+  }
+}
