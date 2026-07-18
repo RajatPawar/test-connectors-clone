@@ -117,6 +117,7 @@ import (
 	"github.com/amp-labs/connectors/providers/recurly"
 	"github.com/amp-labs/connectors/providers/revenuecat"
 	"github.com/amp-labs/connectors/providers/ringcentral"
+	"github.com/amp-labs/connectors/providers/sagehr"
 	"github.com/amp-labs/connectors/providers/sageintacct"
 	"github.com/amp-labs/connectors/providers/salesfinity"
 	"github.com/amp-labs/connectors/providers/salesflare"
@@ -271,6 +272,7 @@ var connectorConstructors = map[providers.Provider]outputConstructorFunc{ // nol
 	providers.Recurly:                    wrapper(newRecurlyConnector),
 	providers.RevenueCat:                 wrapper(newRevenueCatConnector),
 	providers.RingCentral:                wrapper(newRingCentral),
+	providers.SageHR:                     wrapper(newSageHRConnector),
 	providers.SageIntacct:                wrapper(newSageIntacctConnector),
 	providers.Salesfinity:                wrapper(newSalesfinityConnector),
 	providers.Salesflare:                 wrapper(newSalesflareConnector),
@@ -1024,6 +1026,12 @@ func newSageIntacctConnector(
 	params common.ConnectorParams,
 ) (*sageintacct.Connector, error) {
 	return sageintacct.NewConnector(params)
+}
+
+func newSageHRConnector(
+	params common.ConnectorParams,
+) (*sagehr.Connector, error) {
+	return sagehr.NewConnector(params)
 }
 
 func newLinearConnector(

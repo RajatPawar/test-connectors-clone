@@ -1,0 +1,24 @@
+{
+  "data": [
+    {
+      "id": 1,
+      "name": "Vacation",
+      "unit": "days",
+      "color": "#49B284",
+      "accrue_type": "yearly",
+      "do_not_accrue": false,
+      "max_carryover": "100.0",
+      "default_allowance": "26"
+    },
+    {
+      "id": 2,
+      "name": "Sickday",
+      "unit": "days",
+      "color": "#DB263F",
+      "accrue_type": "no_tracking",
+      "do_not_accrue": true,
+      "max_carryover": "0.0",
+      "default_allowance": "0.0"
+    }
+  ]
+}

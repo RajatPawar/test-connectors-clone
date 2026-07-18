@@ -1,0 +1,18 @@
+{
+  "data": [
+    {
+      "id": 19,
+      "name": "Sales",
+      "manager_ids": [1, 2],
+      "employee_ids": [5, 7, 90]
+    }
+  ],
+  "meta": {
+    "per_page": 50,
+    "next_page": 2,
+    "total_pages": 2,
+    "current_page": 1,
+    "previous_page": null,
+    "total_entries": 2
+  }
+}

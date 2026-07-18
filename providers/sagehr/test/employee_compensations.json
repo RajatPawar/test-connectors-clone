@@ -1,0 +1,21 @@
+{
+  "data": [
+    {
+      "amount": 1234,
+      "period": "monthly",
+      "comment": "Starting salary",
+      "category": "Salary",
+      "currency": "EUR",
+      "end_date": "2019-01-01",
+      "start_date": "2017-01-01"
+    }
+  ],
+  "meta": {
+    "per_page": 50,
+    "next_page": null,
+    "total_pages": 1,
+    "current_page": 1,
+    "previous_page": null,
+    "total_entries": 1
+  }
+}
