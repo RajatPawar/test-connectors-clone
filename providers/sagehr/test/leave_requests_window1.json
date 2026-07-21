@@ -1,0 +1,24 @@
+{
+  "data": [
+    {
+      "id": 2902504,
+      "hours": 3.5,
+      "status": "Approved",
+      "details": "Birthday lunch",
+      "end_date": "2018-05-24",
+      "policy_id": 1,
+      "start_date": "2018-05-24",
+      "employee_id": 1,
+      "status_code": "approved",
+      "request_date": "2018-05-22"
+    }
+  ],
+  "meta": {
+    "per_page": 50,
+    "next_page": null,
+    "total_pages": 1,
+    "current_page": 1,
+    "previous_page": null,
+    "total_entries": 1
+  }
+}

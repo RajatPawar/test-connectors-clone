@@ -1,0 +1,20 @@
+{
+  "data": [
+    {
+      "id": 19,
+      "first_name": "John",
+      "last_name": "Doe",
+      "email": "john@example.com",
+      "team": "Sage HR",
+      "team_id": 1
+    }
+  ],
+  "meta": {
+    "per_page": 50,
+    "next_page": null,
+    "total_pages": 1,
+    "current_page": 1,
+    "previous_page": null,
+    "total_entries": 1
+  }
+}
