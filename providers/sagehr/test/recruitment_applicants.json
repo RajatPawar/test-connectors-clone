@@ -1,0 +1,20 @@
+{
+  "data": [
+    {
+      "id": 1,
+      "email": "jon.vondrak@example.com",
+      "full_name": "Jon Vondrak",
+      "first_name": "Jon",
+      "last_name": "Vondrak",
+      "source": "recruiters"
+    }
+  ],
+  "meta": {
+    "per_page": 30,
+    "next_page": null,
+    "total_pages": 1,
+    "current_page": 1,
+    "previous_page": null,
+    "total_entries": 1
+  }
+}

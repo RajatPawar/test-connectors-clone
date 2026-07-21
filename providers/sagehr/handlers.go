@@ -25,9 +25,25 @@ const (
 	maxChildPagesPerParent = 50
 )
 
+// newGetRequest builds a GET request with an explicit Accept: application/json
+// header. Sage HR's newer endpoints (e.g. recruitment/positions) return a 404
+// "page not found" HTML response when the Accept header is absent, while the
+// older core endpoints (employees, teams, ...) don't care either way — so this
+// is set unconditionally on every request built here.
+func newGetRequest(ctx context.Context, url string) (*http.Request, error) {
+	req, err := http.NewRequestWithContext(ctx, http.MethodGet, url, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Set("Accept", "application/json")
+
+	return req, nil
+}
+
 func (c *Connector) buildReadRequest(ctx context.Context, params common.ReadParams) (*http.Request, error) {
 	if params.NextPage != "" {
-		return http.NewRequestWithContext(ctx, http.MethodGet, params.NextPage.String(), nil)
+		return newGetRequest(ctx, params.NextPage.String())
 	}
 
 	spec, ok := objectSpecs[params.ObjectName]
@@ -54,7 +70,7 @@ func (c *Connector) buildReadRequest(ctx context.Context, params common.ReadPara
 		applyEmployeeHistoryParams(url)
 	}
 
-	return http.NewRequestWithContext(ctx, http.MethodGet, url.String(), nil)
+	return newGetRequest(ctx, url.String())
 }
 
 // buildParentListRequest builds the request for a fan-out object's PARENT list
@@ -76,7 +92,7 @@ func (c *Connector) buildParentListRequest(
 		applyEmployeeHistoryParams(url)
 	}
 
-	return http.NewRequestWithContext(ctx, http.MethodGet, url.String(), nil)
+	return newGetRequest(ctx, url.String())
 }
 
 func (c *Connector) parseReadResponse(
@@ -99,15 +115,18 @@ func (c *Connector) parseReadResponse(
 		return c.parseFanOutResponse(ctx, params, spec.fanOut, reqURL, resp)
 	}
 
-	nextPageFunc := metaNextPage(reqURL, spec.pagination)
+	// leave-management/requests cannot use common.ParseResult here: that
+	// helper treats an empty page as "done", but a <65-day window can
+	// legitimately contain zero records while later windows still have data
+	// to walk (see dateWindowNextPage / parseDateWindowedResponse).
 	if spec.dateWindowed {
-		nextPageFunc = dateWindowNextPage(params, reqURL)
+		return parseDateWindowedResponse(resp, params, reqURL)
 	}
 
 	return common.ParseResult(
 		resp,
 		recordsFunc,
-		nextPageFunc,
+		metaNextPage(reqURL, spec.pagination),
 		marshalFunc(),
 		params.Fields,
 	)
@@ -279,7 +298,7 @@ func (c *Connector) buildSingleObjectMetadataRequest(ctx context.Context, object
 		applyEmployeeHistoryParams(url)
 	}
 
-	return http.NewRequestWithContext(ctx, http.MethodGet, url.String(), nil)
+	return newGetRequest(ctx, url.String())
 }
 
 // buildFanOutMetadataRequest samples one real parent id (there is no
@@ -329,7 +348,7 @@ func (c *Connector) buildFanOutMetadataRequest(ctx context.Context, fo *fanOutSp
 
 	applyPaginationParams(childURL, fo.pagination, fo.perPageDefault, common.ReadParams{PageSize: 1})
 
-	return http.NewRequestWithContext(ctx, http.MethodGet, childURL.String(), nil)
+	return newGetRequest(ctx, childURL.String())
 }
 
 func (c *Connector) parseSingleObjectMetadataResponse(

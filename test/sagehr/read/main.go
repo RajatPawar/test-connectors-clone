@@ -160,9 +160,17 @@ func runOne(
 		record.Since = since.Format(time.RFC3339)
 	}
 
+	// For fan-out objects (e.g. employees/leave-management/balances) there are
+	// multiple interactions: a parent-list call followed by one call per
+	// parent id. The LAST interaction is the one whose response actually
+	// produced Result.Records, so top-level Request/Response must reflect
+	// that call, not the first (parent-list) one — otherwise a reviewer
+	// comparing top-level request/response against result.records sees a
+	// spurious mismatch (parent object's fields vs. child object's fields).
 	if len(interactions) > 0 {
-		record.Request = &interactions[0].Request
-		record.Response = &interactions[0].Response
+		last := interactions[len(interactions)-1]
+		record.Request = &last.Request
+		record.Response = &last.Response
 	}
 
 	if err != nil {

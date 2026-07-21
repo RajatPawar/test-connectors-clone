@@ -1,0 +1,14 @@
+{
+  "data": [
+    {
+      "used": 5.6,
+      "available": 2,
+      "policy_id": 1
+    },
+    {
+      "used": 75,
+      "available": null,
+      "policy_id": 2
+    }
+  ]
+}

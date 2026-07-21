@@ -143,26 +143,38 @@ func applyEmployeeHistoryParams(url *urlbuilder.URL) {
 	url.WithQueryParam("position_history", "true")
 }
 
-// applyDateWindow sets the initial from/to window for leave-management/requests.
-// If the caller supplies no Since, from/to are omitted entirely and the API
-// falls back to its own default (current month) — no chunking needed since
-// that window is inherently under the 65-day cap.
-func applyDateWindow(url *urlbuilder.URL, params common.ReadParams) {
-	if params.Since.IsZero() {
-		return
-	}
+// defaultLeaveRequestLookbackYears bounds how far back a full sync (Since
+// zero — e.g. the very first read of an installation) reaches for
+// leave-management/requests. The docs state the endpoint defaults its own
+// from/to window to only the CURRENT MONTH when the params are omitted; unlike
+// most Sage HR list endpoints (which return everything when unfiltered), that
+// default would silently truncate a full backfill to a single month. There is
+// no documented way to discover the true earliest leave request, so this is an
+// explicit assumption (not derived from the docs) — flagged here and in the
+// README for human review.
+const defaultLeaveRequestLookbackYears = 5
 
+// applyDateWindow sets the initial from/to window for leave-management/requests.
+// Since is used when supplied (incremental sync); otherwise a fixed lookback
+// is substituted so a full sync doesn't fall back to the API's own
+// current-month-only default (see defaultLeaveRequestLookbackYears).
+func applyDateWindow(url *urlbuilder.URL, params common.ReadParams) {
 	until := params.Until
 	if until.IsZero() {
 		until = time.Now().UTC()
 	}
 
-	windowEnd := params.Since.AddDate(0, 0, maxLeaveRequestWindowDays-1)
+	since := params.Since
+	if since.IsZero() {
+		since = until.AddDate(-defaultLeaveRequestLookbackYears, 0, 0)
+	}
+
+	windowEnd := since.AddDate(0, 0, maxLeaveRequestWindowDays-1)
 	if windowEnd.After(until) {
 		windowEnd = until
 	}
 
-	url.WithQueryParam("from", params.Since.Format(time.DateOnly))
+	url.WithQueryParam("from", since.Format(time.DateOnly))
 	url.WithQueryParam("to", windowEnd.Format(time.DateOnly))
 }
 
@@ -202,16 +214,14 @@ func metaNextPage(reqURL *urlbuilder.URL, style paginationStyle) common.NextPage
 // dateWindowNextPage wraps metaNextPage for leave-management/requests: once a
 // from/to window's pages are exhausted, it advances to the next <65-day
 // window (per the docs' constraint) until params.Until (or now) is reached.
+// applyDateWindow always sets an explicit from/to (defaulting Since to
+// defaultLeaveRequestLookbackYears back when the caller supplied none), so
+// this always has a window to chunk through.
 func dateWindowNextPage(params common.ReadParams, reqURL *urlbuilder.URL) common.NextPageFunc {
 	return func(root *ajson.Node) (string, error) {
 		next, err := metaNextPage(reqURL, paginationPage)(root)
 		if err != nil || next != "" {
 			return next, err
-		}
-
-		if params.Since.IsZero() {
-			// We never set an explicit window; nothing to chunk through.
-			return "", nil
 		}
 
 		currentTo, ok := reqURL.GetFirstQueryParam("to")
@@ -250,6 +260,48 @@ func dateWindowNextPage(params common.ReadParams, reqURL *urlbuilder.URL) common
 
 		return nextURL.String(), nil
 	}
+}
+
+// parseDateWindowedResponse builds a ReadResult for leave-management/requests
+// directly, instead of via common.ParseResult. common.ParseResult forces
+// Done=true whenever a page has zero records, which is correct for ordinary
+// pagination but wrong here: a single <65-day window can legitimately return
+// zero records while earlier or later windows (up to params.Until, or the
+// present) still have data. Done must be driven solely by whether
+// dateWindowNextPage has another window left to walk.
+func parseDateWindowedResponse(
+	resp *common.JSONHTTPResponse, params common.ReadParams, reqURL *urlbuilder.URL,
+) (*common.ReadResult, error) {
+	body, ok := resp.Body()
+	if !ok {
+		return nil, common.ErrEmptyJSONHTTPResponse
+	}
+
+	records, err := recordsFunc(body)
+	if err != nil {
+		return nil, err
+	}
+
+	rows, err := marshalFunc()(records, params.Fields.List())
+	if err != nil {
+		return nil, err
+	}
+
+	nextPage, err := dateWindowNextPage(params, reqURL)(body)
+	if err != nil {
+		return nil, err
+	}
+
+	if len(rows) == 0 {
+		rows = make([]common.ReadResultRow, 0)
+	}
+
+	return &common.ReadResult{
+		Rows:     int64(len(rows)),
+		Data:     rows,
+		NextPage: common.NextPageToken(nextPage),
+		Done:     nextPage == "",
+	}, nil
 }
 
 // extractParentIDs pulls the integer `id` field off each parent record node.

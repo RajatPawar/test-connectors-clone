@@ -27,10 +27,16 @@ free to include).
 
 **Incremental sync**: no object exposes an `updated_at`-style cursor. Only
 `leave-management/requests` supports real time filtering (`from`/`to`, date
-range under 65 days, defaults to current month). When `Since` is set, the
-connector chunks the range into 60-day windows and advances through them via
-`NextPage` until `Until` (or now). Every other object is a full read each
-call — documented here rather than fabricated.
+range under 65 days, defaults to current month if omitted). The connector
+always chunks the range into 60-day windows and advances through them via
+`NextPage` until `Until` (or now) — including on a full sync (`Since` zero),
+where it substitutes a fixed `defaultLeaveRequestLookbackYears` (5 years,
+see `parse.go`) instead of leaving `from`/`to` unset. Leaving them unset would
+silently limit a full sync to the API's own current-month-only default. There
+is no documented way to discover the true earliest leave request, so this
+lookback is an explicit assumption — flagged for human review, not derived
+from the docs. Every other object is a full read each call — documented here
+rather than fabricated.
 
 ## Pagination
 

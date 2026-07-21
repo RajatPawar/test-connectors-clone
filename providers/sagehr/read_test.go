@@ -23,7 +23,11 @@ func TestRead(t *testing.T) { // nolint:funlen,gocognit,cyclop
 	leavePolicies := testutils.DataFromFile(t, "leave_policies.json")
 	employeesSingle := testutils.DataFromFile(t, "employees_single.json")
 	employeeCompensations := testutils.DataFromFile(t, "employee_compensations.json")
+	employeeLeaveBalances := testutils.DataFromFile(t, "employee_leave_balances.json")
 	leaveRequestsWindow1 := testutils.DataFromFile(t, "leave_requests_window1.json")
+	leaveRequestsEmptyWindow := testutils.DataFromFile(t, "leave_requests_empty_window.json")
+	recruitmentPositionsSingle := testutils.DataFromFile(t, "recruitment_positions_single.json")
+	recruitmentApplicants := testutils.DataFromFile(t, "recruitment_applicants.json")
 
 	tests := []testroutines.Read{
 		{
@@ -187,6 +191,91 @@ func TestRead(t *testing.T) { // nolint:funlen,gocognit,cyclop
 			Comparator: testroutines.ComparatorSubsetRead,
 		},
 		{
+			// Regression test: prior review feedback mistook the connector for
+			// calling the SAME URL as the parent recruitment/positions list.
+			// It does not -- fetchChildPages always appends the parent id +
+			// "applicants" to the position's own path. This asserts that
+			// sub-collection URL directly against a mock server, independent of
+			// whether the live test account happens to have any recruitment
+			// positions.
+			Name:  "Read a fan-out object: recruitment/positions/applicants hits the position's own sub-collection URL",
+			Input: common.ReadParams{ObjectName: objectRecruitmentApplicants, Fields: connectors.Fields("id")},
+			Server: mockserver.Switch{
+				Setup: mockserver.ContentJSON(),
+				Cases: []mockserver.Case{
+					{
+						If:   mockcond.Path("/api/recruitment/positions/42/applicants"),
+						Then: mockserver.Response(http.StatusOK, recruitmentApplicants),
+					},
+					{
+						If:   mockcond.Path("/api/recruitment/positions"),
+						Then: mockserver.Response(http.StatusOK, recruitmentPositionsSingle),
+					},
+				},
+			}.Server(),
+			Expected: &common.ReadResult{
+				Rows: 1,
+				Data: []common.ReadResultRow{
+					{
+						Id:     "1",
+						Fields: map[string]any{"id": float64(1)},
+						Raw: map[string]any{
+							"id": float64(1), "email": "jon.vondrak@example.com",
+							"full_name": "Jon Vondrak", "first_name": "Jon", "last_name": "Vondrak",
+							"source": "recruiters",
+						},
+					},
+				},
+				NextPage: "",
+				Done:     true,
+			},
+			Comparator: testroutines.ComparatorSubsetRead,
+		},
+		{
+			// Regression test: prior review feedback mistook the connector for
+			// parsing /employees fields (email, first_name, ...) into this
+			// object. It does not -- fetchChildPages hits
+			// /employees/{id}/leave-management/balances, whose response shape
+			// (used/available/policy_id, per the OpenAPI spec example) is what
+			// actually gets parsed. This pins that behavior with a mock server.
+			Name: "Read a fan-out object: employees/leave-management/balances parses the CHILD endpoint, not /employees",
+			Input: common.ReadParams{
+				ObjectName: objectEmployeeLeaveBalances,
+				Fields:     connectors.Fields("policy_id", "used", "available"),
+			},
+			Server: mockserver.Switch{
+				Setup: mockserver.ContentJSON(),
+				Cases: []mockserver.Case{
+					{
+						If:   mockcond.Path("/api/employees/19/leave-management/balances"),
+						Then: mockserver.Response(http.StatusOK, employeeLeaveBalances),
+					},
+					{
+						If:   mockcond.Path("/api/employees"),
+						Then: mockserver.Response(http.StatusOK, employeesSingle),
+					},
+				},
+			}.Server(),
+			Expected: &common.ReadResult{
+				Rows: 2,
+				Data: []common.ReadResultRow{
+					{
+						Id:     "",
+						Fields: map[string]any{"policy_id": float64(1), "used": float64(5.6), "available": float64(2)},
+						Raw:    map[string]any{"used": float64(5.6), "available": float64(2), "policy_id": float64(1)},
+					},
+					{
+						Id:     "",
+						Fields: map[string]any{"policy_id": float64(2), "used": float64(75), "available": nil},
+						Raw:    map[string]any{"used": float64(75), "available": nil, "policy_id": float64(2)},
+					},
+				},
+				NextPage: "",
+				Done:     true,
+			},
+			Comparator: testroutines.ComparatorSubsetRead,
+		},
+		{
 			Name: "Read leave-management/requests: window >65 days is chunked to the next 60-day window",
 			Input: common.ReadParams{
 				ObjectName: objectLeaveRequests,
@@ -222,6 +311,96 @@ func TestRead(t *testing.T) { // nolint:funlen,gocognit,cyclop
 				Done: false,
 			},
 			Comparator: testroutines.ComparatorSubsetRead,
+		},
+		{
+			// Regression test for the root-cause bug fixed this round: a <65-day
+			// window with ZERO records must still advance to the next window
+			// (Done=false, NextPage populated) rather than stopping. Before this
+			// fix, parseReadResponse went through common.ParseResult, whose
+			// done := nextPage == "" || len(marshaledData) == 0 discarded the
+			// correctly-computed next-window URL whenever a window's page had no
+			// records -- exactly what happened against the live sandbox account,
+			// which has no leave requests in most historical windows.
+			Name: "Read leave-management/requests: an empty window still advances to the next window",
+			Input: common.ReadParams{
+				ObjectName: objectLeaveRequests,
+				Fields:     connectors.Fields("id"),
+				Since:      time.Date(2024, time.January, 1, 0, 0, 0, 0, time.UTC),
+				Until:      time.Date(2024, time.April, 1, 0, 0, 0, 0, time.UTC),
+			},
+			Server: mockserver.Conditional{
+				Setup: mockserver.ContentJSON(),
+				If:    mockcond.Path("/api/leave-management/requests"),
+				Then:  mockserver.Response(http.StatusOK, leaveRequestsEmptyWindow),
+			}.Server(),
+			Expected: &common.ReadResult{
+				Rows: 0,
+				NextPage: testroutines.URLTestServer +
+					"/api/leave-management/requests?from=2024-03-01&page=1&to=2024-04-01",
+				Done: false,
+			},
+			Comparator: func(baseURL string, actual, expected *common.ReadResult) *testutils.CompareResult {
+				result := testutils.NewCompareResult()
+
+				if actual.Rows != expected.Rows {
+					result.AddDifference("rows mismatch: expected the empty window to yield 0 records")
+				}
+
+				if actual.Done != expected.Done {
+					result.AddDifference("done mismatch: an empty window must not stop chunking (Done=false)")
+				}
+
+				expectedNextPage := testroutines.ResolveTestServerURL(expected.NextPage.String(), baseURL)
+				if actual.NextPage.String() != expectedNextPage {
+					result.AddDifference("next page mismatch: expected to advance to the following 60-day window")
+				}
+
+				return result
+			},
+		},
+		{
+			// Regression test: the docs say this endpoint defaults its OWN
+			// from/to window to only the current month when the params are
+			// omitted. A full sync (no Since) must not rely on that default —
+			// see applyDateWindow / defaultLeaveRequestLookbackYears — so the
+			// connector must still send an explicit from/to and keep chunking
+			// (NextPage non-empty) rather than stopping after one page.
+			Name:  "Read leave-management/requests: full sync (no Since) sends an explicit historical window, not the bare endpoint",
+			Input: common.ReadParams{ObjectName: objectLeaveRequests, Fields: connectors.Fields("id")},
+			Server: mockserver.Conditional{
+				Setup: mockserver.ContentJSON(),
+				If: mockcond.And{
+					mockcond.Path("/api/leave-management/requests"),
+					mockcond.Check(func(w http.ResponseWriter, r *http.Request) bool {
+						from := r.URL.Query().Get("from")
+						to := r.URL.Query().Get("to")
+
+						return from != "" && to != ""
+					}),
+				},
+				Then: mockserver.Response(http.StatusOK, leaveRequestsWindow1),
+			}.Server(),
+			Expected: &common.ReadResult{
+				Rows: 1,
+				Done: false,
+			},
+			Comparator: func(baseURL string, actual, expected *common.ReadResult) *testutils.CompareResult {
+				result := testutils.NewCompareResult()
+
+				if actual.Rows != expected.Rows {
+					result.AddDifference("rows mismatch")
+				}
+
+				if actual.Done != expected.Done {
+					result.AddDifference("done mismatch: expected chunking to continue (Done=false)")
+				}
+
+				if actual.NextPage == "" {
+					result.AddDifference("expected a non-empty NextPage (window chunking must continue)")
+				}
+
+				return result
+			},
 		},
 	}
 
