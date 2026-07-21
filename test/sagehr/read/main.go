@@ -140,50 +140,80 @@ func runOne(
 ) *captureRecord {
 	start := time.Now()
 
-	result, err := conn.Read(ctx, common.ReadParams{
-		ObjectName: object,
-		Fields:     connectors.Fields(fields...),
-		Since:      since,
-	})
-
-	duration := time.Since(start)
-	interactions := capture.drain()
-
 	record := &captureRecord{
-		Object:       object,
-		Fields:       fields,
-		Interactions: interactions,
-		DurationMs:   duration.Milliseconds(),
+		Object: object,
+		Fields: fields,
 	}
 
 	if !since.IsZero() {
 		record.Since = since.Format(time.RFC3339)
 	}
 
-	if len(interactions) > 0 {
-		record.Request = &interactions[0].Request
-		record.Response = &interactions[0].Response
-	}
-
+	result, err := conn.Read(ctx, common.ReadParams{
+		ObjectName: object,
+		Fields:     connectors.Fields(fields...),
+		Since:      since,
+	})
 	if err != nil {
+		record.Interactions = capture.drain()
+		record.DurationMs = time.Since(start).Milliseconds()
+
+		if len(record.Interactions) > 0 {
+			record.Request = &record.Interactions[0].Request
+			record.Response = &record.Interactions[0].Response
+		}
+
 		record.Result = resultCapture{Status: "error", Error: err.Error()}
 
 		return record
 	}
 
-	records := make([]map[string]any, 0, len(result.Data))
-	for _, row := range result.Data {
-		records = append(records, row.Raw)
+	records := recordsOf(result)
+	nextPage := result.NextPage
+
+	// Exercise pagination (CLAUDE.md): follow the first NextPage token once,
+	// so a captured next page (or an advanced leave-management/requests date
+	// window) is proven to actually work, not just theoretically wired.
+	if nextPage != "" {
+		result2, err2 := conn.Read(ctx, common.ReadParams{
+			ObjectName: object,
+			Fields:     connectors.Fields(fields...),
+			Since:      since,
+			NextPage:   nextPage,
+		})
+		if err2 == nil {
+			records = append(records, recordsOf(result2)...)
+			nextPage = result2.NextPage
+		}
+	}
+
+	interactions := capture.drain()
+
+	record.Interactions = interactions
+	record.DurationMs = time.Since(start).Milliseconds()
+
+	if len(interactions) > 0 {
+		record.Request = &interactions[0].Request
+		record.Response = &interactions[0].Response
 	}
 
 	record.Result = resultCapture{
 		Status:      "ok",
 		RecordCount: len(records),
-		NextPage:    result.NextPage.String(),
+		NextPage:    nextPage.String(),
 		Records:     records,
 	}
 
 	return record
+}
+
+func recordsOf(result *common.ReadResult) []map[string]any {
+	records := make([]map[string]any, 0, len(result.Data))
+	for _, row := range result.Data {
+		records = append(records, row.Raw)
+	}
+
+	return records
 }
 
 func printJSON(v any) {

@@ -55,6 +55,14 @@ the parent list. `employees/compensations` and
 `employees/leave-management/balances` records have no natural `id` field in
 the provider's response, so `ReadResultRow.Id` is left empty for those two.
 
+**Note on `recruitment/positions/applicants` captures**: the request/response
+shown at the top level of a capture file is always the *parent* list call
+(`/recruitment/positions`) — that's how parent ids are discovered before
+fanning out to `/recruitment/positions/{id}/applicants`. In the current live
+test account this parent list returns `total_entries: 0`, so no child call is
+ever made (nothing to fan out to). This is an empty-account condition, not a
+missing `{id}` segment — see `connie_notes.md` for the full trace.
+
 ## Metadata (schema)
 
 No schema/describe endpoint and no `schemas.json`. Fields are sampled live
