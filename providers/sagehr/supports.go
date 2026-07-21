@@ -48,6 +48,10 @@ const (
 //     the requested priority object list; vikarina/* in particular appears to
 //     be a duplicate export surface for a named third-party payroll
 //     integration, not a primary data source.
+//   - "leave-management/out-of-office-today": a date-scoped snapshot ("who is
+//     out today"), not a persistent entity with its own history — the same
+//     underlying data is already exposed via leave-management/requests. Skipped
+//     per CLAUDE.md's guidance to avoid duplicating data from a primary object.
 
 // readSupport is the complete list of objects this connector can read. It is
 // also exposed via SupportedReadObjects for tooling (e.g. the live read/capture

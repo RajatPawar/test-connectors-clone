@@ -28,7 +28,13 @@ func getConnector(
 	ctx context.Context, wrap func(common.AuthenticatedHTTPClient) common.AuthenticatedHTTPClient,
 ) *sagehr.Connector {
 	filePath := credscanning.LoadPath(providers.SageHR)
-	reader := utils.MustCreateProvCredJSON(filePath, false)
+	// The workspace metadata field's ProviderInfo entry has a DefaultValue
+	// ("subdomain"), which makes RequiresWorkspace() return false — so the
+	// credentials reader will NOT auto-register the "workspace" JSON path
+	// unless it is passed explicitly here. Omitting this silently resolves
+	// {{.workspace}} in BaseURL to "", producing an invalid host
+	// (https://.sage.hr/api) with no compile error. See CLAUDE.md.
+	reader := utils.MustCreateProvCredJSON(filePath, false, credscanning.Fields.Workspace)
 
 	client := utils.NewAPIKeyClient(ctx, reader, providers.SageHR)
 	if wrap != nil {
