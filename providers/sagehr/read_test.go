@@ -24,6 +24,8 @@ func TestRead(t *testing.T) { // nolint:funlen,gocognit,cyclop
 	employeesSingle := testutils.DataFromFile(t, "employees_single.json")
 	employeeCompensations := testutils.DataFromFile(t, "employee_compensations.json")
 	leaveRequestsWindow1 := testutils.DataFromFile(t, "leave_requests_window1.json")
+	recruitmentPositionsSingle := testutils.DataFromFile(t, "recruitment_positions_single.json")
+	recruitmentApplicants := testutils.DataFromFile(t, "recruitment_applicants.json")
 
 	tests := []testroutines.Read{
 		{
@@ -220,6 +222,37 @@ func TestRead(t *testing.T) { // nolint:funlen,gocognit,cyclop
 				NextPage: testroutines.URLTestServer +
 					"/api/leave-management/requests?from=2024-03-01&page=1&to=2024-04-01",
 				Done: false,
+			},
+			Comparator: testroutines.ComparatorSubsetRead,
+		},
+		{
+			Name: "Read a fan-out object: recruitment/positions/applicants hits the " +
+				"per-position sub-collection URL, not the parent collection",
+			Input: common.ReadParams{ObjectName: objectRecruitmentApplicants, Fields: connectors.Fields("id")},
+			Server: mockserver.Switch{
+				Setup: mockserver.ContentJSON(),
+				Cases: []mockserver.Case{
+					{
+						If:   mockcond.Path("/api/recruitment/positions/42/applicants"),
+						Then: mockserver.Response(http.StatusOK, recruitmentApplicants),
+					},
+					{
+						If:   mockcond.Path("/api/recruitment/positions"),
+						Then: mockserver.Response(http.StatusOK, recruitmentPositionsSingle),
+					},
+				},
+			}.Server(),
+			Expected: &common.ReadResult{
+				Rows: 1,
+				Data: []common.ReadResultRow{
+					{
+						Id:     "7001",
+						Fields: map[string]any{"id": float64(7001)},
+						Raw:    map[string]any{"id": float64(7001)},
+					},
+				},
+				NextPage: "",
+				Done:     true,
 			},
 			Comparator: testroutines.ComparatorSubsetRead,
 		},

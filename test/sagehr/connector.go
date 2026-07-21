@@ -28,7 +28,14 @@ func getConnector(
 	ctx context.Context, wrap func(common.AuthenticatedHTTPClient) common.AuthenticatedHTTPClient,
 ) *sagehr.Connector {
 	filePath := credscanning.LoadPath(providers.SageHR)
-	reader := utils.MustCreateProvCredJSON(filePath, false)
+	// The workspace metadata field has a DefaultValue in providers/sagehr.go
+	// (required so the catalog can render provider info), which makes
+	// ProviderInfo.RequiresWorkspace() return false. That means the
+	// credscanning loader will NOT auto-register "workspace" as a field to
+	// read from the creds file unless it is explicitly listed here — without
+	// this, reader.Get(credscanning.Fields.Workspace) below always returns ""
+	// and every request resolves to the invalid host "https://.sage.hr/...".
+	reader := utils.MustCreateProvCredJSON(filePath, false, credscanning.Fields.Workspace)
 
 	client := utils.NewAPIKeyClient(ctx, reader, providers.SageHR)
 	if wrap != nil {
