@@ -6,11 +6,28 @@ import (
 
 	"github.com/amp-labs/connectors"
 	"github.com/amp-labs/connectors/common"
+	"github.com/amp-labs/connectors/providers"
 	"github.com/amp-labs/connectors/test/utils/mockutils/mockcond"
 	"github.com/amp-labs/connectors/test/utils/mockutils/mockserver"
 	"github.com/amp-labs/connectors/test/utils/testroutines"
 	"github.com/amp-labs/connectors/test/utils/testutils"
 )
+
+// TestCatalogDisplayName is a standing, reviewable artifact confirming the
+// catalog display name for this provider is exactly "Sage HR" (no
+// parentheses), per repeated human/review feedback in connie_feedback/.
+func TestCatalogDisplayName(t *testing.T) {
+	t.Parallel()
+
+	info, err := providers.ReadInfo(providers.SageHR)
+	if err != nil {
+		t.Fatalf("failed to read provider info: %v", err)
+	}
+
+	if info.DisplayName != "Sage HR" {
+		t.Fatalf("expected catalog displayName to be %q, got %q", "Sage HR", info.DisplayName)
+	}
+}
 
 func TestListObjectMetadata(t *testing.T) { // nolint:funlen
 	t.Parallel()
