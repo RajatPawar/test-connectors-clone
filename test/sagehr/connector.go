@@ -28,7 +28,7 @@ func getConnector(
 	ctx context.Context, wrap func(common.AuthenticatedHTTPClient) common.AuthenticatedHTTPClient,
 ) *sagehr.Connector {
 	filePath := credscanning.LoadPath(providers.SageHR)
-	reader := utils.MustCreateProvCredJSON(filePath, false)
+	reader := utils.MustCreateProvCredJSON(filePath, false, credscanning.Fields.Workspace)
 
 	client := utils.NewAPIKeyClient(ctx, reader, providers.SageHR)
 	if wrap != nil {

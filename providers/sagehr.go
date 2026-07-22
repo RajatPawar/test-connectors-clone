@@ -6,7 +6,7 @@ const SageHR Provider = "sageHR"
 //nolint:lll
 func init() {
 	SetInfo(SageHR, ProviderInfo{
-		DisplayName: "Sage HR",
+		DisplayName: "Sage (HR Test)",
 		AuthType:    ApiKey,
 		// Each Sage HR company has its own subdomain: https://{workspace}.sage.hr.
 		// The OpenAPI spec's server URL is https://subdomain.sage.hr/api — the
