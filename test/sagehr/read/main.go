@@ -217,13 +217,21 @@ type requestCapture struct {
 	URL     string              `json:"url"`
 	Headers map[string][]string `json:"headers"`
 	Query   map[string][]string `json:"query"`
-	Body    json.RawMessage     `json:"body"`
+	Body    json.RawMessage     `json:"body,omitempty"`
+	// BodyRaw holds the request body verbatim when it is not valid JSON
+	// (e.g. a form-urlencoded body).
+	BodyRaw string `json:"body_raw,omitempty"`
 }
 
 type responseCapture struct {
 	Status  int                 `json:"status"`
 	Headers map[string][]string `json:"headers"`
-	Body    json.RawMessage     `json:"body"`
+	Body    json.RawMessage     `json:"body,omitempty"`
+	// BodyRaw holds the response body verbatim when it is not valid JSON
+	// (e.g. an HTML error page from the provider or its CDN). Keeping this
+	// separate from Body means one non-JSON response can't abort capture of
+	// every other object in the same -out run.
+	BodyRaw string `json:"body_raw,omitempty"`
 }
 
 type interaction struct {
@@ -259,7 +267,11 @@ func (c *capturingClient) Do(req *http.Request) (*http.Response, error) {
 		req.Body = io.NopCloser(bytes.NewReader(bodyBytes))
 
 		if len(bodyBytes) > 0 {
-			reqCap.Body = json.RawMessage(bodyBytes)
+			if json.Valid(bodyBytes) {
+				reqCap.Body = json.RawMessage(bodyBytes)
+			} else {
+				reqCap.BodyRaw = string(bodyBytes)
+			}
 		}
 	}
 
@@ -277,7 +289,12 @@ func (c *capturingClient) Do(req *http.Request) (*http.Response, error) {
 	respCap := responseCapture{
 		Status:  resp.StatusCode,
 		Headers: map[string][]string(resp.Header.Clone()),
-		Body:    json.RawMessage(bodyBytes),
+	}
+
+	if json.Valid(bodyBytes) {
+		respCap.Body = json.RawMessage(bodyBytes)
+	} else {
+		respCap.BodyRaw = string(bodyBytes)
 	}
 
 	c.record(interaction{Request: reqCap, Response: respCap})
