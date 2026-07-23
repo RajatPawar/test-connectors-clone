@@ -217,13 +217,33 @@ type requestCapture struct {
 	URL     string              `json:"url"`
 	Headers map[string][]string `json:"headers"`
 	Query   map[string][]string `json:"query"`
-	Body    json.RawMessage     `json:"body"`
+	Body    json.RawMessage     `json:"body,omitempty"`
+	BodyRaw string              `json:"body_raw,omitempty"`
 }
 
 type responseCapture struct {
 	Status  int                 `json:"status"`
 	Headers map[string][]string `json:"headers"`
-	Body    json.RawMessage     `json:"body"`
+	// Body holds the raw bytes when they parse as valid JSON; otherwise (e.g.
+	// an HTML error page from a 404) BodyRaw holds them as a plain string, so
+	// one non-JSON response doesn't abort json.MarshalIndent for the whole
+	// -out capture run.
+	Body    json.RawMessage `json:"body,omitempty"`
+	BodyRaw string          `json:"body_raw,omitempty"`
+}
+
+// bodyCapture splits raw bytes into the JSON field when valid, or the raw
+// string field otherwise.
+func bodyCapture(b []byte) (json.RawMessage, string) {
+	if len(b) == 0 {
+		return nil, ""
+	}
+
+	if json.Valid(b) {
+		return json.RawMessage(b), ""
+	}
+
+	return nil, string(b)
 }
 
 type interaction struct {
@@ -258,9 +278,7 @@ func (c *capturingClient) Do(req *http.Request) (*http.Response, error) {
 		_ = req.Body.Close()
 		req.Body = io.NopCloser(bytes.NewReader(bodyBytes))
 
-		if len(bodyBytes) > 0 {
-			reqCap.Body = json.RawMessage(bodyBytes)
-		}
+		reqCap.Body, reqCap.BodyRaw = bodyCapture(bodyBytes)
 	}
 
 	resp, err := c.inner.Do(req)
@@ -277,8 +295,8 @@ func (c *capturingClient) Do(req *http.Request) (*http.Response, error) {
 	respCap := responseCapture{
 		Status:  resp.StatusCode,
 		Headers: map[string][]string(resp.Header.Clone()),
-		Body:    json.RawMessage(bodyBytes),
 	}
+	respCap.Body, respCap.BodyRaw = bodyCapture(bodyBytes)
 
 	c.record(interaction{Request: reqCap, Response: respCap})
 

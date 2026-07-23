@@ -25,9 +25,26 @@ const (
 	maxChildPagesPerParent = 50
 )
 
+// newJSONGetRequest builds a GET request with an explicit Accept: application/json
+// header. Sage HR's own docs don't call this out, but a live capture showed
+// recruitment/positions (and its /applicants child) return HTTP 404 — not a
+// JSON error — when Accept is absent, while every other object tolerates its
+// absence; the framework's request executor only adds Content-Type
+// automatically, not Accept, so it must be set here.
+func newJSONGetRequest(ctx context.Context, url string) (*http.Request, error) {
+	req, err := http.NewRequestWithContext(ctx, http.MethodGet, url, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Set("Accept", "application/json")
+
+	return req, nil
+}
+
 func (c *Connector) buildReadRequest(ctx context.Context, params common.ReadParams) (*http.Request, error) {
 	if params.NextPage != "" {
-		return http.NewRequestWithContext(ctx, http.MethodGet, params.NextPage.String(), nil)
+		return newJSONGetRequest(ctx, params.NextPage.String())
 	}
 
 	spec, ok := objectSpecs[params.ObjectName]
@@ -54,7 +71,7 @@ func (c *Connector) buildReadRequest(ctx context.Context, params common.ReadPara
 		applyEmployeeHistoryParams(url)
 	}
 
-	return http.NewRequestWithContext(ctx, http.MethodGet, url.String(), nil)
+	return newJSONGetRequest(ctx, url.String())
 }
 
 // buildParentListRequest builds the request for a fan-out object's PARENT list
@@ -76,7 +93,7 @@ func (c *Connector) buildParentListRequest(
 		applyEmployeeHistoryParams(url)
 	}
 
-	return http.NewRequestWithContext(ctx, http.MethodGet, url.String(), nil)
+	return newJSONGetRequest(ctx, url.String())
 }
 
 func (c *Connector) parseReadResponse(
@@ -279,7 +296,7 @@ func (c *Connector) buildSingleObjectMetadataRequest(ctx context.Context, object
 		applyEmployeeHistoryParams(url)
 	}
 
-	return http.NewRequestWithContext(ctx, http.MethodGet, url.String(), nil)
+	return newJSONGetRequest(ctx, url.String())
 }
 
 // buildFanOutMetadataRequest samples one real parent id (there is no
@@ -329,7 +346,7 @@ func (c *Connector) buildFanOutMetadataRequest(ctx context.Context, fo *fanOutSp
 
 	applyPaginationParams(childURL, fo.pagination, fo.perPageDefault, common.ReadParams{PageSize: 1})
 
-	return http.NewRequestWithContext(ctx, http.MethodGet, childURL.String(), nil)
+	return newJSONGetRequest(ctx, childURL.String())
 }
 
 func (c *Connector) parseSingleObjectMetadataResponse(

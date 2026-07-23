@@ -28,7 +28,12 @@ func getConnector(
 	ctx context.Context, wrap func(common.AuthenticatedHTTPClient) common.AuthenticatedHTTPClient,
 ) *sagehr.Connector {
 	filePath := credscanning.LoadPath(providers.SageHR)
-	reader := utils.MustCreateProvCredJSON(filePath, false)
+	// Workspace has a DefaultValue in ProviderInfo.Metadata.Input (required so
+	// provider info renders without a real connection), which makes
+	// RequiresWorkspace() return false and skips the automatic required-field
+	// wiring in credscanning. Register it explicitly or metadata.workspace is
+	// silently dropped and {{.workspace}} in BaseURL resolves to "".
+	reader := utils.MustCreateProvCredJSON(filePath, false, credscanning.Fields.Workspace)
 
 	client := utils.NewAPIKeyClient(ctx, reader, providers.SageHR)
 	if wrap != nil {
