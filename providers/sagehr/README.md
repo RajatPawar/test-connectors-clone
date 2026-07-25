@@ -1,12 +1,17 @@
-# Sage HR Connector
+# Sage HRIS Connector
 
-Read-only connector for the [Sage HR API](https://developer.sage.com/hr/docs/v1.0.0/guides/get-started/quick-start).
+Sage HR HRIS integration. Read-only connector for the [Sage HR API](https://developer.sage.com/hr/docs/v1.0.0/guides/get-started/quick-start).
 
 ## Auth
 
-API key, sent in the `X-Auth-Token` header. Generated per-user under
-**Settings > Integrations > API** (requires an Admin user); invalidated if
-that admin loses admin rights — expect silent 401s in that case.
+API key ("API Token"), sent in the `X-Auth-Token` header. Generated per-user
+under **Settings > Integrations > API** (requires an Admin user); invalidated
+if that admin loses admin rights — expect silent 401s in that case.
+
+> Note: `ProviderInfo`/`ApiKeyOpts` (providers/types.gen.go) has no field to
+> set a custom display label on the ApiKey credential input itself — the
+> credential input is labeled generically by the platform frontend. See the
+> `// TODO` in `providers/sagehr.go` for details.
 
 ## Base URL
 
