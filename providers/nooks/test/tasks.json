@@ -1,0 +1,53 @@
+{
+  "data": [
+    {
+      "id": "dd0e8400-e29b-41d4-a716-446655440050",
+      "note": "Old task, outside the requested window",
+      "dueAt": "2026-01-02T00:00:00.000Z",
+      "owner": {
+        "id": "KKLvN5wQoghWFwUvC75CZ12QM7I3",
+        "_href": "/v1/users/KKLvN5wQoghWFwUvC75CZ12QM7I3"
+      },
+      "action": "call",
+      "status": "finished",
+      "priority": "normal",
+      "prospect": {
+        "id": "770e8400-e29b-41d4-a716-446655440003",
+        "_href": "/v1/prospects/770e8400-e29b-41d4-a716-446655440003"
+      },
+      "sequence": null,
+      "completed": true,
+      "createdAt": "2026-01-01T00:00:00.000Z",
+      "updatedAt": "2026-01-01T00:00:00.000Z",
+      "sequenceStep": null,
+      "sequenceState": null
+    },
+    {
+      "id": "dd1e8400-e29b-41d4-a716-446655440051",
+      "note": "Follow-up call",
+      "dueAt": "2026-03-20T15:00:00.000Z",
+      "owner": {
+        "id": "KKLvN5wQoghWFwUvC75CZ12QM7I3",
+        "_href": "/v1/users/KKLvN5wQoghWFwUvC75CZ12QM7I3"
+      },
+      "action": "call",
+      "status": "ready",
+      "priority": "high",
+      "prospect": {
+        "id": "990e8400-e29b-41d4-a716-446655440020",
+        "_href": "/v1/prospects/990e8400-e29b-41d4-a716-446655440020"
+      },
+      "sequence": null,
+      "completed": false,
+      "createdAt": "2026-03-18T12:00:00.000Z",
+      "updatedAt": "2026-03-18T12:00:00.000Z",
+      "sequenceStep": null,
+      "sequenceState": null
+    }
+  ],
+  "links": {
+    "next": null,
+    "prev": null,
+    "first": "https://partner-api.nooks.in/v1/tasks?page[size]=50"
+  }
+}
