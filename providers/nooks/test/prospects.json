@@ -1,0 +1,31 @@
+{
+  "data": [
+    {
+      "id": "990e8400-e29b-41d4-a716-446655440020",
+      "name": "Jane Doe",
+      "crmId": "003ABC123DEF456",
+      "title": "VP of Engineering",
+      "account": {
+        "id": "aa0e8400-e29b-41d4-a716-446655440030",
+        "_href": "/v1/accounts/aa0e8400-e29b-41d4-a716-446655440030"
+      },
+      "lastName": "Doe",
+      "createdAt": "2025-10-01T10:00:00.000Z",
+      "firstName": "Jane",
+      "updatedAt": "2025-11-15T14:30:00.000Z",
+      "linkedInUrl": "https://linkedin.com/in/janedoe",
+      "primaryEmail": "jane@acme.com",
+      "sequenceStates": [
+        {
+          "id": "880e8400-e29b-41d4-a716-446655440010",
+          "_href": "/v1/sequenceStates/880e8400-e29b-41d4-a716-446655440010"
+        }
+      ]
+    }
+  ],
+  "links": {
+    "next": null,
+    "prev": null,
+    "first": "https://partner-api.nooks.in/v1/prospects?page[size]=50"
+  }
+}

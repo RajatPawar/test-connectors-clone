@@ -100,6 +100,7 @@ import (
 	"github.com/amp-labs/connectors/providers/monday"
 	"github.com/amp-labs/connectors/providers/netsuite"
 	netsuitem2m "github.com/amp-labs/connectors/providers/netsuite/m2m"
+	"github.com/amp-labs/connectors/providers/nooks"
 	"github.com/amp-labs/connectors/providers/nutshell"
 	"github.com/amp-labs/connectors/providers/odoo"
 	"github.com/amp-labs/connectors/providers/okta"
@@ -253,6 +254,7 @@ var connectorConstructors = map[providers.Provider]outputConstructorFunc{ // nol
 	providers.Monday:                     wrapper(newMondayConnector),
 	providers.Netsuite:                   wrapper(newNetsuiteConnector),
 	providers.NetsuiteM2M:                wrapper(newNetsuiteM2MConnector),
+	providers.Nooks:                      wrapper(newNooksConnector),
 	providers.Nutshell:                   wrapper(newNutshellConnector),
 	providers.Odoo:                       wrapper(newOdooConnector),
 	providers.Okta:                       wrapper(newOktaConnector),
@@ -713,6 +715,12 @@ func newNutshellConnector(
 	params common.ConnectorParams,
 ) (*nutshell.Connector, error) {
 	return nutshell.NewConnector(params)
+}
+
+func newNooksConnector(
+	params common.ConnectorParams,
+) (*nooks.Connector, error) {
+	return nooks.NewConnector(params)
 }
 
 func newOktaConnector(
