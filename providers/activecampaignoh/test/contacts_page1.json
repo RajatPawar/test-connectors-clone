@@ -1,0 +1,23 @@
+{
+  "contacts": [
+    {
+      "id": "68",
+      "email": "janedoe@example.com",
+      "firstName": "John",
+      "lastName": "Doe",
+      "cdate": "2017-01-25T23:58:14-06:00",
+      "udate": "2017-01-25T23:58:14-06:00"
+    },
+    {
+      "id": "73",
+      "email": "aaronallen@example.com",
+      "firstName": "Aaron",
+      "lastName": "Allen",
+      "cdate": "2017-02-09T12:14:58-06:00",
+      "udate": "2017-02-09T12:14:58-06:00"
+    }
+  ],
+  "meta": {
+    "total": "150"
+  }
+}
