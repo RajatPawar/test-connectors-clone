@@ -8,6 +8,7 @@ import (
 	"github.com/amp-labs/connectors/common"
 	"github.com/amp-labs/connectors/providers"
 	"github.com/amp-labs/connectors/providers/acculynx"
+	"github.com/amp-labs/connectors/providers/activecampaign"
 	"github.com/amp-labs/connectors/providers/acuityscheduling"
 	"github.com/amp-labs/connectors/providers/aha"
 	"github.com/amp-labs/connectors/providers/aircall"
@@ -159,6 +160,7 @@ func New(provider providers.Provider, params common.ConnectorParams) (connectors
 var connectorConstructors = map[providers.Provider]outputConstructorFunc{ // nolint:gochecknoglobals
 	providers.AWS:                        wrapper(newAWSConnector),
 	providers.AccuLynx:                   wrapper(newAccuLynxConnector),
+	providers.ActiveCampaign:             wrapper(newActiveCampaignConnector),
 	providers.AcuityScheduling:           wrapper(newAcuitySchedulingConnector),
 	providers.Aha:                        wrapper(newAhaConnector),
 	providers.Aircall:                    wrapper(newAircallConnector),
@@ -1168,6 +1170,10 @@ func newAcuitySchedulingConnector(
 
 func newAccuLynxConnector(params common.ConnectorParams) (*acculynx.Connector, error) {
 	return acculynx.NewConnector(params)
+}
+
+func newActiveCampaignConnector(params common.ConnectorParams) (*activecampaign.Connector, error) {
+	return activecampaign.NewConnector(params)
 }
 
 func newShopifyConnector(
