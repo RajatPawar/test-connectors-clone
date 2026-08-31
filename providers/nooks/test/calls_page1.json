@@ -1,0 +1,56 @@
+{
+  "data": [
+    {
+      "id": "ff0e8400-e29b-41d4-a716-446655440060",
+      "to": "+14155555678",
+      "from": "+14155551234",
+      "owner": {
+        "id": "KKLvN5wQoghWFwUvC75CZ12QM7I3",
+        "_href": "/v1/users/KKLvN5wQoghWFwUvC75CZ12QM7I3"
+      },
+      "source": "nooks",
+      "duration": 120.5,
+      "prospect": {
+        "id": "770e8400-e29b-41d4-a716-446655440003",
+        "_href": "/v1/prospects/770e8400-e29b-41d4-a716-446655440003"
+      },
+      "sequence": {
+        "id": "550e8400-e29b-41d4-a716-446655440000",
+        "_href": "/v1/sequences/550e8400-e29b-41d4-a716-446655440000"
+      },
+      "createdAt": "2025-11-01T10:00:00.000Z",
+      "direction": "outgoing",
+      "updatedAt": "2025-11-01T10:02:00.000Z",
+      "recordingUrl": "https://example.com/recordings/abc123",
+      "sequenceStep": {
+        "id": "aa0e8400-e29b-41d4-a716-446655440030",
+        "_href": "/v1/sequenceSteps/aa0e8400-e29b-41d4-a716-446655440030"
+      },
+      "callDisposition": {
+        "id": "dd0e8400-e29b-41d4-a716-446655440070",
+        "_href": "/v1/callDispositions/dd0e8400-e29b-41d4-a716-446655440070"
+      }
+    },
+    {
+      "id": "ff1e8400-e29b-41d4-a716-446655440061",
+      "to": "+14155559999",
+      "from": "+14155551234",
+      "owner": null,
+      "source": "nooks",
+      "duration": 45,
+      "prospect": null,
+      "sequence": null,
+      "createdAt": "2025-11-02T14:00:00.000Z",
+      "direction": "outgoing",
+      "updatedAt": "2025-11-02T14:00:45.000Z",
+      "recordingUrl": null,
+      "sequenceStep": null,
+      "callDisposition": null
+    }
+  ],
+  "links": {
+    "next": "/v1/calls?page%5Bsize%5D=50&page%5Bafter%5D=eyJpZCI6ImZmMWU4NDAwLWUyOWItNDFkNC1hNzE2LTQ0NjY1NTQ0MDA2MSIsInYiOjF9",
+    "prev": null,
+    "first": "https://partner-api.nooks.in/v1/calls?page[size]=50"
+  }
+}
