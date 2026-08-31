@@ -9,6 +9,7 @@ import (
 
 	"github.com/amp-labs/connectors/common"
 	"github.com/amp-labs/connectors/common/naming"
+	"github.com/amp-labs/connectors/common/readhelper"
 	"github.com/amp-labs/connectors/common/urlbuilder"
 )
 
@@ -116,7 +117,7 @@ func (c *Connector) parseReadResponse(
 		response,
 		recordsFromNode(params.ObjectName),
 		nextRecordsURL(currentOffset),
-		common.GetMarshaledData,
+		readhelper.MakeGetMarshaledDataWithId(readhelper.NewIdField("id")),
 		params.Fields,
 	)
 }
