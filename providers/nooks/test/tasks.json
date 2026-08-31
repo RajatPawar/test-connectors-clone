@@ -1,0 +1,66 @@
+{
+  "data": [
+    {
+      "id": "aa10e8400-e29b-41d4-a716-446655440101",
+      "note": "Follow up call",
+      "dueAt": "2024-01-02T00:00:00.000Z",
+      "owner": {
+        "id": "KKLvN5wQoghWFwUvC75CZ12QM7I3",
+        "_href": "/v1/users/KKLvN5wQoghWFwUvC75CZ12QM7I3"
+      },
+      "action": "call",
+      "status": "open",
+      "priority": "normal",
+      "prospect": null,
+      "sequence": null,
+      "completed": false,
+      "createdAt": "2024-01-01T00:00:00.000Z",
+      "updatedAt": "2024-01-01T00:00:00.000Z",
+      "sequenceStep": null,
+      "sequenceState": null
+    },
+    {
+      "id": "aa11e8400-e29b-41d4-a716-446655440102",
+      "note": "Send pricing sheet",
+      "dueAt": "2024-07-02T00:00:00.000Z",
+      "owner": {
+        "id": "KKLvN5wQoghWFwUvC75CZ12QM7I3",
+        "_href": "/v1/users/KKLvN5wQoghWFwUvC75CZ12QM7I3"
+      },
+      "action": "manual_email",
+      "status": "open",
+      "priority": "high",
+      "prospect": null,
+      "sequence": null,
+      "completed": false,
+      "createdAt": "2024-07-01T00:00:00.000Z",
+      "updatedAt": "2024-07-01T00:00:00.000Z",
+      "sequenceStep": null,
+      "sequenceState": null
+    },
+    {
+      "id": "aa12e8400-e29b-41d4-a716-446655440103",
+      "note": "Book demo",
+      "dueAt": "2024-08-02T00:00:00.000Z",
+      "owner": {
+        "id": "KKLvN5wQoghWFwUvC75CZ12QM7I3",
+        "_href": "/v1/users/KKLvN5wQoghWFwUvC75CZ12QM7I3"
+      },
+      "action": "basic_task",
+      "status": "completed",
+      "priority": "urgent",
+      "prospect": null,
+      "sequence": null,
+      "completed": true,
+      "createdAt": "2024-08-01T00:00:00.000Z",
+      "updatedAt": "2024-08-01T00:00:00.000Z",
+      "sequenceStep": null,
+      "sequenceState": null
+    }
+  ],
+  "links": {
+    "next": null,
+    "prev": null,
+    "first": "https://partner-api.nooks.in/v1/tasks?page[size]=50"
+  }
+}
