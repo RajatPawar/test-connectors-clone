@@ -1,0 +1,15 @@
+{
+  "contacts": [
+    {
+      "cdate": "2017-02-09T12:14:58-06:00",
+      "email": "aaronallen@example.com",
+      "firstName": "Aaron",
+      "lastName": "Allen",
+      "udate": "2017-02-09T12:14:58-06:00",
+      "id": "73"
+    }
+  ],
+  "meta": {
+    "total": "2"
+  }
+}

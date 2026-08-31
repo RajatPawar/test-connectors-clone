@@ -1,0 +1,19 @@
+{
+  "accounts": [
+    {
+      "id": "1",
+      "name": "Old Account",
+      "createdTimestamp": "2015-01-01T00:00:00-05:00",
+      "updatedTimestamp": "2015-01-01T00:00:00-05:00"
+    },
+    {
+      "id": "2",
+      "name": "Recent Account",
+      "createdTimestamp": "2024-06-01T00:00:00-05:00",
+      "updatedTimestamp": "2024-06-01T00:00:00-05:00"
+    }
+  ],
+  "meta": {
+    "total": "2"
+  }
+}

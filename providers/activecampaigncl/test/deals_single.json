@@ -1,0 +1,18 @@
+{
+  "deals": [
+    {
+      "id": "1",
+      "cdate": "2019-04-29T07:51:31-05:00",
+      "mdate": "2019-04-29T07:51:31-05:00",
+      "title": "New deal",
+      "value": "5000",
+      "currency": "usd",
+      "status": "0",
+      "stage": "1",
+      "group": "1"
+    }
+  ],
+  "meta": {
+    "total": "1"
+  }
+}
