@@ -1,0 +1,836 @@
+{
+  "modules": {
+    "root": {
+      "objects": {
+        "calls": {
+          "displayName": "Calls",
+          "path": "/calls",
+          "responseKey": "data",
+          "fields": {
+            "id": {
+              "displayName": "id",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "to": {
+              "displayName": "to",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "from": {
+              "displayName": "from",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "time": {
+              "displayName": "time",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "owner": {
+              "displayName": "owner",
+              "providerType": "object",
+              "valueType": "other"
+            },
+            "source": {
+              "displayName": "source",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "duration": {
+              "displayName": "duration",
+              "providerType": "number",
+              "valueType": "other"
+            },
+            "prospect": {
+              "displayName": "prospect",
+              "providerType": "object",
+              "valueType": "other"
+            },
+            "sequence": {
+              "displayName": "sequence",
+              "providerType": "object",
+              "valueType": "other"
+            },
+            "createdAt": {
+              "displayName": "createdAt",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "direction": {
+              "displayName": "direction",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "updatedAt": {
+              "displayName": "updatedAt",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "recordingUrl": {
+              "displayName": "recordingUrl",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "sequenceStep": {
+              "displayName": "sequenceStep",
+              "providerType": "object",
+              "valueType": "other"
+            },
+            "callDisposition": {
+              "displayName": "callDisposition",
+              "providerType": "object",
+              "valueType": "other"
+            }
+          }
+        },
+        "tasks": {
+          "displayName": "Tasks",
+          "path": "/tasks",
+          "responseKey": "data",
+          "fields": {
+            "id": {
+              "displayName": "id",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "note": {
+              "displayName": "note",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "dueAt": {
+              "displayName": "dueAt",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "owner": {
+              "displayName": "owner",
+              "providerType": "object",
+              "valueType": "other"
+            },
+            "action": {
+              "displayName": "action",
+              "providerType": "string",
+              "valueType": "singleSelect",
+              "values": [
+                {
+                  "value": "call",
+                  "displayValue": "call"
+                },
+                {
+                  "value": "manual_email",
+                  "displayValue": "manual_email"
+                },
+                {
+                  "value": "auto_email",
+                  "displayValue": "auto_email"
+                },
+                {
+                  "value": "manual_email_reply",
+                  "displayValue": "manual_email_reply"
+                },
+                {
+                  "value": "auto_email_reply",
+                  "displayValue": "auto_email_reply"
+                },
+                {
+                  "value": "basic_task",
+                  "displayValue": "basic_task"
+                },
+                {
+                  "value": "linkedin_connection_request",
+                  "displayValue": "linkedin_connection_request"
+                },
+                {
+                  "value": "manual_linkedin_connection_request",
+                  "displayValue": "manual_linkedin_connection_request"
+                },
+                {
+                  "value": "manual_linkedin_message",
+                  "displayValue": "manual_linkedin_message"
+                },
+                {
+                  "value": "automatic_linkedin_message",
+                  "displayValue": "automatic_linkedin_message"
+                },
+                {
+                  "value": "manual_sms",
+                  "displayValue": "manual_sms"
+                },
+                {
+                  "value": "auto_sms",
+                  "displayValue": "auto_sms"
+                }
+              ]
+            },
+            "status": {
+              "displayName": "status",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "priority": {
+              "displayName": "priority",
+              "providerType": "string",
+              "valueType": "singleSelect",
+              "values": [
+                {
+                  "value": "low",
+                  "displayValue": "low"
+                },
+                {
+                  "value": "normal",
+                  "displayValue": "normal"
+                },
+                {
+                  "value": "high",
+                  "displayValue": "high"
+                },
+                {
+                  "value": "urgent",
+                  "displayValue": "urgent"
+                }
+              ]
+            },
+            "prospect": {
+              "displayName": "prospect",
+              "providerType": "object",
+              "valueType": "other"
+            },
+            "sequence": {
+              "displayName": "sequence",
+              "providerType": "object",
+              "valueType": "other"
+            },
+            "completed": {
+              "displayName": "completed",
+              "providerType": "boolean",
+              "valueType": "boolean"
+            },
+            "createdAt": {
+              "displayName": "createdAt",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "updatedAt": {
+              "displayName": "updatedAt",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "sequenceStep": {
+              "displayName": "sequenceStep",
+              "providerType": "object",
+              "valueType": "other"
+            },
+            "sequenceState": {
+              "displayName": "sequenceState",
+              "providerType": "object",
+              "valueType": "other"
+            }
+          }
+        },
+        "users": {
+          "displayName": "Users",
+          "path": "/users",
+          "responseKey": "data",
+          "fields": {
+            "id": {
+              "displayName": "id",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "name": {
+              "displayName": "name",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "crmId": {
+              "displayName": "crmId",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "email": {
+              "displayName": "email",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "createdAt": {
+              "displayName": "createdAt",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "updatedAt": {
+              "displayName": "updatedAt",
+              "providerType": "string",
+              "valueType": "string"
+            }
+          }
+        },
+        "emails": {
+          "displayName": "Emails",
+          "path": "/emails",
+          "responseKey": "data",
+          "fields": {
+            "id": {
+              "displayName": "id",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "to": {
+              "displayName": "to",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "date": {
+              "displayName": "date",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "from": {
+              "displayName": "from",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "type": {
+              "displayName": "type",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "status": {
+              "displayName": "status",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "subject": {
+              "displayName": "subject",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "bodyHtml": {
+              "displayName": "bodyHtml",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "bodyText": {
+              "displayName": "bodyText",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "openedAt": {
+              "displayName": "openedAt",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "prospect": {
+              "displayName": "prospect",
+              "providerType": "object",
+              "valueType": "other"
+            },
+            "sequence": {
+              "displayName": "sequence",
+              "providerType": "object",
+              "valueType": "other"
+            },
+            "bouncedAt": {
+              "displayName": "bouncedAt",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "clickedAt": {
+              "displayName": "clickedAt",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "createdAt": {
+              "displayName": "createdAt",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "openCount": {
+              "displayName": "openCount",
+              "providerType": "integer",
+              "valueType": "int"
+            },
+            "repliedAt": {
+              "displayName": "repliedAt",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "updatedAt": {
+              "displayName": "updatedAt",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "clickCount": {
+              "displayName": "clickCount",
+              "providerType": "integer",
+              "valueType": "int"
+            },
+            "recipients": {
+              "displayName": "recipients",
+              "providerType": "array",
+              "valueType": "other"
+            },
+            "deliveredAt": {
+              "displayName": "deliveredAt",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "sequenceStep": {
+              "displayName": "sequenceStep",
+              "providerType": "object",
+              "valueType": "other"
+            }
+          }
+        },
+        "accounts": {
+          "displayName": "Accounts",
+          "path": "/accounts",
+          "responseKey": "data",
+          "fields": {
+            "id": {
+              "displayName": "id",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "name": {
+              "displayName": "name",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "domain": {
+              "displayName": "domain",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "createdAt": {
+              "displayName": "createdAt",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "updatedAt": {
+              "displayName": "updatedAt",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "description": {
+              "displayName": "description",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "linkedInUrl": {
+              "displayName": "linkedInUrl",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "numEmployees": {
+              "displayName": "numEmployees",
+              "providerType": "integer",
+              "valueType": "int"
+            }
+          }
+        },
+        "mailboxes": {
+          "displayName": "Mailboxes",
+          "path": "/mailboxes",
+          "responseKey": "data",
+          "fields": {
+            "id": {
+              "displayName": "id",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "user": {
+              "displayName": "user",
+              "providerType": "object",
+              "valueType": "other"
+            },
+            "email": {
+              "displayName": "email",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "createdAt": {
+              "displayName": "createdAt",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "isDefault": {
+              "displayName": "isDefault",
+              "providerType": "boolean",
+              "valueType": "boolean"
+            },
+            "updatedAt": {
+              "displayName": "updatedAt",
+              "providerType": "string",
+              "valueType": "string"
+            }
+          }
+        },
+        "prospects": {
+          "displayName": "Prospects",
+          "path": "/prospects",
+          "responseKey": "data",
+          "fields": {
+            "id": {
+              "displayName": "id",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "name": {
+              "displayName": "name",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "crmId": {
+              "displayName": "crmId",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "title": {
+              "displayName": "title",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "account": {
+              "displayName": "account",
+              "providerType": "object",
+              "valueType": "other"
+            },
+            "lastName": {
+              "displayName": "lastName",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "createdAt": {
+              "displayName": "createdAt",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "firstName": {
+              "displayName": "firstName",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "updatedAt": {
+              "displayName": "updatedAt",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "linkedInUrl": {
+              "displayName": "linkedInUrl",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "primaryEmail": {
+              "displayName": "primaryEmail",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "sequenceStates": {
+              "displayName": "sequenceStates",
+              "providerType": "array",
+              "valueType": "other"
+            }
+          }
+        },
+        "sequences": {
+          "displayName": "Sequences",
+          "path": "/sequences",
+          "responseKey": "data",
+          "fields": {
+            "id": {
+              "displayName": "id",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "name": {
+              "displayName": "name",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "type": {
+              "displayName": "type",
+              "providerType": "string",
+              "valueType": "singleSelect",
+              "values": [
+                {
+                  "value": "date",
+                  "displayValue": "date"
+                },
+                {
+                  "value": "interval",
+                  "displayValue": "interval"
+                }
+              ]
+            },
+            "owner": {
+              "displayName": "owner",
+              "providerType": "object",
+              "valueType": "other"
+            },
+            "enabled": {
+              "displayName": "enabled",
+              "providerType": "boolean",
+              "valueType": "boolean"
+            },
+            "privacy": {
+              "displayName": "privacy",
+              "providerType": "string",
+              "valueType": "singleSelect",
+              "values": [
+                {
+                  "value": "private",
+                  "displayValue": "private"
+                },
+                {
+                  "value": "team_visible",
+                  "displayValue": "team_visible"
+                },
+                {
+                  "value": "team_editable",
+                  "displayValue": "team_editable"
+                }
+              ]
+            },
+            "createdAt": {
+              "displayName": "createdAt",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "updatedAt": {
+              "displayName": "updatedAt",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "sequenceSteps": {
+              "displayName": "sequenceSteps",
+              "providerType": "array",
+              "valueType": "other"
+            }
+          }
+        },
+        "sequenceSteps": {
+          "displayName": "Sequence Steps",
+          "path": "/sequenceSteps",
+          "responseKey": "data",
+          "fields": {
+            "id": {
+              "displayName": "id",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "name": {
+              "displayName": "name",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "note": {
+              "displayName": "note",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "order": {
+              "displayName": "order",
+              "providerType": "integer",
+              "valueType": "int"
+            },
+            "action": {
+              "displayName": "action",
+              "providerType": "string",
+              "valueType": "singleSelect",
+              "values": [
+                {
+                  "value": "call",
+                  "displayValue": "call"
+                },
+                {
+                  "value": "manual_email",
+                  "displayValue": "manual_email"
+                },
+                {
+                  "value": "auto_email",
+                  "displayValue": "auto_email"
+                },
+                {
+                  "value": "manual_email_reply",
+                  "displayValue": "manual_email_reply"
+                },
+                {
+                  "value": "auto_email_reply",
+                  "displayValue": "auto_email_reply"
+                },
+                {
+                  "value": "basic_task",
+                  "displayValue": "basic_task"
+                },
+                {
+                  "value": "linkedin_connection_request",
+                  "displayValue": "linkedin_connection_request"
+                },
+                {
+                  "value": "manual_linkedin_connection_request",
+                  "displayValue": "manual_linkedin_connection_request"
+                },
+                {
+                  "value": "manual_linkedin_message",
+                  "displayValue": "manual_linkedin_message"
+                },
+                {
+                  "value": "automatic_linkedin_message",
+                  "displayValue": "automatic_linkedin_message"
+                },
+                {
+                  "value": "manual_sms",
+                  "displayValue": "manual_sms"
+                },
+                {
+                  "value": "auto_sms",
+                  "displayValue": "auto_sms"
+                }
+              ]
+            },
+            "interval": {
+              "displayName": "interval",
+              "providerType": "integer",
+              "valueType": "int"
+            },
+            "sequence": {
+              "displayName": "sequence",
+              "providerType": "object",
+              "valueType": "other"
+            },
+            "template": {
+              "displayName": "template",
+              "providerType": "object",
+              "valueType": "other"
+            },
+            "createdAt": {
+              "displayName": "createdAt",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "updatedAt": {
+              "displayName": "updatedAt",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "hasAbVariants": {
+              "displayName": "hasAbVariants",
+              "providerType": "boolean",
+              "valueType": "boolean"
+            }
+          }
+        },
+        "sequenceStates": {
+          "displayName": "Sequence States",
+          "path": "/sequenceStates",
+          "responseKey": "data",
+          "fields": {
+            "id": {
+              "displayName": "id",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "owner": {
+              "displayName": "owner",
+              "providerType": "object",
+              "valueType": "other"
+            },
+            "state": {
+              "displayName": "state",
+              "providerType": "string",
+              "valueType": "singleSelect",
+              "values": [
+                {
+                  "value": "active",
+                  "displayValue": "active"
+                },
+                {
+                  "value": "paused",
+                  "displayValue": "paused"
+                },
+                {
+                  "value": "finished",
+                  "displayValue": "finished"
+                }
+              ]
+            },
+            "account": {
+              "displayName": "account",
+              "providerType": "object",
+              "valueType": "other"
+            },
+            "creator": {
+              "displayName": "creator",
+              "providerType": "object",
+              "valueType": "other"
+            },
+            "prospect": {
+              "displayName": "prospect",
+              "providerType": "object",
+              "valueType": "other"
+            },
+            "sequence": {
+              "displayName": "sequence",
+              "providerType": "object",
+              "valueType": "other"
+            },
+            "createdAt": {
+              "displayName": "createdAt",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "updatedAt": {
+              "displayName": "updatedAt",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "sequenceStep": {
+              "displayName": "sequenceStep",
+              "providerType": "object",
+              "valueType": "other"
+            }
+          }
+        },
+        "callDispositions": {
+          "displayName": "Call Dispositions",
+          "path": "/callDispositions",
+          "responseKey": "data",
+          "fields": {
+            "id": {
+              "displayName": "id",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "name": {
+              "displayName": "name",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "order": {
+              "displayName": "order",
+              "providerType": "integer",
+              "valueType": "int"
+            },
+            "createdAt": {
+              "displayName": "createdAt",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "updatedAt": {
+              "displayName": "updatedAt",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "callOutcome": {
+              "displayName": "callOutcome",
+              "providerType": "string",
+              "valueType": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}
