@@ -1,0 +1,63 @@
+{
+  "data": [
+    {
+      "id": "bb0e8400-e29b-41d4-a716-446655440010",
+      "note": "Follow up call",
+      "dueAt": "2024-12-05T00:00:00.000Z",
+      "owner": {
+        "id": "KKLvN5wQoghWFwUvC75CZ12QM7I3",
+        "_href": "/v1/users/KKLvN5wQoghWFwUvC75CZ12QM7I3"
+      },
+      "action": "call",
+      "status": "finished",
+      "priority": "normal",
+      "prospect": null,
+      "sequence": null,
+      "completed": true,
+      "createdAt": "2024-12-01T00:00:00.000Z",
+      "updatedAt": "2024-12-01T00:00:00.000Z",
+      "sequenceStep": null,
+      "sequenceState": null
+    },
+    {
+      "id": "bb1e8400-e29b-41d4-a716-446655440011",
+      "note": "Send pricing deck",
+      "dueAt": "2025-03-05T00:00:00.000Z",
+      "owner": {
+        "id": "KKLvN5wQoghWFwUvC75CZ12QM7I3",
+        "_href": "/v1/users/KKLvN5wQoghWFwUvC75CZ12QM7I3"
+      },
+      "action": "manual_email",
+      "status": "ready",
+      "priority": "high",
+      "prospect": null,
+      "sequence": null,
+      "completed": false,
+      "createdAt": "2025-03-01T00:00:00.000Z",
+      "updatedAt": "2025-03-01T00:00:00.000Z",
+      "sequenceStep": null,
+      "sequenceState": null
+    },
+    {
+      "id": "bb2e8400-e29b-41d4-a716-446655440012",
+      "note": "Check in",
+      "dueAt": "2025-07-05T00:00:00.000Z",
+      "owner": null,
+      "action": "basic_task",
+      "status": "pending",
+      "priority": "low",
+      "prospect": null,
+      "sequence": null,
+      "completed": false,
+      "createdAt": "2025-07-01T00:00:00.000Z",
+      "updatedAt": "2025-07-01T00:00:00.000Z",
+      "sequenceStep": null,
+      "sequenceState": null
+    }
+  ],
+  "links": {
+    "next": null,
+    "prev": null,
+    "first": "https://partner-api.nooks.in/v1/tasks?page%5Bsize%5D=50"
+  }
+}
