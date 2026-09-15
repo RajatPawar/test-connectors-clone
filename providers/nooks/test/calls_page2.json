@@ -1,0 +1,25 @@
+{
+  "data": [
+    {
+      "id": "ff1e8400-e29b-41d4-a716-446655440061",
+      "to": "+14155559999",
+      "from": "+14155551234",
+      "owner": null,
+      "source": "nooks",
+      "duration": 45,
+      "prospect": null,
+      "sequence": null,
+      "createdAt": "2025-11-02T14:00:00.000Z",
+      "direction": "outgoing",
+      "updatedAt": "2025-11-02T14:00:45.000Z",
+      "recordingUrl": null,
+      "sequenceStep": null,
+      "callDisposition": null
+    }
+  ],
+  "links": {
+    "next": null,
+    "prev": "https://partner-api.nooks.in/v1/calls?page[size]=50",
+    "first": "https://partner-api.nooks.in/v1/calls?page[size]=50"
+  }
+}

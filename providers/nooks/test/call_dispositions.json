@@ -1,0 +1,25 @@
+{
+  "data": [
+    {
+      "id": "dd0e8400-e29b-41d4-a716-446655440070",
+      "name": "Connected",
+      "order": 1,
+      "createdAt": "2025-10-01T10:00:00.000Z",
+      "updatedAt": "2025-10-01T10:00:00.000Z",
+      "callOutcome": "connected"
+    },
+    {
+      "id": "dd0e8400-e29b-41d4-a716-446655440071",
+      "name": "Left Voicemail",
+      "order": 2,
+      "createdAt": "2025-10-01T10:00:00.000Z",
+      "updatedAt": "2025-11-15T09:00:00.000Z",
+      "callOutcome": "voicemail"
+    }
+  ],
+  "links": {
+    "next": null,
+    "prev": null,
+    "first": "https://partner-api.nooks.in/v1/callDispositions?page[size]=50"
+  }
+}
