@@ -14,7 +14,7 @@ import (
 	"github.com/amp-labs/connectors/providers/amplitude"
 	"github.com/amp-labs/connectors/providers/apollo"
 	"github.com/amp-labs/connectors/providers/asana"
-	"github.com/amp-labs/connectors/providers/ashby"
+	"github.com/amp-labs/connectors/providers/ashbyselftest"
 	"github.com/amp-labs/connectors/providers/atlassian"
 	"github.com/amp-labs/connectors/providers/attio"
 	"github.com/amp-labs/connectors/providers/avoma"
@@ -681,8 +681,8 @@ func newBlueshiftConnector(
 
 func newAshbyConnector(
 	params common.ConnectorParams,
-) (*ashby.Connector, error) {
-	return ashby.NewConnector(params)
+) (*ashbyselftest.Connector, error) {
+	return ashbyselftest.NewConnector(params)
 }
 
 func newGithubConnector(
