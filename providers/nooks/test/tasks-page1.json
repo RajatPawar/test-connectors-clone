@@ -1,0 +1,62 @@
+{
+  "data": [
+    {
+      "id": "dd0e8400-e29b-41d4-a716-446655440050",
+      "note": "Initial outreach call",
+      "dueAt": "2026-03-19T23:26:21.536Z",
+      "owner": {
+        "id": "KKLvN5wQoghWFwUvC75CZ12QM7I3",
+        "_href": "/v1/users/KKLvN5wQoghWFwUvC75CZ12QM7I3"
+      },
+      "action": "call",
+      "status": "ready",
+      "priority": "normal",
+      "prospect": {
+        "id": "770e8400-e29b-41d4-a716-446655440003",
+        "_href": "/v1/prospects/770e8400-e29b-41d4-a716-446655440003"
+      },
+      "sequence": {
+        "id": "550e8400-e29b-41d4-a716-446655440000",
+        "_href": "/v1/sequences/550e8400-e29b-41d4-a716-446655440000"
+      },
+      "completed": false,
+      "createdAt": "2026-01-01T10:00:00.000Z",
+      "updatedAt": "2026-01-01T10:00:00.000Z",
+      "sequenceStep": {
+        "id": "aa0e8400-e29b-41d4-a716-446655440030",
+        "_href": "/v1/sequenceSteps/aa0e8400-e29b-41d4-a716-446655440030"
+      },
+      "sequenceState": {
+        "id": "880e8400-e29b-41d4-a716-446655440010",
+        "_href": "/v1/sequenceStates/880e8400-e29b-41d4-a716-446655440010"
+      }
+    },
+    {
+      "id": "dd1e8400-e29b-41d4-a716-446655440051",
+      "note": "Follow-up call",
+      "dueAt": "2026-03-20T15:00:00.000Z",
+      "owner": {
+        "id": "KKLvN5wQoghWFwUvC75CZ12QM7I3",
+        "_href": "/v1/users/KKLvN5wQoghWFwUvC75CZ12QM7I3"
+      },
+      "action": "call",
+      "status": "ready",
+      "priority": "high",
+      "prospect": {
+        "id": "990e8400-e29b-41d4-a716-446655440020",
+        "_href": "/v1/prospects/990e8400-e29b-41d4-a716-446655440020"
+      },
+      "sequence": null,
+      "completed": false,
+      "createdAt": "2026-03-18T12:00:00.000Z",
+      "updatedAt": "2026-03-18T12:00:00.000Z",
+      "sequenceStep": null,
+      "sequenceState": null
+    }
+  ],
+  "links": {
+    "next": null,
+    "prev": null,
+    "first": "/v1/tasks?page[size]=100"
+  }
+}

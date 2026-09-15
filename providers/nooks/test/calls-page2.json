@@ -1,0 +1,26 @@
+{
+  "data": [
+    {
+      "id": "ff2e8400-e29b-41d4-a716-446655440062",
+      "to": "+14155550000",
+      "from": "+14155551234",
+      "owner": null,
+      "source": "nooks",
+      "duration": 30,
+      "prospect": null,
+      "sequence": null,
+      "time": "2025-11-03T09:00:00.000Z",
+      "createdAt": "2025-11-03T09:00:00.000Z",
+      "direction": "incoming",
+      "updatedAt": "2025-11-03T09:00:30.000Z",
+      "recordingUrl": null,
+      "sequenceStep": null,
+      "callDisposition": null
+    }
+  ],
+  "links": {
+    "next": null,
+    "prev": "/v1/calls?page[size]=2&page[before]=eyJpZCI6ImZmMmU4NDAwLWUyOWItNDFkNC1hNzE2LTQ0NjY1NTQ0MDA2MiIsInYiOjF9",
+    "first": "/v1/calls?page[size]=2"
+  }
+}
