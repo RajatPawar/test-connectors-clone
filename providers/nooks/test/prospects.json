@@ -1,0 +1,26 @@
+{
+  "data": [
+    {
+      "id": "770e8400-e29b-41d4-a716-446655440003",
+      "name": "Jane Doe",
+      "firstName": "Jane",
+      "lastName": "Doe",
+      "title": "VP of Sales",
+      "primaryEmail": "jane@acme.com",
+      "linkedInUrl": "https://www.linkedin.com/in/janedoe",
+      "crmId": "003ABC123DEF456",
+      "account": {
+        "id": "990e8400-e29b-41d4-a716-446655440099",
+        "_href": "/v1/accounts/990e8400-e29b-41d4-a716-446655440099"
+      },
+      "sequenceStates": [],
+      "createdAt": "2025-10-01T00:00:00.000Z",
+      "updatedAt": "2025-10-15T12:30:00.000Z"
+    }
+  ],
+  "links": {
+    "next": null,
+    "prev": null,
+    "first": "https://partner-api.nooks.in/v1/prospects?page%5Bsize%5D=50"
+  }
+}
