@@ -1,0 +1,36 @@
+{
+  "success": true,
+  "moreDataAvailable": true,
+  "nextCursor": "G8",
+  "results": [
+    {
+      "id": "e9ed20fd-d45f-4aad-8a00-a19bfba0083e",
+      "createdAt": "2022-08-12T20:29:56.964Z",
+      "updatedAt": "2024-01-05T10:00:00.000Z",
+      "name": "Adam Hart",
+      "primaryEmailAddress": {
+        "value": "adam.hart@example.com",
+        "type": "Work",
+        "isPrimary": true
+      },
+      "emailAddresses": [
+        {
+          "value": "adam.hart@example.com",
+          "type": "Work",
+          "isPrimary": true
+        }
+      ],
+      "phoneNumbers": [],
+      "socialLinks": [
+        {
+          "url": "https://linkedin.com/in/adamhart",
+          "type": "LinkedIn"
+        }
+      ],
+      "tags": [],
+      "applicationIds": ["b4a1b1a1-1111-4aad-8a00-a19bfba0083e"],
+      "fileHandles": [],
+      "profileUrl": "https://app.ashbyhq.com/candidates/e9ed20fd-d45f-4aad-8a00-a19bfba0083e"
+    }
+  ]
+}

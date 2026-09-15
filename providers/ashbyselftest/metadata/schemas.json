@@ -1,0 +1,300 @@
+{
+  "modules": {
+    "root": {
+      "id": "root",
+      "path": "",
+      "objects": {
+        "candidate": {
+          "displayName": "Candidate",
+          "path": "candidate.list",
+          "responseKey": "results",
+          "fields": {
+            "id": { "displayName": "id", "valueType": "string", "providerType": "uuid" },
+            "createdAt": { "displayName": "createdAt", "valueType": "datetime", "providerType": "date-time" },
+            "updatedAt": { "displayName": "updatedAt", "valueType": "datetime", "providerType": "date-time" },
+            "name": { "displayName": "name", "valueType": "string", "providerType": "string" },
+            "primaryEmailAddress": { "displayName": "primaryEmailAddress", "valueType": "other", "providerType": "object" },
+            "emailAddresses": { "displayName": "emailAddresses", "valueType": "other", "providerType": "array" },
+            "primaryPhoneNumber": { "displayName": "primaryPhoneNumber", "valueType": "other", "providerType": "object" },
+            "phoneNumbers": { "displayName": "phoneNumbers", "valueType": "other", "providerType": "array" },
+            "socialLinks": { "displayName": "socialLinks", "valueType": "other", "providerType": "array" },
+            "tags": { "displayName": "tags", "valueType": "other", "providerType": "array" },
+            "position": { "displayName": "position", "valueType": "string", "providerType": "string" },
+            "company": { "displayName": "company", "valueType": "string", "providerType": "string" },
+            "school": { "displayName": "school", "valueType": "string", "providerType": "string" },
+            "applicationIds": { "displayName": "applicationIds", "valueType": "other", "providerType": "array" },
+            "resumeFileHandle": { "displayName": "resumeFileHandle", "valueType": "other", "providerType": "object" },
+            "fileHandles": { "displayName": "fileHandles", "valueType": "other", "providerType": "array" },
+            "customFields": { "displayName": "customFields", "valueType": "other", "providerType": "array" },
+            "profileUrl": { "displayName": "profileUrl", "valueType": "string", "providerType": "string" },
+            "source": { "displayName": "source", "valueType": "other", "providerType": "object" },
+            "creditedToUser": { "displayName": "creditedToUser", "valueType": "other", "providerType": "object" },
+            "timezone": { "displayName": "timezone", "valueType": "string", "providerType": "string" },
+            "location": { "displayName": "location", "valueType": "other", "providerType": "object" },
+            "fraudStatus": {
+              "displayName": "fraudStatus",
+              "valueType": "singleSelect",
+              "providerType": "string",
+              "values": [
+                { "value": "Fraudulent", "displayValue": "Fraudulent" },
+                { "value": "NotFraudulent", "displayValue": "NotFraudulent" },
+                { "value": "Unsure", "displayValue": "Unsure" },
+                { "value": "Unreviewed", "displayValue": "Unreviewed" },
+                { "value": "PassedFraudCheck", "displayValue": "PassedFraudCheck" }
+              ]
+            }
+          }
+        },
+        "application": {
+          "displayName": "Application",
+          "path": "application.list",
+          "responseKey": "results",
+          "fields": {
+            "id": { "displayName": "id", "valueType": "string", "providerType": "uuid" },
+            "createdAt": { "displayName": "createdAt", "valueType": "datetime", "providerType": "date-time" },
+            "updatedAt": { "displayName": "updatedAt", "valueType": "datetime", "providerType": "date-time" },
+            "status": {
+              "displayName": "status",
+              "valueType": "singleSelect",
+              "providerType": "string",
+              "values": [
+                { "value": "Hired", "displayValue": "Hired" },
+                { "value": "Archived", "displayValue": "Archived" },
+                { "value": "Active", "displayValue": "Active" },
+                { "value": "Lead", "displayValue": "Lead" }
+              ]
+            },
+            "customFields": { "displayName": "customFields", "valueType": "other", "providerType": "array" },
+            "candidate": { "displayName": "candidate", "valueType": "other", "providerType": "object" },
+            "currentInterviewStage": { "displayName": "currentInterviewStage", "valueType": "other", "providerType": "object" },
+            "source": { "displayName": "source", "valueType": "other", "providerType": "object" },
+            "archiveReason": { "displayName": "archiveReason", "valueType": "other", "providerType": "object" },
+            "archivedAt": { "displayName": "archivedAt", "valueType": "datetime", "providerType": "date-time" },
+            "job": { "displayName": "job", "valueType": "other", "providerType": "object" },
+            "creditedToUser": { "displayName": "creditedToUser", "valueType": "other", "providerType": "object" },
+            "hiringTeam": { "displayName": "hiringTeam", "valueType": "other", "providerType": "array" },
+            "appliedViaJobPostingId": { "displayName": "appliedViaJobPostingId", "valueType": "string", "providerType": "uuid" },
+            "submitterClientIp": { "displayName": "submitterClientIp", "valueType": "string", "providerType": "string" },
+            "submitterUserAgent": { "displayName": "submitterUserAgent", "valueType": "string", "providerType": "string" },
+            "openings": { "displayName": "openings", "valueType": "other", "providerType": "array" }
+          }
+        },
+        "job": {
+          "displayName": "Job",
+          "path": "job.list",
+          "responseKey": "results",
+          "fields": {
+            "id": { "displayName": "id", "valueType": "string", "providerType": "uuid" },
+            "title": { "displayName": "title", "valueType": "string", "providerType": "string" },
+            "confidential": { "displayName": "confidential", "valueType": "boolean", "providerType": "boolean" },
+            "status": {
+              "displayName": "status",
+              "valueType": "singleSelect",
+              "providerType": "string",
+              "values": [
+                { "value": "Draft", "displayValue": "Draft" },
+                { "value": "Open", "displayValue": "Open" },
+                { "value": "Closed", "displayValue": "Closed" },
+                { "value": "Archived", "displayValue": "Archived" }
+              ]
+            },
+            "employmentType": {
+              "displayName": "employmentType",
+              "valueType": "singleSelect",
+              "providerType": "string",
+              "values": [
+                { "value": "FullTime", "displayValue": "FullTime" },
+                { "value": "PartTime", "displayValue": "PartTime" },
+                { "value": "Intern", "displayValue": "Intern" },
+                { "value": "Contract", "displayValue": "Contract" },
+                { "value": "Temporary", "displayValue": "Temporary" }
+              ]
+            },
+            "locationId": { "displayName": "locationId", "valueType": "string", "providerType": "uuid" },
+            "departmentId": { "displayName": "departmentId", "valueType": "string", "providerType": "uuid" },
+            "defaultInterviewPlanId": { "displayName": "defaultInterviewPlanId", "valueType": "string", "providerType": "uuid" },
+            "interviewPlanIds": { "displayName": "interviewPlanIds", "valueType": "other", "providerType": "array" },
+            "customFields": { "displayName": "customFields", "valueType": "other", "providerType": "array" },
+            "jobPostingIds": { "displayName": "jobPostingIds", "valueType": "other", "providerType": "array" },
+            "customRequisitionId": { "displayName": "customRequisitionId", "valueType": "string", "providerType": "uuid" },
+            "brandId": { "displayName": "brandId", "valueType": "string", "providerType": "uuid" },
+            "hiringTeam": { "displayName": "hiringTeam", "valueType": "other", "providerType": "array" },
+            "author": { "displayName": "author", "valueType": "other", "providerType": "object" },
+            "createdAt": { "displayName": "createdAt", "valueType": "datetime", "providerType": "date-time" },
+            "updatedAt": { "displayName": "updatedAt", "valueType": "datetime", "providerType": "date-time" },
+            "openedAt": { "displayName": "openedAt", "valueType": "datetime", "providerType": "date-time" },
+            "closedAt": { "displayName": "closedAt", "valueType": "datetime", "providerType": "date-time" },
+            "location": { "displayName": "location", "valueType": "other", "providerType": "object" },
+            "openings": { "displayName": "openings", "valueType": "other", "providerType": "array" },
+            "compensation": { "displayName": "compensation", "valueType": "other", "providerType": "object" }
+          }
+        },
+        "jobPosting": {
+          "displayName": "Job Posting",
+          "path": "jobPosting.list",
+          "responseKey": "results",
+          "fields": {
+            "id": { "displayName": "id", "valueType": "string", "providerType": "uuid" },
+            "title": { "displayName": "title", "valueType": "string", "providerType": "string" },
+            "jobId": { "displayName": "jobId", "valueType": "string", "providerType": "uuid" },
+            "departmentName": { "displayName": "departmentName", "valueType": "string", "providerType": "string" },
+            "teamName": { "displayName": "teamName", "valueType": "string", "providerType": "string" },
+            "locationName": { "displayName": "locationName", "valueType": "string", "providerType": "string" },
+            "locationIds": { "displayName": "locationIds", "valueType": "other", "providerType": "object" },
+            "workplaceType": {
+              "displayName": "workplaceType",
+              "valueType": "singleSelect",
+              "providerType": "string",
+              "values": [
+                { "value": "OnSite", "displayValue": "OnSite" },
+                { "value": "Hybrid", "displayValue": "Hybrid" },
+                { "value": "Remote", "displayValue": "Remote" }
+              ]
+            },
+            "employmentType": {
+              "displayName": "employmentType",
+              "valueType": "singleSelect",
+              "providerType": "string",
+              "values": [
+                { "value": "FullTime", "displayValue": "FullTime" },
+                { "value": "PartTime", "displayValue": "PartTime" },
+                { "value": "Intern", "displayValue": "Intern" },
+                { "value": "Contract", "displayValue": "Contract" },
+                { "value": "Temporary", "displayValue": "Temporary" }
+              ]
+            },
+            "isListed": { "displayName": "isListed", "valueType": "boolean", "providerType": "boolean" },
+            "publishedDate": { "displayName": "publishedDate", "valueType": "string", "providerType": "string" },
+            "applicationDeadline": { "displayName": "applicationDeadline", "valueType": "datetime", "providerType": "date-time" },
+            "externalLink": { "displayName": "externalLink", "valueType": "string", "providerType": "string" },
+            "applyLink": { "displayName": "applyLink", "valueType": "string", "providerType": "string" },
+            "compensationTierSummary": { "displayName": "compensationTierSummary", "valueType": "string", "providerType": "string" },
+            "shouldDisplayCompensationOnJobBoard": { "displayName": "shouldDisplayCompensationOnJobBoard", "valueType": "boolean", "providerType": "boolean" },
+            "updatedAt": { "displayName": "updatedAt", "valueType": "datetime", "providerType": "date-time" }
+          }
+        },
+        "offer": {
+          "displayName": "Offer",
+          "path": "offer.list",
+          "responseKey": "results",
+          "fields": {
+            "id": { "displayName": "id", "valueType": "string", "providerType": "uuid" },
+            "decidedAt": { "displayName": "decidedAt", "valueType": "string", "providerType": "string" },
+            "applicationId": { "displayName": "applicationId", "valueType": "string", "providerType": "uuid" },
+            "acceptanceStatus": {
+              "displayName": "acceptanceStatus",
+              "valueType": "singleSelect",
+              "providerType": "string",
+              "values": [
+                { "value": "Accepted", "displayValue": "Accepted" },
+                { "value": "Declined", "displayValue": "Declined" },
+                { "value": "Pending", "displayValue": "Pending" },
+                { "value": "Created", "displayValue": "Created" },
+                { "value": "Cancelled", "displayValue": "Cancelled" },
+                { "value": "WaitingOnResponse", "displayValue": "WaitingOnResponse" }
+              ]
+            },
+            "offerStatus": {
+              "displayName": "offerStatus",
+              "valueType": "singleSelect",
+              "providerType": "string",
+              "values": [
+                { "value": "WaitingOnApprovalStart", "displayValue": "WaitingOnApprovalStart" },
+                { "value": "WaitingOnOfferApproval", "displayValue": "WaitingOnOfferApproval" },
+                { "value": "WaitingOnApprovalDefinition", "displayValue": "WaitingOnApprovalDefinition" },
+                { "value": "WaitingOnCandidateResponse", "displayValue": "WaitingOnCandidateResponse" },
+                { "value": "CandidateRejected", "displayValue": "CandidateRejected" },
+                { "value": "CandidateAccepted", "displayValue": "CandidateAccepted" },
+                { "value": "OfferCancelled", "displayValue": "OfferCancelled" }
+              ]
+            },
+            "latestVersion": { "displayName": "latestVersion", "valueType": "other", "providerType": "object" }
+          }
+        },
+        "opening": {
+          "displayName": "Opening",
+          "path": "opening.list",
+          "responseKey": "results",
+          "fields": {
+            "id": { "displayName": "id", "valueType": "string", "providerType": "uuid" },
+            "openedAt": { "displayName": "openedAt", "valueType": "datetime", "providerType": "date-time" },
+            "closedAt": { "displayName": "closedAt", "valueType": "datetime", "providerType": "date-time" },
+            "isArchived": { "displayName": "isArchived", "valueType": "boolean", "providerType": "boolean" },
+            "archivedAt": { "displayName": "archivedAt", "valueType": "datetime", "providerType": "date-time" },
+            "closeReasonId": { "displayName": "closeReasonId", "valueType": "string", "providerType": "uuid" },
+            "openingState": {
+              "displayName": "openingState",
+              "valueType": "singleSelect",
+              "providerType": "string",
+              "values": [
+                { "value": "Approved", "displayValue": "Approved" },
+                { "value": "Closed", "displayValue": "Closed" },
+                { "value": "Draft", "displayValue": "Draft" },
+                { "value": "Filled", "displayValue": "Filled" },
+                { "value": "Open", "displayValue": "Open" }
+              ]
+            },
+            "latestVersion": { "displayName": "latestVersion", "valueType": "other", "providerType": "object" }
+          }
+        },
+        "user": {
+          "displayName": "User",
+          "path": "user.list",
+          "responseKey": "results",
+          "fields": {
+            "id": { "displayName": "id", "valueType": "string", "providerType": "uuid" },
+            "firstName": { "displayName": "firstName", "valueType": "string", "providerType": "string" },
+            "lastName": { "displayName": "lastName", "valueType": "string", "providerType": "string" },
+            "email": { "displayName": "email", "valueType": "string", "providerType": "string" },
+            "globalRole": {
+              "displayName": "globalRole",
+              "valueType": "singleSelect",
+              "providerType": "string",
+              "values": [
+                { "value": "Organization Admin", "displayValue": "Organization Admin" },
+                { "value": "Elevated Access", "displayValue": "Elevated Access" },
+                { "value": "Limited Access", "displayValue": "Limited Access" },
+                { "value": "External Recruiter", "displayValue": "External Recruiter" }
+              ]
+            },
+            "isEnabled": { "displayName": "isEnabled", "valueType": "boolean", "providerType": "boolean" },
+            "updatedAt": { "displayName": "updatedAt", "valueType": "datetime", "providerType": "date-time" },
+            "managerId": { "displayName": "managerId", "valueType": "string", "providerType": "uuid" },
+            "customFields": { "displayName": "customFields", "valueType": "other", "providerType": "array" }
+          }
+        },
+        "interviewSchedule": {
+          "displayName": "Interview Schedule",
+          "path": "interviewSchedule.list",
+          "responseKey": "results",
+          "fields": {
+            "id": { "displayName": "id", "valueType": "string", "providerType": "string" },
+            "status": {
+              "displayName": "status",
+              "valueType": "singleSelect",
+              "providerType": "string",
+              "values": [
+                { "value": "NeedsScheduling", "displayValue": "NeedsScheduling" },
+                { "value": "WaitingOnCandidateBooking", "displayValue": "WaitingOnCandidateBooking" },
+                { "value": "WaitingOnCandidateAvailability", "displayValue": "WaitingOnCandidateAvailability" },
+                { "value": "CandidateAvailabilitySubmitted", "displayValue": "CandidateAvailabilitySubmitted" },
+                { "value": "Scheduled", "displayValue": "Scheduled" },
+                { "value": "WaitingOnFeedback", "displayValue": "WaitingOnFeedback" },
+                { "value": "Complete", "displayValue": "Complete" },
+                { "value": "Cancelled", "displayValue": "Cancelled" },
+                { "value": "OnHold", "displayValue": "OnHold" },
+                { "value": "Unknown", "displayValue": "Unknown" }
+              ]
+            },
+            "applicationId": { "displayName": "applicationId", "valueType": "string", "providerType": "string" },
+            "interviewStageId": { "displayName": "interviewStageId", "valueType": "string", "providerType": "string" },
+            "scheduledBy": { "displayName": "scheduledBy", "valueType": "other", "providerType": "object" },
+            "createdAt": { "displayName": "createdAt", "valueType": "datetime", "providerType": "date-time" },
+            "updatedAt": { "displayName": "updatedAt", "valueType": "datetime", "providerType": "date-time" },
+            "interviewEvents": { "displayName": "interviewEvents", "valueType": "other", "providerType": "array" }
+          }
+        }
+      }
+    }
+  }
+}

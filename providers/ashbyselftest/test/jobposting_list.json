@@ -1,0 +1,25 @@
+{
+  "success": true,
+  "results": [
+    {
+      "id": "e9ed20fd-d45f-4aad-8a00-a19bfba0083e",
+      "title": "Senior Backend Engineer",
+      "jobId": "b4a1b1a1-1111-4aad-8a00-a19bfba0083e",
+      "departmentName": "Engineering",
+      "teamName": "Platform",
+      "locationName": "Remote - USA",
+      "locationIds": {
+        "primaryLocationId": "c1a2b3c4-3333-4aad-8a00-a19bfba0083e",
+        "secondaryLocationIds": []
+      },
+      "workplaceType": "Remote",
+      "employmentType": "FullTime",
+      "isListed": true,
+      "publishedDate": "2024-01-10",
+      "externalLink": "https://jobs.ashbyhq.com/example/e9ed20fd-d45f-4aad-8a00-a19bfba0083e",
+      "applyLink": "https://jobs.ashbyhq.com/example/e9ed20fd-d45f-4aad-8a00-a19bfba0083e",
+      "shouldDisplayCompensationOnJobBoard": true,
+      "updatedAt": "2024-02-20T12:00:00.000Z"
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "success": true,
+  "moreDataAvailable": false,
+  "results": [
+    {
+      "id": "f1a2b3c4-2222-4aad-8a00-a19bfba0083e",
+      "createdAt": "2023-02-01T09:00:00.000Z",
+      "updatedAt": "2023-02-15T09:00:00.000Z",
+      "name": "Jamie Lee",
+      "primaryEmailAddress": {
+        "value": "jamie.lee@example.com",
+        "type": "Personal",
+        "isPrimary": true
+      },
+      "emailAddresses": [
+        {
+          "value": "jamie.lee@example.com",
+          "type": "Personal",
+          "isPrimary": true
+        }
+      ],
+      "phoneNumbers": [],
+      "socialLinks": [],
+      "tags": [],
+      "applicationIds": [],
+      "fileHandles": [],
+      "profileUrl": "https://app.ashbyhq.com/candidates/f1a2b3c4-2222-4aad-8a00-a19bfba0083e"
+    }
+  ]
+}
