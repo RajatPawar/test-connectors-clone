@@ -1,0 +1,31 @@
+{
+  "meta": {
+    "retrieved_at": "2025-07-31T12:05:00Z",
+    "has_more": false
+  },
+  "data": [
+    {
+      "id": "conversation_id_2",
+      "title": "follow-up sync",
+      "url": "https://otter.ai/u/conversation_id_2",
+      "owner": {
+        "id": "user_id",
+        "name": "Jane Doe",
+        "first_name": "Jane",
+        "last_name": "Doe",
+        "email": "Jane@test.com"
+      },
+      "created_at": "2025-07-30T12:00:00Z",
+      "process_status": {
+        "abstract_summary": "finished",
+        "action_item": "finished",
+        "outline": "finished"
+      },
+      "calendar_guests": null,
+      "shared_emails": [],
+      "shared_channels": [],
+      "abstract_summary": "Follow-up on action items from the launch meeting",
+      "conf_join_url": "https://zoom.us/j/0987654321"
+    }
+  ]
+}

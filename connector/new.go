@@ -108,6 +108,7 @@ import (
 	"github.com/amp-labs/connectors/providers/nutshell"
 	"github.com/amp-labs/connectors/providers/odoo"
 	"github.com/amp-labs/connectors/providers/okta"
+	otterai "github.com/amp-labs/connectors/providers/otter.ai"
 	"github.com/amp-labs/connectors/providers/outplay"
 	"github.com/amp-labs/connectors/providers/outreach"
 	"github.com/amp-labs/connectors/providers/paddle"
@@ -275,6 +276,7 @@ var connectorConstructors = map[providers.Provider]outputConstructorFunc{ // nol
 	providers.Nutshell:                          wrapper(newNutshellConnector),
 	providers.Odoo:                              wrapper(newOdooConnector),
 	providers.Okta:                              wrapper(newOktaConnector),
+	providers.OtterAI:                           wrapper(newOtterAIConnector),
 	providers.Outplay:                           wrapper(newOutplayConnector),
 	providers.Outreach:                          wrapper(newOutreachConnector),
 	providers.Paddle:                            wrapper(newPaddleConnector),
@@ -829,6 +831,12 @@ func newOktaConnector(
 	params common.ConnectorParams,
 ) (*okta.Connector, error) {
 	return okta.NewConnector(params)
+}
+
+func newOtterAIConnector(
+	params common.ConnectorParams,
+) (*otterai.Connector, error) {
+	return otterai.NewConnector(params)
 }
 
 func newOdooConnector(

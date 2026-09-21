@@ -1,0 +1,28 @@
+{
+  "meta": {
+    "retrieved_at": "2026-04-23T18:57:09Z"
+  },
+  "data": [
+    {
+      "id": "a1B2c3D4e5F6g7H8",
+      "name": "Jane Doe",
+      "first_name": "Jane",
+      "last_name": "Doe",
+      "email": "jane.doe@example.com"
+    },
+    {
+      "id": "h8G7f6E5d4C3b2A1",
+      "name": "John Smith",
+      "first_name": "John",
+      "last_name": "Smith",
+      "email": "john.smith@example.com"
+    },
+    {
+      "id": "z9Y8x7W6v5U4t3S2",
+      "name": "Alex Johnson",
+      "first_name": "Alex",
+      "last_name": "Johnson",
+      "email": "alex.johnson@example.com"
+    }
+  ]
+}

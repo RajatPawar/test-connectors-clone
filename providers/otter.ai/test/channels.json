@@ -1,0 +1,20 @@
+{
+  "meta": {
+    "retrieved_at": "2025-07-31T12:00:00Z"
+  },
+  "data": [
+    {
+      "id": "channel_id",
+      "name": "backend product meeting",
+      "member_count": 50,
+      "owner": {
+        "id": "user_id",
+        "name": "Jane Doe",
+        "first_name": "Jane",
+        "last_name": "Doe",
+        "email": "Jane@test.com"
+      },
+      "discoverability": "private"
+    }
+  ]
+}
