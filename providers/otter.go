@@ -7,7 +7,11 @@ func init() {
 	// Auth is a Bearer token in the Authorization header: "Authorization: Bearer YOUR_API_KEY".
 	// BaseURL is the bare host with NO /v1 suffix; the documented curls hit
 	// https://api.otter.ai/v1/... so the version segment belongs in the caller's path.
+	// The host is fixed for all consumers — there is no region/tenant/subdomain
+	// segment to template.
 	// The Public API is Enterprise-only and must be enabled by an Otter account manager.
+	// Rate limit: 10 requests/second per Enterprise user; exceeding it returns HTTP 429.
+	// This is a passthrough proxy, so the caller is responsible for staying within it.
 	SetInfo(Otter, ProviderInfo{
 		DisplayName: "Otter.ai",
 		AuthType:    ApiKey,
