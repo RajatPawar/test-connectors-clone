@@ -1,7 +1,7 @@
 package providers
 
 // Otter is the identifier for the Otter.ai provider.
-const Otter Provider = "otterAI"
+const Otter Provider = "Otter.ai"
 
 //nolint:lll
 func init() {
