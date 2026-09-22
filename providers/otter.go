@@ -1,6 +1,6 @@
 package providers
 
-const OtterAI Provider = "Otter.ai"
+const Otter Provider = "otter"
 
 func init() {
 	// Otter.ai Public API — proxy (auth) connector.
@@ -8,7 +8,7 @@ func init() {
 	// BaseURL is the bare host with NO /v1 suffix; the documented curls hit
 	// https://api.otter.ai/v1/... so the version segment belongs in the caller's path.
 	// The Public API is Enterprise-only and must be enabled by an Otter account manager.
-	SetInfo(OtterAI, ProviderInfo{
+	SetInfo(Otter, ProviderInfo{
 		DisplayName: "Otter.ai",
 		AuthType:    ApiKey,
 		BaseURL:     "https://api.otter.ai",
