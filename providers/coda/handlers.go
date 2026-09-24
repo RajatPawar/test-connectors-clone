@@ -12,6 +12,19 @@ import (
 	"github.com/amp-labs/connectors/internal/jsonquery"
 )
 
+// apiVersion is the Coda (Superhuman Docs) REST API version segment. It is kept
+// out of the provider BaseURL (repo convention: base URLs carry no version) and
+// prepended to every request path here.
+const apiVersion = "v1"
+
+// TODO(coda): the ACCEPTANCE spec mentions writing "columns", but the Coda
+// (Superhuman Docs) API exposes NO column-write endpoint. The only column
+// operations are listColumns (GET /docs/{docId}/tables/{tableId}/columns) and
+// getColumn (GET .../columns/{columnId}); both are read-only. Columns are
+// created/edited only through the Coda UI, so column writes cannot be
+// implemented via the API. This connector therefore writes table rows only;
+// per-column values are set through a row's cells (see buildCells). See README.
+
 // keyColumnsField is a reserved key inside RecordData. When present on an insert,
 // its value (a list of column IDs/names) is lifted out of the cells and sent as the
 // top-level `keyColumns` of the request, turning the insert into an upsert.
@@ -32,7 +45,9 @@ const keyColumnsField = "keyColumns"
 // {"column": <id/name>, "value": <value>}. Column IDs are preferred over names
 // (names are fragile), per the provider docs.
 func (c *Connector) buildWriteRequest(ctx context.Context, params common.WriteParams) (*http.Request, error) {
-	url, err := urlbuilder.New(c.ProviderInfo().BaseURL, params.ObjectName)
+	// The provider base URL carries no version segment (repo convention), so the
+	// API version `v1` is added here ahead of the object path.
+	url, err := urlbuilder.New(c.ProviderInfo().BaseURL, apiVersion, params.ObjectName)
 	if err != nil {
 		return nil, err
 	}

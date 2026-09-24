@@ -11,9 +11,15 @@ API supports only personal tokens; there is no OAuth 2.0 for direct API access.
 
 ## Base URL
 
-`https://docs.superhuman.com/apis/v1` — taken from the OpenAPI spec (`servers` /
-"API Endpoint"). Coda rebranded to Superhuman Docs; this is the canonical host in
-the current spec. (The provider docs page still shows some legacy `coda.io` URLs.)
+`https://docs.superhuman.com/apis` — host taken from the OpenAPI spec (`servers` /
+"API Endpoint", which documents `https://docs.superhuman.com/apis/v1`). Coda
+rebranded to Superhuman Docs; this is the canonical host in the current spec. (The
+provider docs page still shows some legacy `coda.io` URLs.)
+
+Per repo convention the provider base URL carries **no** version suffix, so the
+`v1` version segment is not part of `BaseURL`; the connector's request builder
+prepends it to every path (see `apiVersion` in `handlers.go`). Effective request
+paths are therefore `https://docs.superhuman.com/apis/v1/...`.
 
 ## Objects (write)
 
@@ -50,8 +56,22 @@ question); a poll-until-complete step is not performed inside this connector.
 Writing data (POST/PUT/PATCH): 10 requests / 6 seconds. Writing doc **content**:
 5 requests / 10 seconds. Responses use HTTP 429 when exceeded.
 
+## Columns — read-only in the Coda API
+
+The acceptance spec mentions writing "rows and columns", but the Coda
+(Superhuman Docs) API has **no column-write endpoint**. The only column
+operations are `listColumns` (`GET /docs/{docId}/tables/{tableId}/columns`) and
+`getColumn` (`GET .../columns/{columnId}`) — both read-only. Columns (the table
+schema) are created and edited only through the Coda UI. Per-column *values* are
+written as part of a row: each entry in `RecordData` becomes a cell targeting an
+existing column. So this connector satisfies the "column" part of the spec by
+setting column values on row writes; it cannot create or alter columns, because
+the provider offers no API for it.
+
 ## Not implemented
 
 - Read / subscribe (out of scope for this connector).
+- Column create/update — **not possible**: the Coda API has no column-write
+  endpoint (see above).
 - Row delete (`DELETE .../rows` and `.../rows/{rowId}`) — the API supports it, but
   it was not requested. Add via `components.Deleter` if needed.

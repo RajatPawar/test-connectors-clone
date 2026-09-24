@@ -7,11 +7,13 @@ func init() {
 	SetInfo(Coda, ProviderInfo{
 		DisplayName: "Coda",
 		AuthType:    ApiKey,
-		// Base URL taken verbatim from the OpenAPI spec `servers`/description
+		// Base host taken from the OpenAPI spec `servers`/description
 		// ("This API uses a base path of `https://docs.superhuman.com/apis/v1`") — Coda
 		// has rebranded to Superhuman Docs; docs.superhuman.com is the canonical host
 		// used throughout the current OpenAPI spec and code samples.
-		BaseURL: "https://docs.superhuman.com/apis/v1",
+		// Per repo convention the base URL carries no version suffix; the `v1`
+		// version segment is added by the connector's request builder.
+		BaseURL: "https://docs.superhuman.com/apis",
 		ApiKeyOpts: &ApiKeyOpts{
 			AttachmentType: Header,
 			Header: &ApiKeyOptsHeader{
