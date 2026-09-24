@@ -7,7 +7,11 @@ func init() {
 	SetInfo(Coda, ProviderInfo{
 		DisplayName: "Coda",
 		AuthType:    ApiKey,
-		BaseURL:     "https://coda.io/apis",
+		// Base URL taken verbatim from the OpenAPI spec `servers`/description
+		// ("This API uses a base path of `https://docs.superhuman.com/apis/v1`") — Coda
+		// has rebranded to Superhuman Docs; docs.superhuman.com is the canonical host
+		// used throughout the current OpenAPI spec and code samples.
+		BaseURL: "https://docs.superhuman.com/apis/v1",
 		ApiKeyOpts: &ApiKeyOpts{
 			AttachmentType: Header,
 			Header: &ApiKeyOptsHeader{
@@ -18,15 +22,15 @@ func init() {
 		},
 		Support: Support{
 			BulkWrite: BulkWriteSupport{
-				Insert: false,
-				Update: false,
-				Upsert: false,
+				Insert: true,
+				Update: true,
+				Upsert: true,
 				Delete: false,
 			},
 			Proxy:     true,
 			Read:      false,
 			Subscribe: false,
-			Write:     false,
+			Write:     true,
 		},
 		Media: &Media{
 			DarkMode: &MediaTypeDarkMode{
