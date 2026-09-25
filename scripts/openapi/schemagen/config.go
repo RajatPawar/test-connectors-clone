@@ -24,8 +24,25 @@ type Config struct {
 	// MediaType of request and response bodies. Default "application/json".
 	MediaType string `json:"mediaType,omitempty"`
 
+	// Require lists the objects this connector needs (its read/write scope). A run that does not
+	// produce every one of them FAILS, naming each missing object and why api3 could not extract
+	// it — so "the output silently lacks my object" is an error, never a success to rerun blindly.
+	Require []string `json:"require,omitempty"`
+
 	Read  ReadConfig             `json:"read"`
 	Write map[string]WriteConfig `json:"write,omitempty"`
+
+	// FieldOverrides corrects what the spec gets wrong, per object then field, applied last:
+	// {"contacts": {"id": {"readOnly": true}, "score": {"valueType": "float"}}}. Every override is
+	// in the committed config, so a reviewer sees each one.
+	FieldOverrides map[string]map[string]FieldOverride `json:"fieldOverrides,omitempty"`
+}
+
+// FieldOverride replaces one property of a generated field. Unset means keep the generated value.
+type FieldOverride struct {
+	ReadOnly    *bool  `json:"readOnly,omitempty"`
+	ValueType   string `json:"valueType,omitempty"`
+	DisplayName string `json:"displayName,omitempty"`
 }
 
 // ReadConfig selects the list endpoints objects are read from and how their records are found.
@@ -55,6 +72,9 @@ type ReadConfig struct {
 	// StripPathPrefix removes a prefix from every object path (e.g. "/v1" when the catalog
 	// BaseURL already ends in it).
 	StripPathPrefix string `json:"stripPathPrefix,omitempty"`
+	// ExcludeFields drops fields per object ("*" applies to every object):
+	// {"*": ["links"], "contacts": ["_embedded"]}.
+	ExcludeFields map[string][]string `json:"excludeFields,omitempty"`
 }
 
 // ResponseKeyConfig: Objects wins, then Default. Default is a field name, "@identical" (the field
@@ -70,6 +90,13 @@ type ResponseKeyConfig struct {
 type WriteConfig struct {
 	Create string `json:"create,omitempty"`
 	Update string `json:"update,omitempty"`
+	// BodyPath is where the record's fields sit inside the request body, dotted, when the body
+	// wraps them: "data.attributes" for JSON:API, "contact" for {"contact": {...}}. Default: the
+	// body itself.
+	BodyPath string `json:"bodyPath,omitempty"`
+	// ResponsePath is the same for the create's response (used only for objects that are written
+	// but not read): "data" for {"data": {...}}. Default: the response itself.
+	ResponsePath string `json:"responsePath,omitempty"`
 }
 
 func loadConfig(path string) (*Config, error) {

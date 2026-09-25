@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"os"
 	"path/filepath"
+	"strings"
 	"testing"
 
 	"github.com/amp-labs/connectors/common"
@@ -120,6 +121,76 @@ func TestConfigErrorsAreErrors(t *testing.T) {
 	} {
 		path := filepath.Join(dir, name+".json")
 		if err := os.WriteFile(path, []byte(cfg), 0o600); err != nil {
+			t.Fatal(err)
+		}
+
+		if err := run(path); err == nil {
+			t.Errorf("%s: expected an error", name)
+		}
+	}
+}
+
+func TestWrappedBodiesAndOverrides(t *testing.T) {
+	t.Parallel()
+
+	objects := generate(t, map[string]any{
+		"read": map[string]any{
+			"responseKey":   map[string]any{"default": "items"},
+			"excludeFields": map[string]any{"*": []string{"etag"}},
+		},
+		"write": map[string]any{"widgets": map[string]any{"create": "POST /widgets"}},
+		"fieldOverrides": map[string]any{
+			"widgets": map[string]any{"name": map[string]any{"readOnly": true, "displayName": "Widget name"}},
+		},
+	})
+
+	fields := objects["widgets"].Fields
+	if _, ok := fields["etag"]; ok {
+		t.Fatal("excluded field kept")
+	}
+
+	if !readOnly(t, fields["name"]) || fields["name"].DisplayName != "Widget name" {
+		t.Fatalf("override not applied: %+v", fields["name"])
+	}
+}
+
+func TestRequiredObjectsMustBeGenerated(t *testing.T) {
+	t.Parallel()
+
+	dir := t.TempDir()
+	path := filepath.Join(dir, "c.json")
+	cfg := `{"spec":"testdata/spec.yaml","output":"` + dir + `","require":["widgets","gizmos"],` +
+		`"read":{"responseKey":{"default":"items"}}}`
+
+	if err := os.WriteFile(path, []byte(cfg), 0o600); err != nil {
+		t.Fatal(err)
+	}
+
+	err := run(path)
+	if err == nil || !strings.Contains(err.Error(), "gizmos") || strings.Contains(err.Error(), "widgets (") {
+		t.Fatalf("expected only gizmos to be reported missing, got %v", err)
+	}
+}
+
+func TestBadPathsAndOverridesAreErrors(t *testing.T) {
+	t.Parallel()
+
+	dir := t.TempDir()
+
+	for name, cfg := range map[string]string{
+		"bodyPath":   `"write":{"widgets":{"create":"POST /widgets","bodyPath":"data.nope"}}`,
+		"override":   `"fieldOverrides":{"widgets":{"nmae":{"readOnly":true}}}`,
+		"no object":  `"fieldOverrides":{"gizmos":{"id":{"readOnly":true}}}`,
+		"no exclude": `"read":{"responseKey":{"default":"items"},"excludeFields":{"gizmos":["id"]}}`,
+	} {
+		if !strings.HasPrefix(cfg, `"read"`) {
+			cfg = `"read":{"responseKey":{"default":"items"}},` + cfg
+		}
+
+		path := filepath.Join(dir, name+".json")
+		body := `{"spec":"testdata/spec.yaml","output":"` + dir + `",` + cfg + `}`
+
+		if err := os.WriteFile(path, []byte(body), 0o600); err != nil {
 			t.Fatal(err)
 		}
 

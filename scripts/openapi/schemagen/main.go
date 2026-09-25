@@ -85,6 +85,14 @@ func run(configPath string) error {
 		return err
 	}
 
+	if err := applyOverrides(cfg, objects); err != nil {
+		return err
+	}
+
+	if err := checkRequired(cfg, objects, rep); err != nil {
+		return err
+	}
+
 	metadata := staticschema.NewMetadata[staticschema.FieldMetadataMapV2]()
 
 	for _, name := range sortedKeys(objects) {
@@ -232,7 +240,12 @@ func writeObjects(cfg *Config, doc *openapi3.T, objects map[string]*object, rep 
 				return fmt.Errorf("write.%s.%s: %s is not in the spec", name, kind, ref)
 			}
 
-			for field, p := range properties(requestSchema(op, cfg.MediaType)) {
+			body, err := descend(requestSchema(op, cfg.MediaType), wc.BodyPath)
+			if err != nil {
+				return fmt.Errorf("write.%s.bodyPath: %s request body: %w", name, ref, err)
+			}
+
+			for field, p := range properties(body) {
 				if !p.ReadOnly {
 					accepted[field] = p
 				}
@@ -254,7 +267,12 @@ func writeObjects(cfg *Config, doc *openapi3.T, objects map[string]*object, rep 
 			}
 
 			if method, path, err := operation(wc.Create); err == nil {
-				for field, p := range properties(successSchema(findOperation(doc, method, path), cfg.MediaType)) {
+				resp, err := descend(successSchema(findOperation(doc, method, path), cfg.MediaType), wc.ResponsePath)
+				if err != nil {
+					return fmt.Errorf("write.%s.responsePath: %s response: %w", name, wc.Create, err)
+				}
+
+				for field, p := range properties(resp) {
 					obj.props[field] = p
 				}
 			}
@@ -346,6 +364,103 @@ func findProperty(ref *openapi3.SchemaRef, name string, depth int) *openapi3.Sch
 				return p
 			}
 		}
+	}
+
+	return nil
+}
+
+// descend follows a dotted path of properties (through allOf/oneOf/anyOf) into a schema. An empty
+// path is the schema itself.
+func descend(ref *openapi3.SchemaRef, path string) (*openapi3.SchemaRef, error) {
+	if path == "" {
+		return ref, nil
+	}
+
+	for _, key := range strings.Split(path, ".") {
+		next := findProperty(ref, key, 0)
+		if next == nil {
+			return nil, fmt.Errorf("no property %q (path %q)", key, path)
+		}
+
+		ref = next
+	}
+
+	return ref, nil
+}
+
+// applyOverrides drops excluded fields and applies fieldOverrides. An override or exclusion that
+// names an object or field the output does not have is an error — it is a typo, or a config that
+// no longer matches the spec, and silently ignoring it would hide exactly that.
+func applyOverrides(cfg *Config, objects map[string]*object) error {
+	for objectName, fields := range cfg.Read.ExcludeFields {
+		targets := []string{objectName}
+		if objectName == "*" {
+			targets = sortedKeys(objects)
+		} else if _, ok := objects[objectName]; !ok {
+			return fmt.Errorf("read.excludeFields: no object %q in the output", objectName)
+		}
+
+		for _, target := range targets {
+			for _, field := range fields {
+				delete(objects[target].fields, field)
+			}
+		}
+	}
+
+	for objectName, fields := range cfg.FieldOverrides {
+		obj, ok := objects[objectName]
+		if !ok {
+			return fmt.Errorf("fieldOverrides: no object %q in the output", objectName)
+		}
+
+		for field, override := range fields {
+			fm, ok := obj.fields[field]
+			if !ok {
+				return fmt.Errorf("fieldOverrides.%s: no field %q in the output", objectName, field)
+			}
+
+			if override.ReadOnly != nil {
+				fm.ReadOnly = override.ReadOnly
+			}
+
+			if override.ValueType != "" {
+				fm.ValueType = common.ValueType(override.ValueType)
+			}
+
+			if override.DisplayName != "" {
+				fm.DisplayName = override.DisplayName
+			}
+
+			obj.fields[field] = fm
+		}
+	}
+
+	return nil
+}
+
+func checkRequired(cfg *Config, objects map[string]*object, rep *report) error {
+	var missing []string
+
+	for _, name := range cfg.Require {
+		if _, ok := objects[name]; ok {
+			continue
+		}
+
+		why := "no list endpoint in read (check read.allow/deny/objects) and no write entry"
+
+		for _, p := range rep.Problems {
+			if p.Object == name {
+				why = p.Path + ": " + p.Error
+
+				break
+			}
+		}
+
+		missing = append(missing, fmt.Sprintf("%s (%s)", name, why))
+	}
+
+	if len(missing) > 0 {
+		return fmt.Errorf("required objects not generated: %s", strings.Join(missing, "; "))
 	}
 
 	return nil
