@@ -10,6 +10,9 @@
 // can never mis-wire its own credentials. Objects/fields/times are flags; the
 // tool never validates an object, it just reads what it's handed and captures
 // the request/response/result faithfully (errors verbatim).
+//
+// The write shim (test/<name>/write) calls MainWrite instead — one create per object, capturing
+// the created record's id. See write.go.
 package capturekit
 
 import (
