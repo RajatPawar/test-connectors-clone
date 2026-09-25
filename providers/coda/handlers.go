@@ -12,6 +12,9 @@ import (
 )
 
 // The catalog BaseURL is https://coda.io/apis; every documented endpoint lives under /v1.
+// TODO: the OpenAPI servers[].url is now https://docs.superhuman.com/apis/v1 (product rename), while the
+// prose reference and the existing proxy catalog entry use https://coda.io/apis/v1. The catalog was left
+// unchanged to avoid breaking live proxy installations; confirm with the provider before switching hosts.
 const apiVersion = "v1"
 
 // buildWriteRequest creates a doc with POST /v1/docs and updates one with PATCH /v1/docs/{docId}.
