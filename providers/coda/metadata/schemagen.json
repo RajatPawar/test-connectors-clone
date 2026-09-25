@@ -1,0 +1,12 @@
+{
+  "spec": "https://coda.io/apis/v1/openapi.json",
+  "output": "providers/coda/metadata",
+  "require": ["docs"],
+  "read": {
+    "allow": ["/docs"],
+    "responseKey": {"default": "items"}
+  },
+  "write": {
+    "docs": {"create": "POST /docs", "update": "PATCH /docs/{docId}"}
+  }
+}

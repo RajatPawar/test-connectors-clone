@@ -1,0 +1,5 @@
+{
+  "statusCode": 403,
+  "statusMessage": "Forbidden",
+  "message": "The API token does not grant access to this resource."
+}

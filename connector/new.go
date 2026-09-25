@@ -40,6 +40,7 @@ import (
 	"github.com/amp-labs/connectors/providers/clickup"
 	"github.com/amp-labs/connectors/providers/closecrm"
 	"github.com/amp-labs/connectors/providers/cloudtalk"
+	"github.com/amp-labs/connectors/providers/coda"
 	"github.com/amp-labs/connectors/providers/constantcontact"
 	"github.com/amp-labs/connectors/providers/copper"
 	"github.com/amp-labs/connectors/providers/customerapp"
@@ -190,6 +191,7 @@ var connectorConstructors = map[providers.Provider]outputConstructorFunc{ // nol
 	providers.ClickUp:                    wrapper(newClickUpConnector),
 	providers.Close:                      wrapper(newCloseConnector),
 	providers.CloudTalk:                  wrapper(newCloudTalkConnector),
+	providers.Coda:                       wrapper(newCodaConnector),
 	providers.ConstantContact:            wrapper(newConstantContactConnector),
 	providers.Copper:                     wrapper(newCopperConnector),
 	providers.CustomerJourneysApp:        wrapper(newCustomerJourneysAppConnector),
@@ -617,6 +619,12 @@ func newCopperConnector(
 	params common.ConnectorParams,
 ) (*copper.Connector, error) {
 	return copper.NewConnector(params)
+}
+
+func newCodaConnector(
+	params common.ConnectorParams,
+) (*coda.Connector, error) {
+	return coda.NewConnector(params)
 }
 
 func newKeapConnector(

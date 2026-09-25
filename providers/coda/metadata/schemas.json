@@ -1,0 +1,149 @@
+{
+  "modules": {
+    "root": {
+      "id": "root",
+      "path": "",
+      "objects": {
+        "docs": {
+          "displayName": "Docs",
+          "path": "/docs",
+          "responseKey": "items",
+          "fields": {
+            "browserLink": {
+              "displayName": "browserLink",
+              "valueType": "string",
+              "providerType": "string",
+              "readOnly": true
+            },
+            "createdAt": {
+              "displayName": "createdAt",
+              "valueType": "datetime",
+              "providerType": "string",
+              "readOnly": true
+            },
+            "docSize": {
+              "displayName": "docSize",
+              "valueType": "other",
+              "providerType": "object",
+              "readOnly": true
+            },
+            "folder": {
+              "displayName": "folder",
+              "valueType": "other",
+              "providerType": "object",
+              "readOnly": true
+            },
+            "folderId": {
+              "displayName": "folderId",
+              "valueType": "string",
+              "providerType": "string",
+              "readOnly": false
+            },
+            "href": {
+              "displayName": "href",
+              "valueType": "string",
+              "providerType": "string",
+              "readOnly": true
+            },
+            "icon": {
+              "displayName": "icon",
+              "valueType": "other",
+              "providerType": "object",
+              "readOnly": true
+            },
+            "iconName": {
+              "displayName": "iconName",
+              "valueType": "string",
+              "providerType": "string",
+              "readOnly": false
+            },
+            "id": {
+              "displayName": "id",
+              "valueType": "string",
+              "providerType": "string",
+              "readOnly": true
+            },
+            "initialPage": {
+              "displayName": "initialPage",
+              "valueType": "other",
+              "providerType": "object",
+              "readOnly": false
+            },
+            "name": {
+              "displayName": "name",
+              "valueType": "string",
+              "providerType": "string",
+              "readOnly": true
+            },
+            "owner": {
+              "displayName": "owner",
+              "valueType": "string",
+              "providerType": "string",
+              "readOnly": true
+            },
+            "ownerName": {
+              "displayName": "ownerName",
+              "valueType": "string",
+              "providerType": "string",
+              "readOnly": true
+            },
+            "published": {
+              "displayName": "published",
+              "valueType": "other",
+              "providerType": "object",
+              "readOnly": true
+            },
+            "sourceDoc": {
+              "displayName": "sourceDoc",
+              "valueType": "other",
+              "providerType": "object",
+              "readOnly": false
+            },
+            "timezone": {
+              "displayName": "timezone",
+              "valueType": "string",
+              "providerType": "string",
+              "readOnly": false
+            },
+            "title": {
+              "displayName": "title",
+              "valueType": "string",
+              "providerType": "string",
+              "readOnly": false
+            },
+            "type": {
+              "displayName": "type",
+              "valueType": "singleSelect",
+              "providerType": "string",
+              "readOnly": true,
+              "values": [
+                {
+                  "value": "doc",
+                  "displayValue": "doc"
+                }
+              ]
+            },
+            "updatedAt": {
+              "displayName": "updatedAt",
+              "valueType": "datetime",
+              "providerType": "string",
+              "readOnly": true
+            },
+            "workspace": {
+              "displayName": "workspace",
+              "valueType": "other",
+              "providerType": "object",
+              "readOnly": true
+            },
+            "workspaceId": {
+              "displayName": "workspaceId",
+              "valueType": "string",
+              "providerType": "string",
+              "readOnly": true
+            }
+          }
+        }
+      }
+    }
+  }
+}
