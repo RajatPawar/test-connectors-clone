@@ -1,0 +1,128 @@
+{
+  "modules": {
+    "root": {
+      "id": "root",
+      "path": "",
+      "objects": {
+        "docs": {
+          "displayName": "Docs",
+          "path": "/docs",
+          "responseKey": "items",
+          "fields": {
+            "id": {
+              "displayName": "id",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "href": {
+              "displayName": "href",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "icon": {
+              "displayName": "icon",
+              "providerType": "object",
+              "valueType": "other"
+            },
+            "name": {
+              "displayName": "name",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "type": {
+              "displayName": "type",
+              "providerType": "string",
+              "valueType": "singleSelect",
+              "values": [
+                {
+                  "value": "doc",
+                  "displayValue": "doc"
+                }
+              ]
+            },
+            "owner": {
+              "displayName": "owner",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "folder": {
+              "displayName": "folder",
+              "providerType": "object",
+              "valueType": "other"
+            },
+            "docSize": {
+              "displayName": "docSize",
+              "providerType": "object",
+              "valueType": "other"
+            },
+            "folderId": {
+              "displayName": "folderId",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "createdAt": {
+              "displayName": "createdAt",
+              "providerType": "string",
+              "valueType": "datetime"
+            },
+            "ownerName": {
+              "displayName": "ownerName",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "published": {
+              "displayName": "published",
+              "providerType": "object",
+              "valueType": "other"
+            },
+            "sourceDoc": {
+              "displayName": "sourceDoc",
+              "providerType": "object",
+              "valueType": "other"
+            },
+            "updatedAt": {
+              "displayName": "updatedAt",
+              "providerType": "string",
+              "valueType": "datetime"
+            },
+            "workspace": {
+              "displayName": "workspace",
+              "providerType": "object",
+              "valueType": "other"
+            },
+            "browserLink": {
+              "displayName": "browserLink",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "workspaceId": {
+              "displayName": "workspaceId",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "title": {
+              "displayName": "title",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "timezone": {
+              "displayName": "timezone",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "iconName": {
+              "displayName": "iconName",
+              "providerType": "string",
+              "valueType": "string"
+            },
+            "initialPage": {
+              "displayName": "initialPage",
+              "providerType": "object",
+              "valueType": "other"
+            }
+          }
+        }
+      }
+    }
+  }
+}

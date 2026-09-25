@@ -1,0 +1,39 @@
+{
+  "id": "AbCDeFGH",
+  "type": "doc",
+  "href": "https://coda.io/apis/v1/docs/AbCDeFGH",
+  "browserLink": "https://coda.io/d/_dAbCDeFGH",
+  "icon": {
+    "name": "string",
+    "type": "string",
+    "browserLink": "https://cdn.coda.io/icons/png/color/icon-32.png"
+  },
+  "name": "Project Tracker",
+  "owner": "user@example.com",
+  "ownerName": "Some User",
+  "docSize": {
+    "totalRowCount": 31337,
+    "tableAndViewCount": 42,
+    "baseTableCount": 42,
+    "pageCount": 10,
+    "overApiSizeLimit": false
+  },
+  "createdAt": "2018-04-11T00:18:57.946Z",
+  "updatedAt": "2018-04-11T00:18:57.946Z",
+  "folder": {
+    "id": "fl-1Ab234",
+    "type": "folder",
+    "browserLink": "https://coda.io/folders/fl-1Ab234",
+    "name": "My docs"
+  },
+  "workspace": {
+    "id": "ws-1Ab234",
+    "type": "workspace",
+    "organizationId": "org-2Bc456",
+    "browserLink": "https://coda.io/docs?workspaceId=ws-1Ab234",
+    "name": "My workspace"
+  },
+  "workspaceId": "ws-1Ab234",
+  "folderId": "fl-1Ab234",
+  "requestId": "abc-123-def-456"
+}
