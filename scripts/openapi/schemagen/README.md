@@ -20,6 +20,7 @@ when the config or spec is unusable.
   "module": "root",                              // default root
   "hoistCommonPath": false,                      // true = common path prefix moves to the module path
   "mediaType": "application/json",               // e.g. application/vnd.api+json
+  "require": ["contacts", "deals"],              // objects in scope — missing one fails the run
   "read": {
     "method": "GET",                             // or POST for search-style reads
     "allow": ["/contacts", "/deals*"],           // exact, prefix* or *suffix; allow = the whole list
@@ -32,10 +33,16 @@ when the config or spec is unusable.
     "autoSelectArray": false,                    // take the only array-of-objects property
     "flatten": ["attributes"],                   // lift a nested object's fields (JSON:API)
     "onlyOptionalQueryParams": false,            // drop list endpoints needing a query param
-    "stripPathPrefix": "/v1"                     // when the catalog BaseURL already has it
+    "stripPathPrefix": "/v1",                    // when the catalog BaseURL already has it
+    "excludeFields": {"*": ["links"], "contacts": ["_embedded"]}
   },
   "write": {
-    "contacts": {"create": "POST /contacts", "update": "PATCH /contacts/{id}"}
+    "contacts": {"create": "POST /contacts", "update": "PATCH /contacts/{id}",
+                 "bodyPath": "data.attributes",  // fields inside a wrapped body (JSON:API)
+                 "responsePath": "data"}         // same for the create response (write-only objects)
+  },
+  "fieldOverrides": {                            // corrections, applied last, visible in review
+    "contacts": {"id": {"readOnly": true}, "score": {"valueType": "float"}}
   }
 }
 ```
@@ -48,6 +55,14 @@ writability is unknown (`readOnly` unset). The one exception is a field the spec
 
 **Types.** `number` becomes `float`, `date` and `date-time` become `date`/`datetime`, a string enum
 becomes `singleSelect`, and an array of enum strings becomes `multiSelect`.
+
+**Errors, not silent results.** The run fails, and changes nothing, in these cases:
+- a `require`d object was not generated (the error names the reason api3 gave);
+- a `bodyPath`/`responsePath` doesn't exist;
+- an override or exclusion names a missing object or field;
+- an unknown config key is used.
+
+A config that no longer matches the spec fails loudly.
 
 ## What it does not do
 
