@@ -65,17 +65,18 @@ func TestWrite(t *testing.T) { //nolint:funlen
 			},
 		},
 		{
-			Name: "Update doc responds with an empty object",
+			// PATCH /docs/{docId} responds 200 with `{}` (DocUpdateResult), which carries no id.
+			Name: "Update doc uses PATCH /docs/{docId} and RecordId falls back to the updated id",
 			Input: common.WriteParams{
 				ObjectName: "docs",
-				RecordId:   "AbCDeFGH",
+				RecordId:   "QrStUvWx",
 				RecordData: map[string]any{"title": "Renamed", "iconName": "rocket"},
 			},
 			Server: mockserver.Conditional{
 				Setup: mockserver.ContentJSON(),
 				If: mockcond.And{
 					mockcond.MethodPATCH(),
-					mockcond.Path("/apis/v1/docs/AbCDeFGH"),
+					mockcond.Path("/apis/v1/docs/QrStUvWx"),
 					mockcond.Body(`{"iconName":"rocket","title":"Renamed"}`),
 				},
 				Then: mockserver.Response(http.StatusOK, []byte(`{}`)),
@@ -83,7 +84,7 @@ func TestWrite(t *testing.T) { //nolint:funlen
 			Comparator: testconn.ComparatorSubsetWrite,
 			Expected: &common.WriteResult{
 				Success:  true,
-				RecordId: "AbCDeFGH",
+				RecordId: "QrStUvWx",
 				Data:     map[string]any{},
 			},
 		},
