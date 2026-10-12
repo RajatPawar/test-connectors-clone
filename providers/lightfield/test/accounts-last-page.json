@@ -1,0 +1,17 @@
+{
+  "data": [
+    {
+      "id": "acc_oldest",
+      "createdAt": "2025-11-20T08:00:00.000Z",
+      "updatedAt": "2025-12-01T10:00:00.000Z",
+      "httpLink": "https://crm.lightfield.app/crm/accounts/acc_oldest",
+      "externalId": null,
+      "fields": {
+        "$name": {"value": "Initech", "valueType": "TEXT"}
+      },
+      "relationships": {}
+    }
+  ],
+  "object": "list",
+  "totalCount": 3
+}

@@ -1,0 +1,6 @@
+{
+  "error": {
+    "type": "forbidden",
+    "message": "API key does not have the required scope."
+  }
+}

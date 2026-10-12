@@ -1,0 +1,8 @@
+{
+  "error": {
+    "type": "bad_request",
+    "message": "The Lightfield-Version header is missing or invalid.",
+    "code": "version_header",
+    "param": "Lightfield-Version"
+  }
+}
