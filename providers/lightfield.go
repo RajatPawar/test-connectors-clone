@@ -1,6 +1,6 @@
 package providers
 
-const Lightfield Provider = "lightfield"
+const Lightfield Provider = "Lightfield"
 
 func init() {
 	// Every request must also carry the `Lightfield-Version` header.
