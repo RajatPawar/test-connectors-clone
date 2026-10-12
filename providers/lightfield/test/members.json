@@ -1,0 +1,21 @@
+{
+  "data": [
+    {
+      "id": "mem_abc123",
+      "createdAt": "2025-10-01T00:00:00.000Z",
+      "updatedAt": "2026-02-01T00:00:00.000Z",
+      "httpLink": null,
+      "fields": {
+        "$email": {"value": "jane@example.com", "valueType": "EMAIL"},
+        "$name": {"value": {"firstName": "Jane", "lastName": "Doe"}, "valueType": "FULL_NAME"},
+        "$profileImage": {"value": null, "valueType": "URL"},
+        "$role": {"value": "admin", "valueType": "TEXT"}
+      },
+      "relationships": {
+        "$user": {"cardinality": "HAS_ONE", "objectType": "user", "values": ["usr_owner1"]}
+      }
+    }
+  ],
+  "object": "list",
+  "totalCount": 1
+}
