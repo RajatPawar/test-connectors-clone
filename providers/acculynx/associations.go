@@ -19,7 +19,7 @@ const (
 // Appointment->User edges to appointment rows produced by the calendars/
 // appointments fan-out. Both are reference-shape associations (ObjectId only,
 // the server hydrates via GetRecordsByIds) — the same shape as outreach's
-// collectAssociations, and unlike the embedded Job<->Contact edge above.
+// collectAssociations, and the same as the Job<->Contact edge below.
 //
 //   - Appointment->Job: the job id rides on the appointment body (jobId). It is
 //     empty for non-job calendar events (e.g. Personal), so the edge is emitted
@@ -72,15 +72,17 @@ func addAssociation(row *common.ReadResultRow, key, objectID string) {
 func attachNestedAssociations(params common.ReadParams, parentID string, rows []common.ReadResultRow) {
 	attachAppointmentAssociations(params, parentID, rows)
 	attachRepresentativeAssociations(params, parentID, rows)
+	attachFinancialAssociations(params, parentID, rows)
 }
 
-// representativeJobAssociation and estimateJobAssociation are the association
-// keys for the Representative->Job and Estimate->Job edges. Like the
+// representativeJobAssociation, estimateJobAssociation and financialJobAssociation are the association
+// keys for the Representative->Job, Estimate->Job, and Financial->Job edges. Like the
 // appointment keys above, they match the target object name the server
 // hydrates via GetRecordsByIds.
 const (
 	representativeJobAssociation = objectJobs
 	estimateJobAssociation       = objectJobs
+	financialJobAssociation      = objectJobs
 )
 
 // attachRepresentativeAssociations attaches the Representative->Job edge to
@@ -104,6 +106,22 @@ func attachRepresentativeAssociations(params common.ReadParams, jobID string, ro
 
 	for idx := range rows {
 		addAssociation(&rows[idx], representativeJobAssociation, jobID)
+	}
+}
+
+// attachFinancialAssociations attaches the Financial->Job edge to jobs/financials
+// rows, using the fan-out parent job id like attachRepresentativeAssociations.
+func attachFinancialAssociations(params common.ReadParams, jobID string, rows []common.ReadResultRow) {
+	if params.ObjectName != "jobs/financials" || jobID == "" {
+		return
+	}
+
+	if !slices.Contains(params.AssociatedObjects, financialJobAssociation) {
+		return
+	}
+
+	for idx := range rows {
+		addAssociation(&rows[idx], financialJobAssociation, jobID)
 	}
 }
 
@@ -142,14 +160,20 @@ func extractEstimateJobs(rows []common.ReadResultRow) {
 // AccuLynx returns on /jobs when the read is issued with ?includes=contacts.
 const jobContactsAssociation = "contacts"
 
-// extractJobContacts attaches each job's embedded contacts as associations.
+// extractJobContacts attaches each job's contacts as associations.
 //
 // AccuLynx returns the contacts inline on the job payload (with ?includes=contacts)
-// as an array of { contact: { id, ... }, isPrimary } entries. Unlike the HousecallPro
-// job->customer association (a single embedded object), a job carries an array of
-// contacts, so we emit one common.Association per entry, populating Raw from the
-// embedded contact (embed path -> server attaches it directly, no extra fetch) and
-// carrying isPrimary through in ProviderAssociationMetadata when present.
+// as an array of { contact: { id, ... }, isPrimary } entries. A job carries an
+// array of contacts, so we emit one common.Association per entry, carrying
+// isPrimary through in ProviderAssociationMetadata when present.
+//
+// The associations are reference shape (ObjectId only), like Appointment->Job:
+// the embedded contact is deliberately NOT used as Raw. AccuLynx does not apply
+// the contact expansions (emailAddress, phoneNumber) to contacts embedded in a
+// job, so the embedded copy carries phone numbers as {id, _link} stubs and an
+// empty email list. Leaving Raw empty makes the server hydrate each contact via
+// GetRecordsByIds, whose single-record fetch applies includesByObject — so the
+// associated contact arrives identical to one read from /contacts.
 func extractJobContacts(rows []common.ReadResultRow) {
 	for idx := range rows {
 		assocs := jobContactAssociations(rows[idx].Raw)
@@ -201,7 +225,7 @@ func jobContactAssociation(entry any) (common.Association, bool) {
 		return common.Association{}, false
 	}
 
-	assoc := common.Association{ObjectId: id, Raw: contact}
+	assoc := common.Association{ObjectId: id}
 
 	if v, ok := link["isPrimary"]; ok {
 		assoc.ProviderAssociationMetadata = map[string]any{"isPrimary": v}

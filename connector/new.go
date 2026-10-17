@@ -93,6 +93,7 @@ import (
 	"github.com/amp-labs/connectors/providers/klaviyo"
 	"github.com/amp-labs/connectors/providers/lemlist"
 	"github.com/amp-labs/connectors/providers/lever"
+	"github.com/amp-labs/connectors/providers/lightfield"
 	"github.com/amp-labs/connectors/providers/linear"
 	"github.com/amp-labs/connectors/providers/linkedin"
 	"github.com/amp-labs/connectors/providers/livestorm"
@@ -122,6 +123,7 @@ import (
 	"github.com/amp-labs/connectors/providers/quickbooks"
 	"github.com/amp-labs/connectors/providers/ramp"
 	"github.com/amp-labs/connectors/providers/recurly"
+	"github.com/amp-labs/connectors/providers/reply"
 	"github.com/amp-labs/connectors/providers/revenuecat"
 	"github.com/amp-labs/connectors/providers/ringcentral"
 	"github.com/amp-labs/connectors/providers/sageintacct"
@@ -254,6 +256,7 @@ var connectorConstructors = map[providers.Provider]outputConstructorFunc{ // nol
 	providers.Klaviyo:                           wrapper(newKlaviyoConnector),
 	providers.Lemlist:                           wrapper(newLemlistConnector),
 	providers.Lever:                             wrapper(newLeverConnector),
+	providers.Lightfield:                        wrapper(newLightfieldConnector),
 	providers.Linear:                            wrapper(newLinearConnector),
 	providers.LinkedIn:                          wrapper(newLinkedInConnector),
 	providers.Livestorm:                         wrapper(newLivestormConnector),
@@ -293,6 +296,7 @@ var connectorConstructors = map[providers.Provider]outputConstructorFunc{ // nol
 	providers.Ramp:                              wrapper(newRampConnector),
 	providers.RampDemo:                          wrapper(newRampDemoConnector),
 	providers.Recurly:                           wrapper(newRecurlyConnector),
+	providers.Reply:                             wrapper(newReplyConnector),
 	providers.RevenueCat:                        wrapper(newRevenueCatConnector),
 	providers.RingCentral:                       wrapper(newRingCentral),
 	providers.SageIntacct:                       wrapper(newSageIntacctConnector),
@@ -903,6 +907,12 @@ func newSellsyConnector(
 	return sellsy.NewConnector(params)
 }
 
+func newReplyConnector(
+	params common.ConnectorParams,
+) (*reply.Connector, error) {
+	return reply.NewConnector(params)
+}
+
 func newServiceNowConnector(
 	params common.ConnectorParams,
 ) (*servicenow.Connector, error) {
@@ -1033,6 +1043,12 @@ func newLeverConnector(
 	params common.ConnectorParams,
 ) (*lever.Connector, error) {
 	return lever.NewConnector(params)
+}
+
+func newLightfieldConnector(
+	params common.ConnectorParams,
+) (*lightfield.Connector, error) {
+	return lightfield.NewConnector(params)
 }
 
 func newBraintreeConnector(

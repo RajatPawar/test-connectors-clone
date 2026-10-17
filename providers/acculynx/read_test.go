@@ -183,7 +183,6 @@ func TestRead(t *testing.T) { //nolint:funlen,maintidx
 						Associations: map[string][]common.Association{
 							"contacts": {{
 								ObjectId:                    "ctc-100",
-								Raw:                         map[string]any{"id": "ctc-100", "firstName": "Diane"},
 								ProviderAssociationMetadata: map[string]any{"isPrimary": true},
 							}},
 						},
@@ -194,7 +193,6 @@ func TestRead(t *testing.T) { //nolint:funlen,maintidx
 						Associations: map[string][]common.Association{
 							"contacts": {{
 								ObjectId:                    "ctc-200",
-								Raw:                         map[string]any{"id": "ctc-200"},
 								ProviderAssociationMetadata: map[string]any{"isPrimary": true},
 							}},
 						},
@@ -574,6 +572,65 @@ func TestRead(t *testing.T) { //nolint:funlen,maintidx
 					{
 						Fields: map[string]any{"jobid": "job-002", "balancedue": 150.75},
 						Raw:    map[string]any{"jobId": "job-002", "balanceDue": 150.75},
+					},
+				},
+				NextPage: testconn.URLTestServer +
+					"/api/v2/jobs?assignment=unassigned&includes=initialAppointment&pageSize=25&pageStartIndex=0",
+				Done: false,
+			},
+		},
+		{
+			Name: "Read jobs/financials attaches the job association",
+			Input: common.ReadParams{
+				ObjectName:        "jobs/financials",
+				Fields:            connectors.Fields("jobId", "balanceDue"),
+				AssociatedObjects: []string{"jobs"},
+			},
+			Server: mockserver.Switch{
+				Setup: mockserver.ContentJSON(),
+				Cases: []mockserver.Case{
+					{
+						If: mockcond.And{
+							mockcond.MethodGET(),
+							mockcond.Path("/api/v2/jobs"),
+							mockcond.QueryParam("pageStartIndex", "0"),
+						},
+						Then: mockserver.Response(http.StatusOK, jobsListResponse),
+					},
+					{
+						If: mockcond.And{
+							mockcond.MethodGET(),
+							mockcond.Path("/api/v2/jobs/job-001/financials"),
+						},
+						Then: mockserver.Response(http.StatusOK, jobFinancials001Response),
+					},
+					{
+						If: mockcond.And{
+							mockcond.MethodGET(),
+							mockcond.Path("/api/v2/jobs/job-002/financials"),
+						},
+						Then: mockserver.Response(http.StatusOK, jobFinancials002Response),
+					},
+				},
+				Default: mockserver.ResponseString(http.StatusInternalServerError, `{"error":"unexpected"}`),
+			}.Server(),
+			Comparator: testconn.ComparatorSubsetRead,
+			Expected: &common.ReadResult{
+				Rows: 2,
+				Data: []common.ReadResultRow{
+					{
+						Fields: map[string]any{"jobid": "job-001", "balancedue": -2400.00},
+						Raw:    map[string]any{"jobId": "job-001", "balanceDue": -2400.00},
+						Associations: map[string][]common.Association{
+							"jobs": {{ObjectId: "job-001"}},
+						},
+					},
+					{
+						Fields: map[string]any{"jobid": "job-002", "balancedue": 150.75},
+						Raw:    map[string]any{"jobId": "job-002", "balanceDue": 150.75},
+						Associations: map[string][]common.Association{
+							"jobs": {{ObjectId: "job-002"}},
+						},
 					},
 				},
 				NextPage: testconn.URLTestServer +
