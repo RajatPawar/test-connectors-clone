@@ -4,6 +4,7 @@ import (
 	"context"
 	"maps"
 	"net/http"
+	"strings"
 
 	"github.com/amp-labs/connectors/common"
 	"github.com/amp-labs/connectors/common/naming"
@@ -77,11 +78,11 @@ func (c *Connector) parseDefinitionsResponse(
 	fields := make(common.FieldsMetadata)
 
 	for key, relationship := range definitions.RelationshipDefinitions {
-		fields[key] = relationship.fieldMetadata()
+		fields[key] = relationship.fieldMetadata(key)
 	}
 
 	for key, field := range definitions.FieldDefinitions {
-		fields[key] = field.fieldMetadata()
+		fields[key] = field.fieldMetadata(key)
 	}
 
 	maps.Copy(fields, envelopeFields())
@@ -104,7 +105,6 @@ type fieldDefinition struct {
 	ID                *string           `json:"id"`
 	Label             string            `json:"label"`
 	ValueType         string            `json:"valueType"`
-	System            *bool             `json:"system"`
 	ReadOnly          *bool             `json:"readOnly"`
 	TypeConfiguration typeConfiguration `json:"typeConfiguration"`
 }
@@ -125,10 +125,9 @@ type relationshipDefinition struct {
 	Label       string  `json:"label"`
 	Cardinality string  `json:"cardinality"`
 	ObjectType  string  `json:"objectType"`
-	System      *bool   `json:"system"`
 }
 
-func (d fieldDefinition) fieldMetadata() common.FieldMetadata {
+func (d fieldDefinition) fieldMetadata(key string) common.FieldMetadata {
 	valueType := fieldValueType(d.ValueType, d.TypeConfiguration.MultipleValues)
 
 	var values []common.FieldValue
@@ -145,15 +144,15 @@ func (d fieldDefinition) fieldMetadata() common.FieldMetadata {
 		ValueType:    valueType,
 		ProviderType: d.ValueType,
 		ReadOnly:     d.ReadOnly,
-		IsCustom:     isCustom(d.System),
+		IsCustom:     isCustom(key),
 		FieldId:      d.ID,
 		Values:       values,
 	}
 }
 
-func (d relationshipDefinition) fieldMetadata() common.FieldMetadata {
+func (d relationshipDefinition) fieldMetadata(key string) common.FieldMetadata {
 	var referenceTo []string
-	if object, ok := relatedObjects[d.ObjectType]; ok {
+	if object, ok := relatedObjects[strings.TrimPrefix(d.ObjectType, "$")]; ok {
 		referenceTo = []string{object}
 	}
 
@@ -161,13 +160,14 @@ func (d relationshipDefinition) fieldMetadata() common.FieldMetadata {
 		DisplayName:  d.Label,
 		ValueType:    common.ValueTypeReference,
 		ProviderType: d.Cardinality,
-		IsCustom:     isCustom(d.System),
+		IsCustom:     isCustom(key),
 		FieldId:      d.ID,
 		ReferenceTo:  referenceTo,
 	}
 }
 
 // relatedObjects maps a relationship's objectType to the object this connector reads.
+// Live definitions return system object types with a `$` prefix (`$account`), trimmed before lookup.
 var relatedObjects = map[string]string{ // nolint:gochecknoglobals
 	"account":     objectAccounts,
 	"contact":     objectContacts,
@@ -204,12 +204,11 @@ func fieldValueType(providerType string, multipleValues *bool) common.ValueType 
 	}
 }
 
-func isCustom(system *bool) *bool {
-	if system == nil {
-		return nil
-	}
-
-	custom := !*system
+// System fields and relationships are prefixed with `$`; custom ones use their bare slug.
+// Live definitions carry no `system` flag, so the key decides.
+// https://docs.lightfield.app/using-the-api/fields-and-relationships#field-keys
+func isCustom(key string) *bool {
+	custom := !strings.HasPrefix(key, "$")
 
 	return &custom
 }

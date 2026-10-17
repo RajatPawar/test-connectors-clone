@@ -1,5 +1,5 @@
 {
-  "objectType": "opportunity",
+  "objectType": "$opportunity",
   "fieldDefinitions": {
     "$name": {
       "id": "ad_name",
@@ -7,7 +7,6 @@
       "label": "Name",
       "description": null,
       "valueType": "TEXT",
-      "system": true,
       "typeConfiguration": {}
     },
     "$stage": {
@@ -16,7 +15,6 @@
       "label": "Stage",
       "description": "What stage is the opportunity in?",
       "valueType": "SINGLE_SELECT",
-      "system": true,
       "typeConfiguration": {
         "options": [
           {"id": "opt_prospecting", "label": "Prospecting", "description": null},
@@ -30,7 +28,6 @@
       "label": "Amount",
       "description": null,
       "valueType": "CURRENCY",
-      "system": true,
       "typeConfiguration": {"currency": "USD"}
     },
     "$summary": {
@@ -39,7 +36,6 @@
       "label": "Summary",
       "description": null,
       "valueType": "READONLY_MARKDOWN",
-      "system": true,
       "readOnly": true,
       "typeConfiguration": {}
     },
@@ -49,7 +45,6 @@
       "label": "Priority",
       "description": null,
       "valueType": "NUMBER",
-      "system": false,
       "typeConfiguration": {}
     }
   },
@@ -59,16 +54,14 @@
       "slug": "account",
       "label": "Account",
       "description": null,
-      "system": true,
       "cardinality": "HAS_ONE",
-      "objectType": "account"
+      "objectType": "$account"
     },
     "$owner": {
       "id": null,
       "slug": "owner",
       "label": "Owner",
       "description": null,
-      "system": true,
       "cardinality": "HAS_ONE",
       "objectType": "user"
     }
