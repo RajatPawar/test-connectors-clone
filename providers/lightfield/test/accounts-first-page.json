@@ -1,0 +1,32 @@
+{
+  "data": [
+    {
+      "id": "acc_newest",
+      "createdAt": "2026-05-02T10:00:00.000Z",
+      "updatedAt": "2026-05-03T09:30:00.000Z",
+      "httpLink": "https://crm.lightfield.app/accounts/acc_newest",
+      "externalId": null,
+      "fields": {
+        "$name": {"value": "Acme Corp", "valueType": "TEXT"},
+        "$website": {"value": ["https://acme.example"], "valueType": "URL"},
+        "icp-score": {"value": 7, "valueType": "NUMBER"}
+      },
+      "relationships": {
+        "$owner": {"cardinality": "HAS_ONE", "objectType": "member", "values": ["mem_1"]},
+        "$contact": {"cardinality": "HAS_MANY", "objectType": "contact", "values": ["con_1", "con_2"]}
+      }
+    },
+    {
+      "id": "acc_older",
+      "createdAt": "2026-04-01T08:00:00.000Z",
+      "updatedAt": null,
+      "httpLink": "https://crm.lightfield.app/accounts/acc_older",
+      "fields": {
+        "$name": {"value": "Globex", "valueType": "TEXT"}
+      },
+      "relationships": {}
+    }
+  ],
+  "object": "list",
+  "totalCount": 3
+}
