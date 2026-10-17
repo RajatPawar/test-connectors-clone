@@ -93,6 +93,7 @@ import (
 	"github.com/amp-labs/connectors/providers/klaviyo"
 	"github.com/amp-labs/connectors/providers/lemlist"
 	"github.com/amp-labs/connectors/providers/lever"
+	"github.com/amp-labs/connectors/providers/lightfield"
 	"github.com/amp-labs/connectors/providers/linear"
 	"github.com/amp-labs/connectors/providers/linkedin"
 	"github.com/amp-labs/connectors/providers/livestorm"
@@ -254,6 +255,7 @@ var connectorConstructors = map[providers.Provider]outputConstructorFunc{ // nol
 	providers.Klaviyo:                           wrapper(newKlaviyoConnector),
 	providers.Lemlist:                           wrapper(newLemlistConnector),
 	providers.Lever:                             wrapper(newLeverConnector),
+	providers.Lightfield:                        wrapper(newLightfieldConnector),
 	providers.Linear:                            wrapper(newLinearConnector),
 	providers.LinkedIn:                          wrapper(newLinkedInConnector),
 	providers.Livestorm:                         wrapper(newLivestormConnector),
@@ -1151,6 +1153,12 @@ func newSageIntacctConnector(
 	params common.ConnectorParams,
 ) (*sageintacct.Connector, error) {
 	return sageintacct.NewConnector(params)
+}
+
+func newLightfieldConnector(
+	params common.ConnectorParams,
+) (*lightfield.Connector, error) {
+	return lightfield.NewConnector(params)
 }
 
 func newLinearConnector(
