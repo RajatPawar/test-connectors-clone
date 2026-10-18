@@ -1,0 +1,45 @@
+{
+  "objectType": "task",
+  "fieldDefinitions": {
+    "$title": {
+      "id": "ad_title",
+      "label": "Title",
+      "description": null,
+      "valueType": "TEXT",
+      "system": true,
+      "readOnly": false,
+      "typeConfiguration": {}
+    },
+    "$status": {
+      "id": "ad_status",
+      "label": "Status",
+      "description": null,
+      "valueType": "SINGLE_SELECT",
+      "system": true,
+      "typeConfiguration": {
+        "options": [
+          {"id": "TODO", "label": "To do", "description": null},
+          {"id": "COMPLETE", "label": "Complete", "description": null}
+        ]
+      }
+    }
+  },
+  "relationshipDefinitions": {
+    "$account": {
+      "id": "rd_task_account",
+      "label": "Account",
+      "description": null,
+      "cardinality": "HAS_ONE",
+      "objectType": "account",
+      "system": true
+    },
+    "$note": {
+      "id": "rd_task_note",
+      "label": "Note",
+      "description": null,
+      "cardinality": "HAS_ONE",
+      "objectType": "note",
+      "system": true
+    }
+  }
+}
