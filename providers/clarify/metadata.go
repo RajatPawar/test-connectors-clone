@@ -71,8 +71,13 @@ func (c *Connector) fetchEntitySchemas(ctx context.Context) (map[string]entitySc
 		return nil, err
 	}
 
+	firstPageURL, err := schemasURL.ToURL()
+	if err != nil {
+		return nil, err
+	}
+
 	schemas := make(map[string]entitySchema)
-	nextURL := schemasURL.String()
+	nextURL := firstPageURL.String()
 
 	for nextURL != "" {
 		response, err := c.JSONHTTPClient().Get(ctx, nextURL)
@@ -92,8 +97,11 @@ func (c *Connector) fetchEntitySchemas(ctx context.Context) (map[string]entitySc
 		}
 
 		nextURL = ""
-		if page.Links.Next != nil {
-			nextURL = *page.Links.Next
+		if page.Links.Next != nil && *page.Links.Next != "" {
+			nextURL, err = sameOriginLink(*page.Links.Next, firstPageURL)
+			if err != nil {
+				return nil, err
+			}
 		}
 	}
 

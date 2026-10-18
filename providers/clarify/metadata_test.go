@@ -16,6 +16,8 @@ func TestListObjectMetadata(t *testing.T) { // nolint:funlen
 	t.Parallel()
 
 	responseSchemas := testutils.DataFromFile(t, "schemas.json")
+	responseSchemasFirstPage := testutils.DataFromFile(t, "schemas-first-page.json")
+	responseSchemasLastPage := testutils.DataFromFile(t, "schemas-last-page.json")
 	responseUnauthorized := testutils.DataFromFile(t, "error-unauthorized.json")
 
 	schemasServer := mockserver.Conditional{
@@ -183,6 +185,53 @@ func TestListObjectMetadata(t *testing.T) { // nolint:funlen
 								ValueType:    common.ValueTypeReference,
 								ProviderType: "many-to-one",
 								ReferenceTo:  []string{"company"},
+							},
+						},
+					},
+				},
+				Errors: map[string]error{},
+			},
+		},
+		{
+			// The first page links to http://api.clarify.ai; following it as given would leave the mock server.
+			Name:  "Schemas next link is followed on the request's scheme and host",
+			Input: []string{"deal", "task"},
+			Server: mockserver.Switch{
+				Setup: mockserver.ContentJSON(),
+				Cases: []mockserver.Case{{
+					If: mockcond.And{
+						mockcond.Path("/v1/workspaces/acme/schemas"),
+						mockcond.QueryParam("page[cursor]", "c2NoZW1hcy0y"),
+					},
+					Then: mockserver.Response(http.StatusOK, responseSchemasLastPage),
+				}, {
+					If: mockcond.And{
+						mockcond.Path("/v1/workspaces/acme/schemas"),
+						mockcond.QueryParamsMissing("page[cursor]"),
+					},
+					Then: mockserver.Response(http.StatusOK, responseSchemasFirstPage),
+				}},
+			}.Server(),
+			Comparator: testconn.ComparatorSubsetMetadata,
+			Expected: &common.ListObjectMetadataResult{
+				Result: map[string]common.ObjectMetadata{
+					"deal": {
+						DisplayName: "Deals",
+						Fields: map[string]common.FieldMetadata{
+							"name": {
+								DisplayName:  "Name",
+								ValueType:    common.ValueTypeString,
+								ProviderType: "string",
+							},
+						},
+					},
+					"task": {
+						DisplayName: "Tasks",
+						Fields: map[string]common.FieldMetadata{
+							"due_date": {
+								DisplayName:  "Due date",
+								ValueType:    common.ValueTypeDate,
+								ProviderType: "date",
 							},
 						},
 					},

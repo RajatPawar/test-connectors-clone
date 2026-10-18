@@ -41,7 +41,7 @@ Read lifts `attributes` to the top level next to `id` and `type`; `Raw` is untou
 `page[limit]` (500, the documented maximum) and the response's `links.next`, null on the last page
 ([Pagination](https://developer.clarify.ai/docs/api-basics/pagination)). The API returns the next
 link with an `http://` scheme, so the connector keeps its path and query but uses the scheme and
-host of the request it just made.
+host of the request it just made, both for reads and for the `/schemas` pages behind metadata.
 
 ## Incremental read
 

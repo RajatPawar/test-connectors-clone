@@ -12,10 +12,6 @@ import (
 
 // makeNextPageFunc returns `links.next`, which is null on the last page.
 // https://developer.clarify.ai/docs/api-basics/pagination#response
-// The API builds the link with an http:// scheme (seen live:
-// "http://api.clarify.ai/v1/workspaces/.../resources?page%5Boffset%5D=1&page%5Blimit%5D=1"),
-// so the scheme and host are taken from the request just made, keeping the API key off plain HTTP.
-// Path and query are kept verbatim, as the docs ask.
 func makeNextPageFunc(requestURL *url.URL) common.NextPageFunc {
 	return func(node *ajson.Node) (string, error) {
 		next, err := jsonquery.New(node, "links").StringOptional("next")
@@ -23,16 +19,25 @@ func makeNextPageFunc(requestURL *url.URL) common.NextPageFunc {
 			return "", err
 		}
 
-		nextURL, err := url.Parse(*next)
-		if err != nil {
-			return "", err
-		}
-
-		nextURL.Scheme = requestURL.Scheme
-		nextURL.Host = requestURL.Host
-
-		return nextURL.String(), nil
+		return sameOriginLink(*next, requestURL)
 	}
+}
+
+// sameOriginLink moves a `links.next` URL onto the scheme and host of the request that returned it.
+// The API builds these links with an http:// scheme (seen live:
+// "http://api.clarify.ai/v1/workspaces/.../resources?page%5Boffset%5D=1&page%5Blimit%5D=1"),
+// and following them as given would send the API key over plain HTTP.
+// Path and query are kept verbatim, as the docs ask.
+func sameOriginLink(link string, requestURL *url.URL) (string, error) {
+	linkURL, err := url.Parse(link)
+	if err != nil {
+		return "", err
+	}
+
+	linkURL.Scheme = requestURL.Scheme
+	linkURL.Host = requestURL.Host
+
+	return linkURL.String(), nil
 }
 
 // makeUpdatedAtFilter keeps records whose `_updated_at` is within (Since, Until].

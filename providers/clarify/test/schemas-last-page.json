@@ -1,0 +1,27 @@
+{
+  "links": {
+    "next": null
+  },
+  "data": [
+    {
+      "id": "https://getclarify.ai/schemas/entities/task",
+      "type": "schema",
+      "attributes": {
+        "$id": "https://getclarify.ai/schemas/entities/task",
+        "title": "Task",
+        "type": "object",
+        "xClarifyLabel": {
+          "singular": "Task",
+          "plural": "Tasks"
+        },
+        "properties": {
+          "due_date": {
+            "type": ["string", "null"],
+            "format": "date",
+            "title": "Due date"
+          }
+        }
+      }
+    }
+  ]
+}
