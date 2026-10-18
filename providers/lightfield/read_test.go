@@ -259,7 +259,7 @@ func TestRead(t *testing.T) { //nolint:funlen,maintidx
 						"$status":     "TODO",
 						"$dueat":      "2026-09-30T17:00:00.000Z",
 						"$account":    []any{"acc_1"},
-						"$assignedto": []any{"usr_1"},
+						"$assignedto": []any{"mem_1"},
 					},
 					Raw: map[string]any{
 						"httpLink": "https://crm.lightfield.app/crm/tasks/tsk_1",
