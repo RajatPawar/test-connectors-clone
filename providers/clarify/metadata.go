@@ -183,10 +183,23 @@ func (s entitySchema) objectMetadata() *common.ObjectMetadata {
 	metadata := common.NewObjectMetadata(s.displayName(), recordFields())
 
 	for name, property := range s.Properties {
+		if !property.isAttribute() {
+			continue
+		}
+
 		metadata.AddFieldMetadata(name, property.fieldMetadata(name))
 	}
 
 	return metadata
+}
+
+// isAttribute tells whether Read returns the property among a record's attributes.
+// A relationship is an attribute only as a single foreign-key id (e.g. deal.company_id, a string).
+// The other side of a relationship, a list of related records such as the people on a deal,
+// is not in `attributes`: live deal records carry company_id but no people, and an empty
+// `relationships` object, as related records are only returned with `include`.
+func (p schemaProperty) isAttribute() bool {
+	return p.XClarifyRelationship == nil || p.Type.primary() == "string"
 }
 
 func (s entitySchema) displayName() string {
@@ -210,16 +223,11 @@ func (p schemaProperty) fieldMetadata(name string) common.FieldMetadata {
 	}
 
 	if relationship := p.XClarifyRelationship; relationship != nil {
+		field.ValueType = common.ValueTypeReference
 		field.ProviderType = relationship.Kind
 
 		if resourceObjects.Has(relationship.Entity) {
 			field.ReferenceTo = []string{relationship.Entity}
-		}
-
-		// A many-to-one field holds the id of one related record (e.g. person.company_id).
-		field.ValueType = common.ValueTypeOther
-		if relationship.Kind == "many-to-one" {
-			field.ValueType = common.ValueTypeReference
 		}
 
 		return field
@@ -298,7 +306,7 @@ func recordFields() common.FieldsMetadata {
 	return common.FieldsMetadata{
 		"id":          systemField("ID", common.ValueTypeString, "string"),
 		"type":        systemField("Type", common.ValueTypeString, "string"),
-		"_id":         systemField("ID", common.ValueTypeString, "string"),
+		"_id":         systemField("Record ID", common.ValueTypeString, "string"),
 		"_created_at": systemField("Created At", common.ValueTypeDateTime, "date-time"),
 		"_updated_at": systemField("Updated At", common.ValueTypeDateTime, "date-time"),
 		"_created_by": systemField("Created By", common.ValueTypeString, "string"),
@@ -306,13 +314,14 @@ func recordFields() common.FieldsMetadata {
 	}
 }
 
-// usersMetadata lists the user attributes from the GET /users reference response.
+// usersMetadata lists the user attributes from the GET /users reference response, plus
+// `is_service_account`, which live responses carry and the reference omits.
 // https://developer.clarify.ai/docs/api-reference/users/getUsers
 func usersMetadata() *common.ObjectMetadata {
 	return common.NewObjectMetadata("Users", common.FieldsMetadata{
 		"id":              systemField("ID", common.ValueTypeString, "string"),
 		"type":            systemField("Type", common.ValueTypeString, "string"),
-		"_id":             systemField("ID", common.ValueTypeString, "string"),
+		"_id":             systemField("Record ID", common.ValueTypeString, "string"),
 		"_created_at":     systemField("Created At", common.ValueTypeDateTime, "date-time"),
 		"_updated_at":     systemField("Updated At", common.ValueTypeDateTime, "date-time"),
 		"name":            {DisplayName: "Name", ValueType: common.ValueTypeOther, ProviderType: "object"},
@@ -320,6 +329,9 @@ func usersMetadata() *common.ObjectMetadata {
 		"email":           {DisplayName: "Email", ValueType: common.ValueTypeString, ProviderType: "string"},
 		"profile_picture": {DisplayName: "Profile Picture", ValueType: common.ValueTypeString, ProviderType: "string"},
 		"last_active_at":  {DisplayName: "Last Active At", ValueType: common.ValueTypeDateTime, ProviderType: "date-time"},
+		"is_service_account": {
+			DisplayName: "Is Service Account", ValueType: common.ValueTypeBoolean, ProviderType: "boolean",
+		},
 	})
 }
 

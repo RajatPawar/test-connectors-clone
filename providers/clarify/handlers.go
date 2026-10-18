@@ -4,6 +4,7 @@ import (
 	"context"
 	"net/http"
 	"strconv"
+	"time"
 
 	"github.com/amp-labs/connectors/common"
 	"github.com/amp-labs/connectors/common/readhelper"
@@ -20,15 +21,14 @@ const (
 	maxPageSize = 500
 
 	// Datetime filter operators, `filter[{field}][{operator}]`. Operator names are case-sensitive
-	// and contain spaces, which the docs send as %20. They match ReadParams: Since is exclusive
-	// and Until inclusive.
+	// and contain spaces, which the docs send as %20.
 	// https://developer.clarify.ai/docs/api-basics/filtering#operators-by-field-type
-	updatedSinceParam = "filter[_updated_at][Is after]"
-	updatedUntilParam = "filter[_updated_at][Is on or before]"
+	updatedAfterParam  = "filter[_updated_at][Is after]"
+	updatedBeforeParam = "filter[_updated_at][Is before]"
 )
 
 // buildReadRequest lists one page of records. The next page is the response's `links.next`,
-// which the docs say to fetch verbatim: it is percent-encoded and carries the filters.
+// which carries the filters and is fetched as is (see makeNextPageFunc).
 // https://developer.clarify.ai/docs/api-basics/pagination#response
 func (c *Connector) buildReadRequest(ctx context.Context, params common.ReadParams) (*http.Request, error) {
 	if params.NextPage != "" {
@@ -53,18 +53,23 @@ func (c *Connector) readURL(params common.ReadParams) (*urlbuilder.URL, error) {
 	readURL.WithQueryParam("page[limit]",
 		strconv.Itoa(min(readhelper.PageSizeWithDefault(params, maxPageSize), maxPageSize)))
 
-	// /users documents no filter parameter; it is filtered in parseReadResponse.
-	if resourceObjects.Has(params.ObjectName) {
-		// TODO: The docs show datetime operators only with a date value (`[Is after]=2024-01-01`).
-		// Timestamps carry milliseconds (`2026-02-01T17:45:00.000Z`), so the bounds are sent at
-		// that precision; whether the API compares at it rather than by day is not documented.
-		if !params.Since.IsZero() {
-			readURL.WithQueryParam(updatedSinceParam, datautils.Time.FormatRFC3339inUTCWithMilliseconds(params.Since))
-		}
+	// /users documents no filter parameter.
+	if !resourceObjects.Has(params.ObjectName) {
+		return readURL, nil
+	}
 
-		if !params.Until.IsZero() {
-			readURL.WithQueryParam(updatedUntilParam, datautils.Time.FormatRFC3339inUTCWithMilliseconds(params.Until))
-		}
+	// `_updated_at` carries milliseconds, but the filter compares whole seconds: live, a 1 ms window
+	// around a record's `_updated_at` matched nothing while a 2 s window matched it. The request
+	// therefore asks for a window widened to whole seconds, one second each side, and
+	// makeUpdatedAtFilter trims it to (Since, Until].
+	if !params.Since.IsZero() {
+		after := params.Since.Truncate(time.Second).Add(-time.Second)
+		readURL.WithQueryParam(updatedAfterParam, datautils.Time.FormatRFC3339inUTC(after))
+	}
+
+	if !params.Until.IsZero() {
+		before := params.Until.Truncate(time.Second).Add(time.Second)
+		readURL.WithQueryParam(updatedBeforeParam, datautils.Time.FormatRFC3339inUTC(before))
 	}
 
 	return readURL, nil
@@ -90,14 +95,9 @@ func (c *Connector) parseReadResponse(
 	request *http.Request,
 	response *common.JSONHTTPResponse,
 ) (*common.ReadResult, error) {
-	filter := readhelper.MakeIdentityFilterFunc(getNextPageURL)
-	if !resourceObjects.Has(params.ObjectName) {
-		filter = makeUpdatedAtFilter()
-	}
-
 	return common.ParseResultFiltered(params, response,
 		common.MakeRecordsFunc("data"),
-		filter,
+		makeUpdatedAtFilter(makeNextPageFunc(request.URL)),
 		readhelper.MakeMarshaledDataFuncWithId(common.FlattenNestedFields("attributes"), readhelper.NewIdField("id")),
 		params.Fields,
 	)
