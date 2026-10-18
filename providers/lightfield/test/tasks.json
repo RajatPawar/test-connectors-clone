@@ -1,0 +1,23 @@
+{
+  "object": "list",
+  "totalCount": 1,
+  "data": [
+    {
+      "id": "tsk_1",
+      "createdAt": "2026-09-02T10:00:00.000Z",
+      "updatedAt": "2026-09-15T12:30:00.000Z",
+      "httpLink": "https://crm.lightfield.app/crm/tasks/tsk_1",
+      "externalId": null,
+      "fields": {
+        "$title": {"value": "connie-test follow up with Acme", "valueType": "TEXT"},
+        "$status": {"value": "TODO", "valueType": "SINGLE_SELECT"},
+        "$description": {"value": "Send the renewal quote.", "valueType": "MARKDOWN"},
+        "$dueAt": {"value": "2026-09-30T17:00:00.000Z", "valueType": "DATETIME"}
+      },
+      "relationships": {
+        "$account": {"cardinality": "HAS_MANY", "objectType": "$account", "values": ["acc_1"]},
+        "$assignedTo": {"cardinality": "HAS_ONE", "objectType": "$member", "values": ["mem_1"]}
+      }
+    }
+  ]
+}

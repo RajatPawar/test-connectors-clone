@@ -21,6 +21,7 @@ func TestRead(t *testing.T) { //nolint:funlen,maintidx
 	responseAccountsLastPage := testutils.DataFromFile(t, "accounts-last-page.json")
 	responseMembers := testutils.DataFromFile(t, "members.json")
 	responseAccountsKeyClash := testutils.DataFromFile(t, "accounts-key-clash.json")
+	responseTasks := testutils.DataFromFile(t, "tasks.json")
 
 	versionHeader := http.Header{"Lightfield-Version": []string{"2026-03-01"}}
 
@@ -39,7 +40,7 @@ func TestRead(t *testing.T) { //nolint:funlen,maintidx
 		},
 		{
 			Name:         "Unknown object is not supported",
-			Input:        common.ReadParams{ObjectName: "notes", Fields: connectors.Fields("id")},
+			Input:        common.ReadParams{ObjectName: "meetings", Fields: connectors.Fields("id")},
 			Server:       mockserver.Dummy(),
 			ExpectedErrs: []error{common.ErrOperationNotSupportedForObject},
 		},
@@ -208,6 +209,65 @@ func TestRead(t *testing.T) { //nolint:funlen,maintidx
 			}.Server(),
 			Comparator: testconn.ComparatorPagination,
 			Expected:   &common.ReadResult{Rows: 1, NextPage: "", Done: true},
+		},
+		{
+			Name: "Incremental read of notes sends updatedAt filters",
+			Input: common.ReadParams{
+				ObjectName: "notes",
+				Fields:     connectors.Fields("id"),
+				Since:      time.Date(2026, 10, 12, 22, 7, 48, 174_000_000, time.UTC),
+				Until:      time.Date(2026, 10, 13, 22, 7, 48, 174_000_000, time.UTC),
+			},
+			Server: mockserver.Conditional{
+				Setup: mockserver.ContentJSON(),
+				If: mockcond.And{
+					mockcond.Path("/v1/notes"),
+					mockcond.QueryParam("$updatedAt[greaterThan]", "2026-10-12T22:07:48.174Z"),
+					mockcond.QueryParam("$updatedAt[lessThanOrEqual]", "2026-10-13T22:07:48.174Z"),
+				},
+				Then: mockserver.Response(http.StatusOK, responseAccountsLastPage),
+			}.Server(),
+			Comparator: testconn.ComparatorPagination,
+			Expected:   &common.ReadResult{Rows: 1, NextPage: "", Done: true},
+		},
+		{
+			Name: "Tasks are flattened and filtered on updatedAt",
+			Input: common.ReadParams{
+				ObjectName: "tasks",
+				Fields:     connectors.Fields("$title", "$status", "$dueAt", "$account", "$assignedTo"),
+				Since:      time.Date(2026, 9, 1, 0, 0, 0, 0, time.UTC),
+			},
+			Server: mockserver.Conditional{
+				Setup: mockserver.ContentJSON(),
+				If: mockcond.And{
+					mockcond.MethodGET(),
+					mockcond.Path("/v1/tasks"),
+					mockcond.QueryParam("limit", "25"),
+					mockcond.QueryParam("offset", "0"),
+					mockcond.QueryParam("$updatedAt[greaterThan]", "2026-09-01T00:00:00.000Z"),
+					mockcond.Header(versionHeader),
+				},
+				Then: mockserver.Response(http.StatusOK, responseTasks),
+			}.Server(),
+			Comparator: testconn.ComparatorSubsetRead,
+			Expected: &common.ReadResult{
+				Rows: 1,
+				Data: []common.ReadResultRow{{
+					Id: "tsk_1",
+					Fields: map[string]any{
+						"$title":      "connie-test follow up with Acme",
+						"$status":     "TODO",
+						"$dueat":      "2026-09-30T17:00:00.000Z",
+						"$account":    []any{"acc_1"},
+						"$assignedto": []any{"mem_1"},
+					},
+					Raw: map[string]any{
+						"httpLink": "https://crm.lightfield.app/crm/tasks/tsk_1",
+					},
+				}},
+				NextPage: "",
+				Done:     true,
+			},
 		},
 		{
 			Name:  "Record properties win over custom fields of the same name, and fields over relationships",
