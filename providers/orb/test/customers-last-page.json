@@ -1,0 +1,16 @@
+{
+  "data": [
+    {
+      "created_at": "2026-10-14T05:41:28+00:00",
+      "email": "noemail.1b3d71da@withampersand.com",
+      "external_customer_id": "1b3d71da-3d31-4e63-853a-8db6bff98e95",
+      "id": "cwYu8K4RUVLjNJLn",
+      "metadata": {},
+      "name": "dev-probe"
+    }
+  ],
+  "pagination_metadata": {
+    "has_more": false,
+    "next_cursor": null
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "data": [
+    {
+      "accounting_sync_configuration": {"accounting_providers": [], "excluded": false},
+      "additional_emails": [],
+      "auto_collection": false,
+      "balance": "0.00",
+      "billing_address": null,
+      "created_at": "2026-10-16T13:49:57+00:00",
+      "currency": null,
+      "email": "11x@11x.ai",
+      "external_customer_id": null,
+      "hierarchy": {"children": [], "parent": null},
+      "id": "eN3gvMFjPt5FjLbc",
+      "metadata": {},
+      "name": "11x",
+      "payment_provider": null,
+      "timezone": "Etc/UTC"
+    },
+    {
+      "accounting_sync_configuration": {"accounting_providers": [], "excluded": false},
+      "additional_emails": [],
+      "auto_collection": false,
+      "balance": "0.00",
+      "billing_address": null,
+      "created_at": "2026-10-14T05:41:32+00:00",
+      "currency": null,
+      "email": "noemail.53939f75@withampersand.com",
+      "external_customer_id": "53939f75-7988-4855-beab-22b5ecceba43",
+      "hierarchy": {"children": [], "parent": null},
+      "id": "NLGwoEaecJENHwSF",
+      "metadata": {"org_id": "d3042918-77df-442e-b3a8-42d5a427741d"},
+      "name": "staging-probe",
+      "payment_provider": null,
+      "timezone": "Etc/UTC"
+    }
+  ],
+  "pagination_metadata": {
+    "has_more": true,
+    "next_cursor": "Y3VzdG9tZXJzOjI="
+  }
+}

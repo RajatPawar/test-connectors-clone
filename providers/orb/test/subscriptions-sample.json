@@ -1,0 +1,20 @@
+{
+  "data": [
+    {
+      "active_plan_phase_order": null,
+      "auto_collection": true,
+      "created_at": "2026-09-10T00:52:00+00:00",
+      "customer": {"id": "3QMnasWSbFE87Hvd", "name": "omilia test"},
+      "end_date": "2027-09-02T00:00:00+00:00",
+      "id": "DQ8hBPBugWDjFCFk",
+      "name": "Omilia",
+      "net_terms": 30,
+      "plan": {"id": "jyzviHdy9qP4XpU6", "name": "Omilia"},
+      "price_intervals": []
+    }
+  ],
+  "pagination_metadata": {
+    "has_more": true,
+    "next_cursor": "c3Vic2NyaXB0aW9uczox"
+  }
+}

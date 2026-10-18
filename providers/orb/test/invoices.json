@@ -1,0 +1,20 @@
+{
+  "data": [
+    {
+      "amount_due": "8333.00",
+      "created_at": "2026-10-09T01:12:14+00:00",
+      "currency": "USD",
+      "customer": {"external_customer_id": null, "id": "7AzfsKk8LsnBcdqg"},
+      "id": "UFxvPGn6Smon5VGt",
+      "invoice_date": "2026-11-09T00:00:00+00:00",
+      "invoice_number": "draft",
+      "status": "draft",
+      "subscription": {"id": "DQ8hBPBugWDjFCFk"},
+      "total": "8333.00"
+    }
+  ],
+  "pagination_metadata": {
+    "has_more": false,
+    "next_cursor": null
+  }
+}
