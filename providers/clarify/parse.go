@@ -1,6 +1,7 @@
 package clarify
 
 import (
+	"fmt"
 	"net/url"
 	"time"
 
@@ -39,15 +40,53 @@ func (c *Connector) nextPage(node *ajson.Node) (string, error) {
 	return nextURL.String(), nil
 }
 
-// makeUpdatedAtFilter applies Since (exclusive) and Until (inclusive) to users on the connector side,
-// because GET /users documents no filter parameter. No ordering by update time is documented,
-// so every page is read.
-// https://developer.clarify.ai/docs/api-reference/users/getUsers
+// makeUpdatedAtFilter keeps records whose attributes._updated_at falls within (Since, Until].
+// The resources endpoints are pre-filtered by whole days (see filterSlack) and GET /users not at all,
+// so the exact window is applied here. Records are not ordered by update time, so every page is read.
+// A record without _updated_at is placed at its _created_at.
 func makeUpdatedAtFilter(nextPage common.NextPageFunc) common.RecordsFilterFunc {
-	return readhelper.MakeTimeFilterFuncWithZoom(
-		readhelper.Unordered,
-		readhelper.NewTimeBoundary(readhelper.ExcludeSince()),
-		[]string{"attributes"}, "_updated_at", time.RFC3339,
-		nextPage,
-	)
+	boundary := readhelper.NewTimeBoundary(readhelper.ExcludeSince())
+
+	return func(params common.ReadParams, body *ajson.Node, records []*ajson.Node) ([]*ajson.Node, string, error) {
+		next, err := nextPage(body)
+		if err != nil {
+			return nil, "", err
+		}
+
+		if params.Since.IsZero() && params.Until.IsZero() {
+			return records, next, nil
+		}
+
+		filtered := make([]*ajson.Node, 0, len(records))
+
+		for _, record := range records {
+			timestamp, err := lastModified(record)
+			if err != nil {
+				return nil, "", err
+			}
+
+			if boundary.Contains(params, timestamp) {
+				filtered = append(filtered, record)
+			}
+		}
+
+		return filtered, next, nil
+	}
+}
+
+func lastModified(record *ajson.Node) (time.Time, error) {
+	attributes := jsonquery.New(record, "attributes")
+
+	for _, key := range []string{"_updated_at", "_created_at"} {
+		value, err := attributes.StringOptional(key)
+		if err != nil {
+			return time.Time{}, err
+		}
+
+		if value != nil {
+			return time.Parse(time.RFC3339, *value)
+		}
+	}
+
+	return time.Time{}, fmt.Errorf("%w: _updated_at and _created_at", common.ErrMissingExpectedValues)
 }

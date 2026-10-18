@@ -155,27 +155,37 @@ func TestRead(t *testing.T) { //nolint:funlen,maintidx
 			},
 		},
 		{
-			Name: "Incremental read of deals filters on _updated_at",
+			Name: "Incremental read sends a day-widened _updated_at window and trims it exactly",
 			Input: common.ReadParams{
-				ObjectName: "deal",
+				ObjectName: "person",
 				Fields:     connectors.Fields("_id"),
 				Since:      time.Date(2026, 1, 1, 0, 0, 0, 0, time.UTC),
-				Until:      time.Date(2026, 2, 1, 12, 30, 0, 0, time.UTC),
+				// Until is inclusive: the second record was updated exactly then.
+				Until: time.Date(2026, 2, 1, 17, 45, 0, 0, time.UTC),
 			},
 			Server: mockserver.Conditional{
 				Setup: mockserver.ContentJSON(),
 				If: mockcond.And{
 					mockcond.MethodGET(),
-					mockcond.Path("/v1/workspaces/acme/objects/deal/resources"),
+					mockcond.Path("/v1/workspaces/acme/objects/person/resources"),
 					mockcond.QueryParam("page[limit]", "500"),
 					// Operator names are sent with %20, as in the docs, not "+".
-					rawQueryContains("filter%5B_updated_at%5D%5BIs%20after%5D=2026-01-01T00%3A00%3A00.000Z"),
-					rawQueryContains("filter%5B_updated_at%5D%5BIs%20on%20or%20before%5D=2026-02-01T12%3A30%3A00.000Z"),
+					rawQueryContains("filter%5B_updated_at%5D%5BIs%20after%5D=2025-12-30"),
+					rawQueryContains("filter%5B_updated_at%5D%5BIs%20on%20or%20before%5D=2026-02-03"),
 				},
-				Then: mockserver.Response(http.StatusOK, responsePersonLastPage),
+				Then: mockserver.Response(http.StatusOK, responsePersonFirstPage),
 			}.Server(),
-			Comparator: testconn.ComparatorPagination,
-			Expected:   &common.ReadResult{Rows: 1, NextPage: "", Done: true},
+			Comparator: testconn.ComparatorSubsetRead,
+			Expected: &common.ReadResult{
+				Rows: 1,
+				Data: []common.ReadResultRow{{
+					Id:     "0011b2c4-5d6e-4f70-8a9b-0c1d2e3f4a5b",
+					Fields: map[string]any{"_id": "0011b2c4-5d6e-4f70-8a9b-0c1d2e3f4a5b"},
+					Raw:    map[string]any{"id": "0011b2c4-5d6e-4f70-8a9b-0c1d2e3f4a5b"},
+				}},
+				NextPage: common.NextPageToken(personNextPage),
+				Done:     false,
+			},
 		},
 		{
 			Name: "Users are filtered by _updated_at on the connector side",
