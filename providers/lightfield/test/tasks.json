@@ -1,0 +1,23 @@
+{
+  "data": [
+    {
+      "id": "tsk_1",
+      "createdAt": "2026-09-10T09:00:00.000Z",
+      "updatedAt": "2026-09-15T11:30:00.000Z",
+      "httpLink": "https://crm.lightfield.app/crm/tasks/tsk_1",
+      "externalId": null,
+      "fields": {
+        "$title": {"value": "Send renewal quote", "valueType": "TEXT"},
+        "$status": {"value": "IN_PROGRESS", "valueType": "SINGLE_SELECT"},
+        "$dueAt": {"value": "2026-09-30T17:00:00.000Z", "valueType": "DATETIME"},
+        "$description": {"value": null, "valueType": "MARKDOWN"}
+      },
+      "relationships": {
+        "$assignedTo": {"cardinality": "HAS_ONE", "objectType": "$member", "values": ["mem_1"]},
+        "$account": {"cardinality": "HAS_MANY", "objectType": "$account", "values": ["acc_1"]}
+      }
+    }
+  ],
+  "object": "list",
+  "totalCount": 1
+}
