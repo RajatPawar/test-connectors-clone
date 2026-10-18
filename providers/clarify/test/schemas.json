@@ -1,0 +1,150 @@
+{
+  "links": {
+    "next": null
+  },
+  "data": [
+    {
+      "id": "https://getclarify.ai/schemas/core/agent",
+      "type": "schema",
+      "attributes": {
+        "$schema": "https://json-schema.org/draft/2020-12/clarify",
+        "$id": "https://getclarify.ai/schemas/core/agent",
+        "title": "agent",
+        "type": "object",
+        "readOnly": true,
+        "xClarifyNamespace": "objects",
+        "xClarifyLabel": {
+          "singular": "Agent",
+          "plural": "Agents"
+        },
+        "properties": {
+          "_id": {
+            "type": "string",
+            "format": "uuid",
+            "readOnly": true,
+            "title": "Record ID"
+          },
+          "enabled": {
+            "type": "boolean",
+            "default": false,
+            "title": "Enabled"
+          }
+        }
+      }
+    },
+    {
+      "id": "https://getclarify.ai/schemas/entities/deal",
+      "type": "schema",
+      "attributes": {
+        "$schema": "https://json-schema.org/draft/2020-12/clarify",
+        "$id": "https://getclarify.ai/schemas/entities/deal",
+        "title": "Deal",
+        "type": "object",
+        "xClarifyNamespace": "objects",
+        "xClarifyLabel": {
+          "singular": "Deal",
+          "plural": "Deals"
+        },
+        "properties": {
+          "_id": {
+            "type": "string",
+            "format": "uuid",
+            "readOnly": true,
+            "title": "Record ID"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name",
+            "xClarifyPrimary": true
+          },
+          "description": {
+            "type": ["string", "null"],
+            "format": "markdown",
+            "title": "Description"
+          },
+          "stage": {
+            "type": ["string", "null"],
+            "title": "Stage",
+            "enum": ["Nurture", "Won", "Lost", null]
+          },
+          "amount": {
+            "type": ["number", "null"],
+            "title": "Amount"
+          },
+          "close_date": {
+            "type": ["string", "null"],
+            "format": "date",
+            "title": "Close date"
+          },
+          "deal_churned": {
+            "type": "boolean",
+            "title": "Deal churned"
+          },
+          "labels": {
+            "type": ["object", "null"],
+            "title": "Labels"
+          },
+          "deal_priority": {
+            "type": ["array", "null"],
+            "title": "Priority",
+            "items": {
+              "type": "string",
+              "enum": ["High", "Low"]
+            }
+          },
+          "summary": {
+            "oneOf": [
+              {
+                "$ref": "https://getclarify.ai/schemas/core/richText"
+              }
+            ],
+            "title": "Summary"
+          },
+          "company_id": {
+            "type": ["string", "null"],
+            "title": "Company",
+            "xClarifyRelationship": {
+              "kind": "many-to-one",
+              "entity": "company",
+              "field": "deals"
+            }
+          },
+          "people": {
+            "type": "array",
+            "title": "People",
+            "xClarifyRelationship": {
+              "kind": "many-to-many",
+              "entity": "person",
+              "field": "deals"
+            }
+          },
+          "_updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "readOnly": true,
+            "title": "Last updated"
+          }
+        }
+      }
+    },
+    {
+      "id": "https://getclarify.ai/schemas/entities/person",
+      "type": "schema",
+      "attributes": {
+        "$id": "https://getclarify.ai/schemas/entities/person",
+        "title": "Person",
+        "type": "object",
+        "xClarifyLabel": {
+          "singular": "Person",
+          "plural": "People"
+        },
+        "properties": {
+          "job_title": {
+            "type": ["string", "null"],
+            "title": "Job title"
+          }
+        }
+      }
+    }
+  ]
+}

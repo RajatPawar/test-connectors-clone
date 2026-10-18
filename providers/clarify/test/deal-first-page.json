@@ -1,0 +1,71 @@
+{
+  "data": [
+    {
+      "id": "0032b25d-f7f4-47df-abba-69d9fad0df94",
+      "type": "deal",
+      "attributes": {
+        "_id": "0032b25d-f7f4-47df-abba-69d9fad0df94",
+        "name": "Mysa",
+        "description": null,
+        "stage": "Nurture",
+        "owner_id": "user_01JYPXW4SG3Q3KCHFA77D0YGSG",
+        "amount": 20000,
+        "close_date": null,
+        "_updated_at": "2026-07-30T04:24:41.093Z",
+        "_updated_by": "user_01JYPXW4SG3Q3KCHFA77D0YGSG",
+        "_created_at": "2026-05-19T18:17:14.903Z",
+        "_created_by": "user_01JYPXW4SG3Q3KCHFA77D0YGSG",
+        "company_id": "e069e184-fb6a-4e2a-ac01-7c8bce8d89d9",
+        "labels": null,
+        "profile_colors": {
+          "primary": null,
+          "tertiary": null,
+          "secondary": null
+        },
+        "deal_source": "SaaStr US 2026",
+        "deal_churned": false
+      },
+      "relationships": {}
+    },
+    {
+      "id": "0651a533-029c-4bb9-a5ac-f1ee74265212",
+      "type": "deal",
+      "attributes": {
+        "_id": "0651a533-029c-4bb9-a5ac-f1ee74265212",
+        "name": "Zebra BI",
+        "description": null,
+        "stage": "Nurture",
+        "owner_id": "user_01JYPXW4SG3Q3KCHFA77D0YGSG",
+        "amount": 10000,
+        "close_date": "2026-09-30",
+        "_updated_at": "2026-07-30T04:28:01.075Z",
+        "_updated_by": "user_01JYPXW4SG3Q3KCHFA77D0YGSG",
+        "_created_at": "2026-05-19T15:20:11.582Z",
+        "_created_by": "user_01JYPXW4SG3Q3KCHFA77D0YGSG",
+        "company_id": null,
+        "labels": {
+          "items": ["Inbound"]
+        },
+        "profile_colors": {
+          "primary": null,
+          "tertiary": null,
+          "secondary": null
+        },
+        "deal_source": null,
+        "deal_churned": false
+      },
+      "relationships": {}
+    }
+  ],
+  "included": [],
+  "meta": {
+    "total_records": 3,
+    "total_pages": 2,
+    "offset": 0,
+    "limit": 2
+  },
+  "links": {
+    "next": "http://api.clarify.ai/v1/workspaces/acme/objects/deal/resources?page%5Boffset%5D=2&page%5Blimit%5D=2",
+    "prev": null
+  }
+}
