@@ -1,0 +1,36 @@
+{
+  "data": [
+    {
+      "metadata": {},
+      "id": "Pm4tYrQe9ZbN2wHc",
+      "external_customer_id": "initech-007",
+      "name": "Initech",
+      "email": "billing@initech.example",
+      "timezone": "America/Chicago",
+      "payment_provider_id": null,
+      "payment_provider": null,
+      "created_at": "2026-08-21T12:00:00+00:00",
+      "shipping_address": null,
+      "billing_address": null,
+      "balance": "0.00",
+      "currency": null,
+      "tax_id": null,
+      "auto_collection": false,
+      "exempt_from_automated_tax": null,
+      "email_delivery": false,
+      "auto_issuance": null,
+      "additional_emails": [],
+      "portal_url": null,
+      "hierarchy": {"parent": null, "children": []},
+      "accounting_sync_configuration": null,
+      "reporting_configuration": null,
+      "payment_configuration": null,
+      "default_payment_method": null,
+      "automatic_tax_enabled": false
+    }
+  ],
+  "pagination_metadata": {
+    "has_more": false,
+    "next_cursor": null
+  }
+}
