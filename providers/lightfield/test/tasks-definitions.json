@@ -1,0 +1,52 @@
+{
+  "objectType": "task",
+  "fieldDefinitions": {
+    "$title": {
+      "id": "ad_title",
+      "label": "Title",
+      "description": null,
+      "valueType": "TEXT",
+      "system": true,
+      "typeConfiguration": {}
+    },
+    "$status": {
+      "id": "ad_status",
+      "label": "Status",
+      "description": null,
+      "valueType": "SINGLE_SELECT",
+      "system": true,
+      "typeConfiguration": {
+        "options": [
+          {"id": "TODO", "label": "To do", "description": null},
+          {"id": "COMPLETE", "label": "Complete", "description": null}
+        ]
+      }
+    },
+    "$dueAt": {
+      "id": "ad_due_at",
+      "label": "Due At",
+      "description": null,
+      "valueType": "DATETIME",
+      "system": true,
+      "typeConfiguration": {}
+    }
+  },
+  "relationshipDefinitions": {
+    "$account": {
+      "id": "rd_task_account",
+      "label": "Account",
+      "description": null,
+      "cardinality": "HAS_ONE",
+      "objectType": "account",
+      "system": true
+    },
+    "$assignedTo": {
+      "id": "rd_task_assigned_to",
+      "label": "Assigned To",
+      "description": null,
+      "cardinality": "HAS_ONE",
+      "objectType": "user",
+      "system": true
+    }
+  }
+}
