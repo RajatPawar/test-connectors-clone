@@ -1,0 +1,12 @@
+{
+  "errors": [
+    {
+      "status": "422",
+      "title": "Invalid input",
+      "detail": "/data/attributes/email: invalid email",
+      "source": {
+        "pointer": "/data/attributes/email"
+      }
+    }
+  ]
+}
