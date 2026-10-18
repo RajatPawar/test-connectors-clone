@@ -1,0 +1,17 @@
+{
+  "data": [
+    {
+      "metadata": {},
+      "id": "VDGsT23osdLb84TD",
+      "status": "active",
+      "customer": {"id": "XuxCbt7x9L82yyeF", "external_customer_id": "acme-001"},
+      "net_terms": 30,
+      "auto_collection": true,
+      "created_at": "2026-09-14T17:05:00+00:00"
+    }
+  ],
+  "pagination_metadata": {
+    "has_more": true,
+    "next_cursor": "c3Vic2NyaXB0aW9uczox"
+  }
+}

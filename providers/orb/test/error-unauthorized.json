@@ -1,0 +1,6 @@
+{
+  "type": "https://docs.withorb.com/reference/error-responses#401-authentication-error",
+  "status": 401,
+  "detail": "Invalid API key.",
+  "title": "Authentication failure"
+}
