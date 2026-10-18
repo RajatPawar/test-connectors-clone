@@ -1,0 +1,56 @@
+{
+  "links": {
+    "next": null,
+    "prev": null
+  },
+  "meta": {
+    "total_records": 2,
+    "total_pages": 1,
+    "offset": 0,
+    "limit": 500
+  },
+  "data": [
+    {
+      "type": "user",
+      "id": "user_01JZKRMYJMFWPFW74MD3G31998",
+      "attributes": {
+        "_id": "user_01JZKRMYJMFWPFW74MD3G31998",
+        "name": {
+          "full_name": "Ayan Barua",
+          "last_name": "Barua",
+          "first_name": "Ayan"
+        },
+        "roles": {
+          "items": ["admin"]
+        },
+        "email": "ayan@withampersand.com",
+        "profile_picture": null,
+        "is_service_account": false,
+        "_created_at": "2025-07-11T01:53:36.637Z",
+        "_updated_at": "2026-10-18T08:36:50.988Z",
+        "last_active_at": "2026-09-12T14:51:54.483Z"
+      }
+    },
+    {
+      "type": "user",
+      "id": "user_01JYPXQ7BK8TB38E2VY8AXJ2NQ",
+      "attributes": {
+        "_id": "user_01JYPXQ7BK8TB38E2VY8AXJ2NQ",
+        "name": {
+          "full_name": "Alex Rivera",
+          "last_name": "Rivera",
+          "first_name": "Alex"
+        },
+        "roles": {
+          "items": ["member"]
+        },
+        "email": "alex@acme.com",
+        "profile_picture": null,
+        "is_service_account": false,
+        "_created_at": "2026-01-15T09:30:00.000Z",
+        "_updated_at": "2026-02-01T17:45:00.000Z",
+        "last_active_at": "2026-02-01T17:45:00.000Z"
+      }
+    }
+  ]
+}
