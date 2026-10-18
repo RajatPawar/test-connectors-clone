@@ -1,0 +1,119 @@
+{
+  "links": {
+    "next": null
+  },
+  "data": [
+    {
+      "id": "https://getclarify.ai/schemas/core/agent",
+      "type": "schema",
+      "attributes": {
+        "$schema": "https://json-schema.org/draft/2020-12/clarify",
+        "$id": "https://getclarify.ai/schemas/core/agent",
+        "title": "agent",
+        "type": "object",
+        "readOnly": true,
+        "xClarifyNamespace": "objects",
+        "xClarifyLabel": {
+          "singular": "Agent",
+          "plural": "Agents"
+        },
+        "properties": {
+          "_id": {
+            "type": "string",
+            "format": "uuid",
+            "readOnly": true,
+            "title": "Record ID"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name",
+            "xClarifyPrimary": true
+          }
+        }
+      }
+    },
+    {
+      "id": "https://getclarify.ai/schemas/entities/person",
+      "type": "schema",
+      "attributes": {
+        "$schema": "https://json-schema.org/draft/2020-12/clarify",
+        "$id": "https://getclarify.ai/schemas/entities/person",
+        "title": "person",
+        "type": "object",
+        "xClarifyNamespace": "objects",
+        "xClarifyLabel": {
+          "singular": "Person",
+          "plural": "People"
+        },
+        "required": ["email_addresses"],
+        "properties": {
+          "_id": {
+            "type": "string",
+            "format": "uuid",
+            "readOnly": true,
+            "title": "Record ID"
+          },
+          "name": {
+            "oneOf": [
+              {
+                "$ref": "https://getclarify.ai/schemas/core/personName"
+              }
+            ],
+            "title": "Name"
+          },
+          "email_addresses": {
+            "oneOf": [
+              {
+                "$ref": "https://getclarify.ai/schemas/core/collectionOfEmailAddresses"
+              }
+            ],
+            "title": "Email addresses"
+          },
+          "job_title": {
+            "type": ["string", "null"],
+            "title": "Job title"
+          },
+          "company_id": {
+            "type": ["string", "null"],
+            "title": "Company",
+            "xClarifyRelationship": {
+              "kind": "many-to-one",
+              "entity": "company",
+              "field": "people"
+            }
+          },
+          "persona": {
+            "type": ["string", "null"],
+            "title": "Persona",
+            "enum": ["Champion", "Decision maker", null]
+          },
+          "labels": {
+            "type": ["object", "null"],
+            "title": "Labels",
+            "properties": {
+              "items": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "enum": ["Newsletter", "Customer"]
+                }
+              }
+            }
+          },
+          "last_email_interaction": {
+            "type": ["string", "null"],
+            "format": "date-time",
+            "readOnly": true,
+            "title": "Last email interaction"
+          },
+          "_updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "readOnly": true,
+            "title": "Last updated"
+          }
+        }
+      }
+    }
+  ]
+}
