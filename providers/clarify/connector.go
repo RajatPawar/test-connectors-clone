@@ -10,13 +10,11 @@ import (
 	"github.com/amp-labs/connectors/providers"
 )
 
-const metadataKeyWorkspace = "workspace"
-
 type Connector struct {
 	*components.Connector
 
 	common.RequireAuthenticatedClient
-	common.RequireMetadata
+	common.RequireWorkspace
 
 	components.SchemaProvider
 	components.Reader
@@ -31,9 +29,8 @@ func NewConnector(params common.ConnectorParams) (*Connector, error) {
 
 func constructor(params common.ConnectorParams, base *components.Connector) (*Connector, error) {
 	connector := &Connector{
-		Connector:            base,
-		ExpectedMetadataKeys: []string{metadataKeyWorkspace},
-		Workspace:            params.Metadata[metadataKeyWorkspace],
+		Connector: base,
+		Workspace: params.Workspace,
 	}
 
 	registry, err := components.NewEndpointRegistry(supportedOperations())

@@ -28,7 +28,6 @@ func init() {
 				},
 			},
 		},
-		//nolint:lll
 		Media: &Media{
 			DarkMode: &MediaTypeDarkMode{
 				IconURL: "https://developer.clarify.ai/favicon-dark.png",

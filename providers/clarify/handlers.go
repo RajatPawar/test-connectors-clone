@@ -30,8 +30,8 @@ var queryEncodingExceptions = map[string]string{ // nolint:gochecknoglobals
 	"+": "%20",
 }
 
-// buildReadRequest lists records with page[limit]/page[offset] pagination and follows links.next verbatim,
-// as the docs ask: "Pass them through unchanged rather than rebuilding them."
+// buildReadRequest lists records with page[limit]/page[offset] pagination and follows links.next,
+// whose origin nextPage pins to the BaseURL.
 // https://developer.clarify.ai/docs/api-basics/pagination
 func (c *Connector) buildReadRequest(ctx context.Context, params common.ReadParams) (*http.Request, error) {
 	if params.NextPage != "" {
@@ -93,9 +93,9 @@ func (c *Connector) parseReadResponse(
 	request *http.Request,
 	response *common.JSONHTTPResponse,
 ) (*common.ReadResult, error) {
-	filter := readhelper.MakeIdentityFilterFunc(nextPage)
+	filter := readhelper.MakeIdentityFilterFunc(c.nextPage)
 	if params.ObjectName == objectNameUser {
-		filter = filterByUpdatedAt
+		filter = makeUpdatedAtFilter(c.nextPage)
 	}
 
 	return common.ParseResultFiltered(params, response,
