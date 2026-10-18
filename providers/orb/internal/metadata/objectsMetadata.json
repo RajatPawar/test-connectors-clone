@@ -598,9 +598,97 @@
     "displayName": "Subscriptions",
     "path": "/v1/subscriptions",
     "fields": {
+      "active_plan_phase_order": {
+        "displayName": "Active Plan Phase Order",
+        "valueType": "int"
+      },
+      "adjustment_intervals": {
+        "displayName": "Adjustment Intervals",
+        "valueType": "other"
+      },
+      "auto_collection": {
+        "displayName": "Auto Collection",
+        "valueType": "boolean"
+      },
+      "auto_issuance": {
+        "displayName": "Auto Issuance",
+        "valueType": "boolean"
+      },
+      "billing_cycle_anchor_configuration": {
+        "displayName": "Billing Cycle Anchor Configuration",
+        "valueType": "other"
+      },
+      "billing_cycle_day": {
+        "displayName": "Billing Cycle Day",
+        "valueType": "int"
+      },
+      "created_at": {
+        "displayName": "Created At",
+        "valueType": "datetime"
+      },
+      "current_billing_period_end_date": {
+        "displayName": "Current Billing Period End Date",
+        "valueType": "datetime"
+      },
+      "current_billing_period_start_date": {
+        "displayName": "Current Billing Period Start Date",
+        "valueType": "datetime"
+      },
+      "customer": {
+        "displayName": "Customer",
+        "valueType": "other"
+      },
+      "default_invoice_memo": {
+        "displayName": "Default Invoice Memo",
+        "valueType": "string"
+      },
+      "discount_intervals": {
+        "displayName": "Discount Intervals",
+        "valueType": "other"
+      },
+      "end_date": {
+        "displayName": "End Date",
+        "valueType": "datetime"
+      },
+      "fixed_fee_quantity_schedule": {
+        "displayName": "Fixed Fee Quantity Schedule",
+        "valueType": "other"
+      },
       "id": {
         "displayName": "Id",
         "valueType": "string"
+      },
+      "invoicing_threshold": {
+        "displayName": "Invoicing Threshold",
+        "valueType": "other"
+      },
+      "maximum_intervals": {
+        "displayName": "Maximum Intervals",
+        "valueType": "other"
+      },
+      "metadata": {
+        "displayName": "Metadata",
+        "valueType": "other"
+      },
+      "minimum_intervals": {
+        "displayName": "Minimum Intervals",
+        "valueType": "other"
+      },
+      "name": {
+        "displayName": "Name",
+        "valueType": "string"
+      },
+      "net_terms": {
+        "displayName": "Net Terms",
+        "valueType": "int"
+      },
+      "pending_subscription_change": {
+        "displayName": "Pending Subscription Change",
+        "valueType": "other"
+      },
+      "plan": {
+        "displayName": "Plan",
+        "valueType": "other"
       }
     }
   }
