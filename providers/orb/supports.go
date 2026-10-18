@@ -1,0 +1,48 @@
+package orb
+
+import (
+	"fmt"
+	"slices"
+	"strings"
+
+	"github.com/amp-labs/connectors/common"
+	"github.com/amp-labs/connectors/internal/components"
+)
+
+const (
+	objectNameCustomers     = "customers"
+	objectNameSubscriptions = "subscriptions"
+	objectNameInvoices      = "invoices"
+	objectNamePlans         = "plans"
+	objectNameItems         = "items"
+	objectNameCreditNotes   = "credit_notes"
+	objectNameCoupons       = "coupons"
+)
+
+// Each object is listed by GET /v1/{object}.
+// https://docs.withorb.com/api-reference/pagination
+var supportedObjects = []string{ // nolint:gochecknoglobals
+	objectNameCustomers,
+	objectNameSubscriptions,
+	objectNameInvoices,
+	objectNamePlans,
+	objectNameItems,
+	objectNameCreditNotes,
+	objectNameCoupons,
+}
+
+// SupportedReadObjects lists the objects this connector reads.
+func SupportedReadObjects() []string {
+	return slices.Clone(supportedObjects)
+}
+
+func supportedOperations() components.EndpointRegistryInput {
+	return components.EndpointRegistryInput{
+		common.ModuleRoot: {
+			{
+				Endpoint: fmt.Sprintf("{%s}", strings.Join(supportedObjects, ",")),
+				Support:  components.ReadSupport,
+			},
+		},
+	}
+}
