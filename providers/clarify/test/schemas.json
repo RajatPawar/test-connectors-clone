@@ -1,0 +1,156 @@
+{
+  "links": {
+    "next": null
+  },
+  "data": [
+    {
+      "id": "https://getclarify.ai/schemas/core/agent",
+      "type": "schema",
+      "attributes": {
+        "$schema": "https://json-schema.org/draft/2020-12/clarify",
+        "$id": "https://getclarify.ai/schemas/core/agent",
+        "title": "agent",
+        "type": "object",
+        "readOnly": true,
+        "xClarifyNamespace": "objects",
+        "xClarifyLabel": {
+          "singular": "Agent",
+          "plural": "Agents"
+        },
+        "properties": {
+          "_id": {
+            "type": "string",
+            "format": "uuid",
+            "readOnly": true,
+            "title": "Record ID"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name",
+            "xClarifyPrimary": true
+          }
+        }
+      }
+    },
+    {
+      "id": "https://getclarify.ai/schemas/entities/person",
+      "type": "schema",
+      "attributes": {
+        "$schema": "https://json-schema.org/draft/2020-12/clarify",
+        "$id": "https://getclarify.ai/schemas/entities/person",
+        "title": "Person",
+        "type": "object",
+        "xClarifyNamespace": "objects",
+        "xClarifyLabel": {
+          "singular": "Person",
+          "plural": "People"
+        },
+        "properties": {
+          "_id": {
+            "type": "string",
+            "format": "uuid",
+            "readOnly": true,
+            "title": "Record ID"
+          },
+          "name": {
+            "type": "object",
+            "title": "Name",
+            "xClarifyPrimary": true
+          },
+          "job_title": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "title": "Job title"
+          },
+          "first_email_interaction": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time",
+            "readOnly": true,
+            "title": "First email interaction"
+          },
+          "company_id": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "title": "Company",
+            "xClarifyRelationship": {
+              "kind": "many-to-one",
+              "entity": "company",
+              "field": "people"
+            }
+          },
+          "deals": {
+            "type": "array",
+            "title": "Deals",
+            "xClarifyRelationship": {
+              "kind": "many-to-many",
+              "entity": "deal",
+              "field": "people"
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "https://getclarify.ai/schemas/entities/deal",
+      "type": "schema",
+      "attributes": {
+        "$schema": "https://json-schema.org/draft/2020-12/clarify",
+        "$id": "https://getclarify.ai/schemas/entities/deal",
+        "title": "Deal",
+        "type": "object",
+        "xClarifyNamespace": "objects",
+        "xClarifyLabel": {
+          "singular": "Deal",
+          "plural": "Deals"
+        },
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "Name",
+            "xClarifyPrimary": true
+          },
+          "amount": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "title": "Amount"
+          },
+          "stage": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "title": "Stage",
+            "enum": [
+              "Negotiation",
+              "Proposal",
+              "Won",
+              "Lost",
+              null
+            ]
+          },
+          "close_date": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date",
+            "title": "Close date"
+          },
+          "is_renewal": {
+            "type": "boolean",
+            "title": "Renewal"
+          }
+        }
+      }
+    }
+  ]
+}
