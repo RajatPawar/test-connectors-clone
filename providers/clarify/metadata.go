@@ -147,6 +147,17 @@ type relationship struct {
 	Field  string `json:"field"`
 }
 
+// isToOne reports whether the property holds one related record ID among the record's attributes,
+// like a person's company_id (kind many-to-one). The to-many side of a relationship (a company's
+// people, a deal's people) is not an attribute: records carry it under `relationships` only when it
+// is requested with `include`, which Read does not do, so those properties are left out.
+// TODO: confirm the to-many kind names against a full GET /schemas response; the live test output
+// showing it was truncated before the entity schemas.
+// https://developer.clarify.ai/docs/getting-started/key-concepts#relationships
+func (r relationship) isToOne() bool {
+	return strings.HasSuffix(r.Kind, "-to-one")
+}
+
 // schemaType is a JSON Schema `type`: a single type, or a list such as ["string", "null"].
 type schemaType []string
 
@@ -192,6 +203,10 @@ func (e entitySchema) objectMetadata(objectName string) *common.ObjectMetadata {
 	fields := systemFields()
 
 	for name, prop := range e.Properties {
+		if prop.Relationship != nil && !prop.Relationship.isToOne() {
+			continue
+		}
+
 		fields[name] = prop.fieldMetadata(name)
 	}
 
@@ -239,18 +254,7 @@ func (p property) valueType() (common.ValueType, []common.FieldValue) {
 
 	switch p.Type.main() {
 	case "string":
-		if values := enumValues(p.Enum); len(values) != 0 {
-			return common.ValueTypeSingleSelect, values
-		}
-
-		switch p.Format {
-		case "date-time":
-			return common.ValueTypeDateTime, nil
-		case "date":
-			return common.ValueTypeDate, nil
-		default:
-			return common.ValueTypeString, nil
-		}
+		return p.stringValueType()
 	case "integer":
 		return common.ValueTypeInt, nil
 	case "number":
@@ -270,6 +274,21 @@ func (p property) valueType() (common.ValueType, []common.FieldValue) {
 	}
 }
 
+func (p property) stringValueType() (common.ValueType, []common.FieldValue) {
+	if values := enumValues(p.Enum); len(values) != 0 {
+		return common.ValueTypeSingleSelect, values
+	}
+
+	switch p.Format {
+	case "date-time":
+		return common.ValueTypeDateTime, nil
+	case "date":
+		return common.ValueTypeDate, nil
+	default:
+		return common.ValueTypeString, nil
+	}
+}
+
 // Enum values are case-sensitive and are both the stored value and its label. A nullable enum lists null.
 func enumValues(enum []any) []common.FieldValue {
 	values := make([]common.FieldValue, 0, len(enum))
@@ -284,38 +303,46 @@ func enumValues(enum []any) []common.FieldValue {
 }
 
 // systemFields are on every record: the JSON:API `id` and `type`, and the `_`-prefixed system fields.
-// TODO: confirm against the live schemas response whether entity schemas already list the system fields.
+// Schemas list `_id` themselves (with the title "Record ID"); a property of the schema replaces the
+// entry here, so these are the fallback for system fields a schema leaves out.
 // https://developer.clarify.ai/docs/api-reference/resources/getResources
 // https://developer.clarify.ai/docs/guides/schemas-and-relationships#user-identifiers
 func systemFields() common.FieldsMetadata {
-	readOnly := true
-
 	return common.FieldsMetadata{
-		"id":          {DisplayName: "ID", ValueType: common.ValueTypeString, ProviderType: "string", ReadOnly: &readOnly},
-		"type":        {DisplayName: "Type", ValueType: common.ValueTypeString, ProviderType: "string", ReadOnly: &readOnly},
-		"_id":         {DisplayName: "ID", ValueType: common.ValueTypeString, ProviderType: "string", ReadOnly: &readOnly},
-		"_created_at": {DisplayName: "Created At", ValueType: common.ValueTypeDateTime, ProviderType: "string:date-time", ReadOnly: &readOnly},
-		"_updated_at": {DisplayName: "Updated At", ValueType: common.ValueTypeDateTime, ProviderType: "string:date-time", ReadOnly: &readOnly},
-		"_created_by": {DisplayName: "Created By", ValueType: common.ValueTypeString, ProviderType: "string", ReadOnly: &readOnly},
-		"_updated_by": {DisplayName: "Updated By", ValueType: common.ValueTypeString, ProviderType: "string", ReadOnly: &readOnly},
+		"id":          readOnlyField("ID", common.ValueTypeString, "string"),
+		"type":        readOnlyField("Type", common.ValueTypeString, "string"),
+		"_id":         readOnlyField("Record ID", common.ValueTypeString, "string"),
+		"_created_at": readOnlyField("Created At", common.ValueTypeDateTime, "string:date-time"),
+		"_updated_at": readOnlyField("Updated At", common.ValueTypeDateTime, "string:date-time"),
+		"_created_by": readOnlyField("Created By", common.ValueTypeString, "string"),
+		"_updated_by": readOnlyField("Updated By", common.ValueTypeString, "string"),
 	}
 }
 
 // usersFields are the user attributes of the List users response; GET /schemas has no user schema.
+// is_service_account is not in the reference but is returned by the live API.
 // https://developer.clarify.ai/docs/api-reference/users/getUsers
 func usersFields() common.FieldsMetadata {
-	readOnly := true
-
 	return common.FieldsMetadata{
-		"id":              {DisplayName: "ID", ValueType: common.ValueTypeString, ProviderType: "string", ReadOnly: &readOnly},
-		"type":            {DisplayName: "Type", ValueType: common.ValueTypeString, ProviderType: "string", ReadOnly: &readOnly},
-		"_id":             {DisplayName: "ID", ValueType: common.ValueTypeString, ProviderType: "string", ReadOnly: &readOnly},
-		"name":            {DisplayName: "Name", ValueType: common.ValueTypeOther, ProviderType: "object", ReadOnly: &readOnly},
-		"roles":           {DisplayName: "Roles", ValueType: common.ValueTypeOther, ProviderType: "object", ReadOnly: &readOnly},
-		"email":           {DisplayName: "Email", ValueType: common.ValueTypeString, ProviderType: "string", ReadOnly: &readOnly},
-		"profile_picture": {DisplayName: "Profile Picture", ValueType: common.ValueTypeString, ProviderType: "string", ReadOnly: &readOnly},
-		"last_active_at":  {DisplayName: "Last Active At", ValueType: common.ValueTypeDateTime, ProviderType: "string:date-time", ReadOnly: &readOnly},
-		"_created_at":     {DisplayName: "Created At", ValueType: common.ValueTypeDateTime, ProviderType: "string:date-time", ReadOnly: &readOnly},
-		"_updated_at":     {DisplayName: "Updated At", ValueType: common.ValueTypeDateTime, ProviderType: "string:date-time", ReadOnly: &readOnly},
+		"id":                 readOnlyField("ID", common.ValueTypeString, "string"),
+		"type":               readOnlyField("Type", common.ValueTypeString, "string"),
+		"_id":                readOnlyField("Record ID", common.ValueTypeString, "string"),
+		"name":               readOnlyField("Name", common.ValueTypeOther, "object"),
+		"roles":              readOnlyField("Roles", common.ValueTypeOther, "object"),
+		"email":              readOnlyField("Email", common.ValueTypeString, "string"),
+		"profile_picture":    readOnlyField("Profile Picture", common.ValueTypeString, "string"),
+		"last_active_at":     readOnlyField("Last Active At", common.ValueTypeDateTime, "string:date-time"),
+		"is_service_account": readOnlyField("Is Service Account", common.ValueTypeBoolean, "boolean"),
+		"_created_at":        readOnlyField("Created At", common.ValueTypeDateTime, "string:date-time"),
+		"_updated_at":        readOnlyField("Updated At", common.ValueTypeDateTime, "string:date-time"),
+	}
+}
+
+func readOnlyField(displayName string, valueType common.ValueType, providerType string) common.FieldMetadata {
+	return common.FieldMetadata{
+		DisplayName:  displayName,
+		ValueType:    valueType,
+		ProviderType: providerType,
+		ReadOnly:     new(true),
 	}
 }

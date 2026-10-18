@@ -27,7 +27,7 @@ const (
 	fieldUpdatedAt = "_updated_at"
 )
 
-// buildReadRequest lists records with page[limit]/page[offset] and then follows links.next verbatim,
+// buildReadRequest lists records with page[limit]/page[offset] and then follows links.next,
 // as the docs ask: link URLs are percent-encoded and carry the filters over.
 // https://developer.clarify.ai/docs/api-basics/pagination
 func (c *Connector) buildReadRequest(ctx context.Context, params common.ReadParams) (*http.Request, error) {
@@ -53,8 +53,10 @@ func (c *Connector) readURL(params common.ReadParams) (string, error) {
 	readURL.WithQueryParam("page[limit]", strconv.Itoa(pageSize))
 	readURL.WithQueryParam("page[offset]", "0")
 
-	// The resources endpoints filter on any field, including the system field _updated_at,
-	// which is stored with millisecond precision.
+	// The resources endpoints filter on any field, including the system field _updated_at.
+	// _updated_at is returned with milliseconds but compared at a finer precision: a record shown
+	// as .720Z is after .720Z and not on or before it, so it lands in the window that starts at
+	// .720Z. Consecutive windows (one's Until is the next one's Since) therefore miss nothing.
 	// GET /users documents no filter, so users are filtered in parseReadResponse.
 	if resourceObjects.Has(params.ObjectName) {
 		if !params.Since.IsZero() {
@@ -93,9 +95,11 @@ func (c *Connector) parseReadResponse(
 	request *http.Request,
 	response *common.JSONHTTPResponse,
 ) (*common.ReadResult, error) {
-	filter := readhelper.MakeIdentityFilterFunc(getNextRecordsURL)
+	nextPage := makeNextRecordsURL(c.ProviderInfo().BaseURL)
+
+	filter := readhelper.MakeIdentityFilterFunc(nextPage)
 	if !resourceObjects.Has(params.ObjectName) {
-		filter = makeUpdatedAtFilter(getNextRecordsURL)
+		filter = makeUpdatedAtFilter(nextPage)
 	}
 
 	return common.ParseResultFiltered(params, response,
