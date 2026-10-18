@@ -92,7 +92,10 @@ func (c *Connector) fetchSchemas(ctx context.Context) (map[string]entitySchema, 
 
 		next = ""
 		if page.Links.Next != nil {
-			next = *page.Links.Next
+			next, err = onBaseURL(c.ProviderInfo().BaseURL, *page.Links.Next)
+			if err != nil {
+				return nil, err
+			}
 		}
 	}
 

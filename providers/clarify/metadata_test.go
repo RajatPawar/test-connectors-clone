@@ -18,6 +18,8 @@ func TestListObjectMetadata(t *testing.T) { // nolint:funlen
 
 	responseSchemas := testutils.DataFromFile(t, "schemas.json")
 	responseRateLimit := testutils.DataFromFile(t, "error-rate-limit.json")
+	responseSchemasFirstPage := testutils.DataFromFile(t, "schemas-first-page.json")
+	responseSchemasSecondPage := testutils.DataFromFile(t, "schemas-second-page.json")
 
 	schemasServer := func() *mockserver.Conditional {
 		return &mockserver.Conditional{
@@ -169,6 +171,55 @@ func TestListObjectMetadata(t *testing.T) { // nolint:funlen
 			Expected: &common.ListObjectMetadataResult{
 				Result: map[string]common.ObjectMetadata{
 					"person": {DisplayName: "People"},
+				},
+				Errors: map[string]error{},
+			},
+		},
+		{
+			// The first page's links.next is http://api.clarify.ai/..., as the live API returns it.
+			// The second page is only served by the mock server, so it is reached only if the link
+			// was moved onto the base URL. The cursor parameter is opaque to the connector.
+			Name:  "Schemas are paged through links.next, kept on the base URL",
+			Input: []string{"person", "deal"},
+			Server: mockserver.Switch{
+				Setup: mockserver.ContentJSON(),
+				Cases: []mockserver.Case{{
+					If: mockcond.And{
+						mockcond.Path("/v1/workspaces/acme/schemas"),
+						mockcond.QueryParam("page[cursor]", "c2NoZW1hcy0y"),
+					},
+					Then: mockserver.Response(http.StatusOK, responseSchemasSecondPage),
+				}, {
+					If: mockcond.And{
+						mockcond.Path("/v1/workspaces/acme/schemas"),
+						mockcond.QueryParamsMissing("page[cursor]"),
+					},
+					Then: mockserver.Response(http.StatusOK, responseSchemasFirstPage),
+				}},
+			}.Server(),
+			Comparator: testconn.ComparatorSubsetMetadata,
+			Expected: &common.ListObjectMetadataResult{
+				Result: map[string]common.ObjectMetadata{
+					"person": {
+						DisplayName: "People",
+						Fields: map[string]common.FieldMetadata{
+							"job_title": {
+								DisplayName:  "Job title",
+								ValueType:    common.ValueTypeString,
+								ProviderType: "string",
+							},
+						},
+					},
+					"deal": {
+						DisplayName: "Deals",
+						Fields: map[string]common.FieldMetadata{
+							"amount": {
+								DisplayName:  "Amount",
+								ValueType:    common.ValueTypeFloat,
+								ProviderType: "number",
+							},
+						},
+					},
 				},
 				Errors: map[string]error{},
 			},

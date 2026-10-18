@@ -11,10 +11,6 @@ import (
 )
 
 // makeNextRecordsURL returns links.next, which is null on the last page.
-// Its path and percent-encoded query (page and filters) are kept as they are, but the live API
-// returns it as http://api.clarify.ai/..., so the scheme and host are taken from the base URL:
-// following it verbatim would send the API key over plain HTTP.
-// TODO: the docs show https links; drop the rewrite if Clarify fixes links.next.
 // https://developer.clarify.ai/docs/api-basics/pagination#response
 func makeNextRecordsURL(baseURL string) common.NextPageFunc {
 	return func(node *ajson.Node) (string, error) {
@@ -23,21 +19,30 @@ func makeNextRecordsURL(baseURL string) common.NextPageFunc {
 			return "", err
 		}
 
-		base, err := url.Parse(baseURL)
-		if err != nil {
-			return "", err
-		}
-
-		nextURL, err := url.Parse(*next)
-		if err != nil {
-			return "", err
-		}
-
-		nextURL.Scheme = base.Scheme
-		nextURL.Host = base.Host
-
-		return nextURL.String(), nil
+		return onBaseURL(baseURL, *next)
 	}
+}
+
+// onBaseURL keeps a links.next URL's path and percent-encoded query (page, cursor, filters) but
+// takes the scheme and host from the base URL. The live API returns links.next as
+// http://api.clarify.ai/..., and following it verbatim would send the API key over plain HTTP.
+// Every links.next the connector follows (records and schemas) goes through here.
+// TODO: the docs show https links; drop the rewrite if Clarify fixes links.next.
+func onBaseURL(baseURL, link string) (string, error) {
+	base, err := url.Parse(baseURL)
+	if err != nil {
+		return "", err
+	}
+
+	linkURL, err := url.Parse(link)
+	if err != nil {
+		return "", err
+	}
+
+	linkURL.Scheme = base.Scheme
+	linkURL.Host = base.Host
+
+	return linkURL.String(), nil
 }
 
 // makeUpdatedAtFilter keeps records whose attributes._updated_at falls within (Since, Until].

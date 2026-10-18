@@ -38,8 +38,9 @@ them: collections are objects such as `{"items": [...]}` and `name` is an object
 
 `page[limit]` (500, the documented maximum) and `page[offset]`, then `links.next` until it is null
 ([Pagination](https://developer.clarify.ai/docs/api-basics/pagination)). The live API returns
-`links.next` as `http://api.clarify.ai/...`, so the connector keeps its path and query and puts
-the base URL's scheme and host back, so the API key never goes over plain HTTP.
+`links.next` as `http://api.clarify.ai/...`, so for every link it follows (record pages and the
+cursor-paginated GET /schemas) the connector keeps the path and query and puts the base URL's
+scheme and host back, so the API key never goes over plain HTTP.
 
 ## Incremental read
 
